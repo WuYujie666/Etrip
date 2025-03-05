@@ -13,11 +13,10 @@ class QuizStart extends StatelessWidget {
     return Scaffold(
       body: BackgroundDecorations(
         onTap: () {
-          context.push(AppRouter.kHomePage);
+          context.push(AppRouter.kScreens);
         },
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
                 'assets/images/largequiz.png',

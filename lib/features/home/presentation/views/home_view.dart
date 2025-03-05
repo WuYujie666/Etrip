@@ -10,6 +10,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ReusableScreen(
+      gradientStops: [0,0.6],
       backgroundColor: kSecondaryColor,
         imageAsset: AssetsData.navBar, child: HomeBody());
   }

@@ -19,7 +19,7 @@ class BuildCategoryIcon extends StatelessWidget {
       child: Column(
         children: [
           CircleAvatar(
-            radius: 24,
+            radius: 25,
             backgroundColor: const Color(0xFF1F2544),
             child: Icon(icon, color: Colors.white),
           ),

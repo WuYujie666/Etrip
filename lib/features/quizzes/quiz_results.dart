@@ -81,7 +81,7 @@ class _QuizResultsState extends State<QuizResults> {
                     });
                   },
                   child: Text(
-                    showWrongAnswers ? "Hide Review" : "Review Wrong Answers",
+                    showWrongAnswers ? "Hide Answers" : "Review Wrong Answers",
                     style: GoogleFonts.lato(fontWeight: FontWeight.w600),
                   ),
                 ),

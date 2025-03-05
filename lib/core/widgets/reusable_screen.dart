@@ -25,7 +25,7 @@ class ReusableScreen extends StatelessWidget {
             colors: backgroundColor!,
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: gradientStops ?? [0, 0.6],
+            stops: gradientStops ?? [0.25, 0.6],
           ),
         ),
         child: Stack(

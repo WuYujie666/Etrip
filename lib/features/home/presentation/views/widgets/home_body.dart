@@ -63,17 +63,13 @@ class HomeBody extends StatelessWidget {
             child: const FeatureSlider(imageAsset: AssetsData.dest)),
         const VerticalSpace(2),
         const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             BuildCategoryIcon(
               icon: Icons.place,
               label: "Places",
               route: AppRouter.kPlaces,
             ),
-            BuildCategoryIcon(
-                icon: Icons.quiz_rounded,
-                label: "Quizzes",
-                route: AppRouter.kQuizStart),
             BuildCategoryIcon(
               icon: Icons.event,
               label: "Events",
@@ -86,6 +82,22 @@ class HomeBody extends StatelessWidget {
             BuildCategoryIcon(
                 icon: Icons.directions_walk,
                 label: "Activities",
+                route: AppRouter.kActivities),
+          ],
+        ),
+        const VerticalSpace(1),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            BuildCategoryIcon(
+                icon: Icons.quiz_rounded,
+                label: "Quizzes",
+                route: AppRouter.kQuizStart),
+            BuildCategoryIcon(
+                icon: Icons.cloud, label: "Weather", route: AppRouter.kWeather),
+            BuildCategoryIcon(
+                icon: Icons.chat,
+                label: "ChatBot",
                 route: AppRouter.kActivities),
           ],
         ),

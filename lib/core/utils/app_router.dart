@@ -1,4 +1,5 @@
 import 'package:egyptopia/features/home/presentation/views/home_view.dart';
+import 'package:egyptopia/features/weather/presentation/weather_screen.dart';
 import 'package:egyptopia/features/z/activities.dart';
 import 'package:egyptopia/features/auth/presentation/views/widgets/create_new_password.dart';
 import 'package:egyptopia/features/z/events.dart';
@@ -34,9 +35,23 @@ abstract class AppRouter {
   static const kActivities = '/activities';
   static const kQuizLevels = '/quizLevel';
   static const kQuizResults = '/quizResults';
+  static const kWeather = '/weather';
 
   static final router = GoRouter(routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashView()),
+    GoRoute(
+      path: kOnBordingView,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const OnBordingView(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
+    ),
     GoRoute(
         path: kRegistrationView,
         builder: (context, state) => const RegistrationView()),
@@ -74,18 +89,6 @@ abstract class AppRouter {
         );
       },
     ),
-    GoRoute(
-      path: kOnBordingView,
-      pageBuilder: (context, state) => CustomTransitionPage(
-        key: state.pageKey,
-        child: const OnBordingView(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
-    ),
+    GoRoute(path: kWeather, builder: (context, state) =>  WeatherScreen()),
   ]);
 }
