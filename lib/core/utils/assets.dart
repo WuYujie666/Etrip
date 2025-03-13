@@ -14,4 +14,6 @@ class AssetsData {
   static const navBar = 'assets/images/Navbar.png';
   static const qMark = 'assets/images/QMark.png';
   static const puzzle = 'assets/images/puzzle.png';
+  static const foodImage = 'assets/images/foodImage.png';
+  static const vectors2 = 'assets/images/vectors2.png';
 }

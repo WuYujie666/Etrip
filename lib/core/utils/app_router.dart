@@ -12,6 +12,7 @@ import 'package:egyptopia/features/quizzes/quiz_levels.dart';
 import 'package:egyptopia/features/quizzes/quiz_results.dart';
 import 'package:egyptopia/features/quizzes/quiz_screen.dart';
 import 'package:egyptopia/features/quizzes/quiz_start.dart';
+import 'package:egyptopia/features/z/food2.dart';
 import 'package:egyptopia/features/z/places.dart';
 import 'package:egyptopia/features/onbording/presentation/views/on_bording_view.dart';
 import 'package:egyptopia/features/splash/presentation/views/splash_view.dart';
@@ -36,6 +37,7 @@ abstract class AppRouter {
   static const kQuizLevels = '/quizLevel';
   static const kQuizResults = '/quizResults';
   static const kWeather = '/weather';
+  static const kFood2 = '/food2';
 
   static final router = GoRouter(routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashView()),
@@ -56,6 +58,7 @@ abstract class AppRouter {
         path: kRegistrationView,
         builder: (context, state) => const RegistrationView()),
     GoRoute(path: kSignUp, builder: (context, state) => const SignUpView()),
+    GoRoute(path: kFood2, builder: (context, state) => const FoodSecond()),
     GoRoute(path: kSignIn, builder: (context, state) => const SignInView()),
     GoRoute(
         path: kForgetPassword,
@@ -89,6 +92,6 @@ abstract class AppRouter {
         );
       },
     ),
-    GoRoute(path: kWeather, builder: (context, state) =>  WeatherScreen()),
+    GoRoute(path: kWeather, builder: (context, state) => WeatherScreen()),
   ]);
 }
