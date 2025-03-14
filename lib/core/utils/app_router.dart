@@ -3,7 +3,9 @@ import 'package:egyptopia/features/weather/presentation/weather_screen.dart';
 import 'package:egyptopia/features/z/activities.dart';
 import 'package:egyptopia/features/auth/presentation/views/widgets/create_new_password.dart';
 import 'package:egyptopia/features/z/events.dart';
-import 'package:egyptopia/features/z/food.dart';
+import 'package:egyptopia/features/food/food_details_screen.dart';
+import 'package:egyptopia/features/food/food_items_screen.dart';
+import 'package:egyptopia/features/food/food_start.dart';
 import 'package:egyptopia/features/auth/presentation/views/widgets/forget_password.dart';
 import 'package:egyptopia/features/auth/presentation/views/registration_view.dart';
 import 'package:egyptopia/features/auth/presentation/views/sign_in_view.dart';
@@ -12,7 +14,7 @@ import 'package:egyptopia/features/quizzes/quiz_levels.dart';
 import 'package:egyptopia/features/quizzes/quiz_results.dart';
 import 'package:egyptopia/features/quizzes/quiz_screen.dart';
 import 'package:egyptopia/features/quizzes/quiz_start.dart';
-import 'package:egyptopia/features/z/food2.dart';
+import 'package:egyptopia/features/food/food_categories.dart';
 import 'package:egyptopia/features/z/places.dart';
 import 'package:egyptopia/features/onbording/presentation/views/on_bording_view.dart';
 import 'package:egyptopia/features/splash/presentation/views/splash_view.dart';
@@ -32,12 +34,14 @@ abstract class AppRouter {
   static const kPlaces = '/places';
   static const kQuizStart = '/quizzes';
   static const kEvents = '/events';
-  static const kFood = '/food';
   static const kActivities = '/activities';
   static const kQuizLevels = '/quizLevel';
   static const kQuizResults = '/quizResults';
   static const kWeather = '/weather';
-  static const kFood2 = '/food2';
+  static const kFoodStart = '/foodStart';
+  static const kFoodCategories = '/foodCategories';
+  static const kFoodItemsScreen = '/foodItemsScreen';
+  static const kFoodDetails = '/foodDetails';
 
   static final router = GoRouter(routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashView()),
@@ -58,7 +62,6 @@ abstract class AppRouter {
         path: kRegistrationView,
         builder: (context, state) => const RegistrationView()),
     GoRoute(path: kSignUp, builder: (context, state) => const SignUpView()),
-    GoRoute(path: kFood2, builder: (context, state) => const FoodSecond()),
     GoRoute(path: kSignIn, builder: (context, state) => const SignInView()),
     GoRoute(
         path: kForgetPassword,
@@ -71,7 +74,6 @@ abstract class AppRouter {
     GoRoute(path: kPlaces, builder: (context, state) => const Places()),
     GoRoute(path: kQuizStart, builder: (context, state) => const QuizStart()),
     GoRoute(path: kEvents, builder: (context, state) => const Events()),
-    GoRoute(path: kFood, builder: (context, state) => const Food()),
     GoRoute(path: kActivities, builder: (context, state) => const Activities()),
     GoRoute(path: kQuizLevels, builder: (context, state) => const QuizLevels()),
     GoRoute(
@@ -93,5 +95,21 @@ abstract class AppRouter {
       },
     ),
     GoRoute(path: kWeather, builder: (context, state) => WeatherScreen()),
+    GoRoute(path: kFoodStart, builder: (context, state) => const FoodStart()),
+    GoRoute(
+        path: kFoodCategories,
+        builder: (context, state) => const FoodCategories()),
+    GoRoute(
+        path: kFoodItemsScreen,
+        builder: (context, state) {
+          final category = state.extra as String;
+          return FoodItemsScreen(category: category);
+        }),
+    GoRoute(
+        path: kFoodDetails,
+        builder: (context, state) {
+          final foodItem = state.extra as Map<String, dynamic>;
+          return FoodDetailsScreen(foodItem: foodItem);
+        }),
   ]);
 }

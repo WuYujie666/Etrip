@@ -1,6 +1,8 @@
 import 'package:egyptopia/core/constants.dart';
+import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:egyptopia/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'widgets/sign_up_body.dart';
 
@@ -32,7 +34,8 @@ class SignUpView extends StatelessWidget {
             top: SizeConfig.defaultSize! * 2,
             child: IconButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                GoRouter.of(context)
+                    .pushReplacement(AppRouter.kRegistrationView);
               },
               icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
             ),

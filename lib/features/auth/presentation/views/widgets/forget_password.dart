@@ -15,6 +15,7 @@ class ForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReusableScreen(
+      showBackButton: true,
       child: Stack(
         children: [
           Padding(
@@ -51,16 +52,6 @@ class ForgetPassword extends StatelessWidget {
                   },
                 ),
               ],
-            ),
-          ),
-          Positioned(
-            left: SizeConfig.defaultSize! * 1.1,
-            top: SizeConfig.defaultSize! * 2, 
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
             ),
           ),
         ],
