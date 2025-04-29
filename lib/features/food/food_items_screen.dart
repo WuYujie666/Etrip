@@ -72,7 +72,7 @@ class _FoodItemsScreenState extends State<FoodItemsScreen> {
                     Shadow(
                       offset: const Offset(3, 3),
                       blurRadius: 4,
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withValues(alpha:0.6),
                     ),
                   ],
                 ),

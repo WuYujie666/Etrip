@@ -92,6 +92,8 @@ class WeatherController extends GetxController {
     } catch (e) {
       city.value = "Location Error";
       isLoading.value = false;
+          rethrow; 
+
     }
   }
 
@@ -137,7 +139,6 @@ class WeatherController extends GetxController {
   Future<Position> _determinePosition() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) throw Exception("Location services are disabled.");
-
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -146,7 +147,7 @@ class WeatherController extends GetxController {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      throw Exception("Location permissions are permanently denied.");
+      throw Exception("PERMISSION_DENIED_FOREVER");
     }
 
     return await Geolocator.getCurrentPosition();

@@ -2,7 +2,7 @@ import 'package:egyptopia/features/home/presentation/views/home_view.dart';
 import 'package:egyptopia/features/weather/presentation/weather_screen.dart';
 import 'package:egyptopia/features/z/activities.dart';
 import 'package:egyptopia/features/auth/presentation/views/widgets/create_new_password.dart';
-import 'package:egyptopia/features/z/chatDetails.dart';
+import 'package:egyptopia/features/z/chat_details.dart';
 import 'package:egyptopia/features/z/chatbot.dart';
 import 'package:egyptopia/features/z/event_details.dart';
 import 'package:egyptopia/features/z/events.dart';

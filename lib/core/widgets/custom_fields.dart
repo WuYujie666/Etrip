@@ -14,7 +14,7 @@ class CustomInputField extends StatefulWidget {
   final bool isDatePicker;
   final bool isCountryPicker;
   final List<String>? dropdownItems;
-  final ValueChanged? onChanged;
+  final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
   final ValueSetter? onSaved;
 
@@ -95,7 +95,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
       }).toList(),
       onChanged: (value) {
         setState(() => _selectedValue = value);
-        if (widget.onChanged != null) widget.onChanged!(value);
+        if (widget.onChanged != null) widget.onChanged!(value!);
       },
     );
   }

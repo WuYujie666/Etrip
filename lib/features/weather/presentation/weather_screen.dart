@@ -8,17 +8,55 @@ import 'package:go_router/go_router.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'views/weather_controller.dart';
+import 'package:app_settings/app_settings.dart';
 
 class WeatherScreen extends StatelessWidget {
   final WeatherController controller = Get.put(WeatherController());
   final TextEditingController searchController = TextEditingController();
 
-  WeatherScreen({super.key}) {
-    controller.getWeatherByLocation();
+  WeatherScreen({super.key});
+
+  void showLocationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Location Permission Required"),
+        content: const Text(
+            "Location permission is permanently denied. Please enable it from app settings."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () {
+              AppSettings.openAppSettings();
+              Navigator.pop(ctx);
+            },
+            child: const Text("Open Settings"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> smartGetWeatherByLocation(BuildContext context) async {
+    try {
+      await controller.getWeatherByLocation();
+    } catch (e) {
+      if (e.toString().contains("User denied permissions to access the device's location")) {
+        // ignore: use_build_context_synchronously
+        showLocationDialog(context);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      smartGetWeatherByLocation(context);
+    });
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -38,7 +76,7 @@ class WeatherScreen extends StatelessWidget {
           Positioned.fill(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-              child: Container(color: Colors.black.withOpacity(0.2)),
+              child: Container(color: Colors.black.withValues(alpha: 0.2)),
             ),
           ),
           GestureDetector(
@@ -67,7 +105,7 @@ class WeatherScreen extends StatelessWidget {
                     },
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.white.withOpacity(0.8),
+                      fillColor: Colors.white.withValues(alpha: 0.8),
                       hintText: "Enter city name",
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.search),
@@ -90,7 +128,7 @@ class WeatherScreen extends StatelessWidget {
                           ),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withValues(alpha: 0.8),
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
                                 BoxShadow(color: Colors.black26, blurRadius: 5)

@@ -53,6 +53,7 @@ class _FavoriteIconState extends State<FavoriteIcon> {
             );
             await FavoriteService.toggleFavorite(model);
             if (!mounted) return;
+            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(

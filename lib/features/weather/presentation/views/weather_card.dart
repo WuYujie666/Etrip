@@ -30,7 +30,7 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white.withOpacity(0.2),
+      color: Colors.white.withValues(alpha:0.2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -12,7 +12,7 @@ class WishListView extends StatefulWidget {
   const WishListView({super.key});
 
   @override
-   _WishListViewState createState() => _WishListViewState();
+   State<WishListView> createState() => _WishListViewState();
 }
 
 class _WishListViewState extends State<WishListView> {

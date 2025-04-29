@@ -28,6 +28,7 @@ class SignInView extends StatelessWidget {
               ),
             ),
           ),
+          const SignInBody(),
           Positioned(
             left: SizeConfig.defaultSize!,
             top: SizeConfig.defaultSize! * 2,
@@ -39,7 +40,6 @@ class SignInView extends StatelessWidget {
               icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
             ),
           ),
-          const SignInBody(),
         ],
       ),
     );

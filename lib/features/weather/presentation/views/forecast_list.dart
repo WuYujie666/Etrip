@@ -19,7 +19,7 @@ class ForecastList extends StatelessWidget {
         itemBuilder: (context, index) {
           var forecast = forecastData[index];
           return Card(
-            color: Colors.white.withOpacity(0.2),
+            color: Colors.white.withValues(alpha:0.2),
             margin: const EdgeInsets.all(8),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
