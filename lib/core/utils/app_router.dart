@@ -25,6 +25,7 @@ import 'package:egyptopia/features/quizzes/quiz_results.dart';
 import 'package:egyptopia/features/quizzes/quiz_screen.dart';
 import 'package:egyptopia/features/quizzes/quiz_start.dart';
 import 'package:egyptopia/features/food/food_categories.dart';
+import 'package:egyptopia/features/z/place_details.dart';
 import 'package:egyptopia/features/z/places.dart';
 import 'package:egyptopia/features/onbording/presentation/views/on_bording_view.dart';
 import 'package:egyptopia/features/splash/presentation/views/splash_view.dart';
@@ -48,6 +49,7 @@ abstract class AppRouter {
   static const kChatbot = '/chatbot';
   static const kQuizLevels = '/quizLevel';
   static const kEventDetails = '/eventDetails';
+  static const kPlaceDetails = '/placeDetails';
   static const kQuizResults = '/quizResults';
   static const kWeather = '/weather';
   static const kFoodStart = '/foodStart';
@@ -101,6 +103,13 @@ abstract class AppRouter {
       builder: (context, state) {
         final event = state.extra as Map<String, dynamic>? ?? {};
         return EventDetails(event: event);
+      },
+    ),
+    GoRoute(
+      path: kPlaceDetails,
+      builder: (context, state) {
+        final place = state.extra as Map<String, dynamic>? ?? {};
+        return PlaceDetails(place: place);
       },
     ),
     GoRoute(

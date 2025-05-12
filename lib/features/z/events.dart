@@ -90,7 +90,13 @@ class _EventsState extends State<Events> {
                       final event = events[index];
                       return GestureDetector(
                         onTap: () {
-                          context.push(AppRouter.kEventDetails, extra: event);
+                          final eventData = {
+                            'event_id': event['event_id'].toString(),
+                            'event_name': event['event_name'],
+                            'Image': event['Image'],
+                          };
+                          context.push(AppRouter.kEventDetails,
+                              extra: eventData);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 16),
