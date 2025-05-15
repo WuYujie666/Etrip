@@ -101,13 +101,11 @@ class _HomeBodyState extends State<HomeBody> {
           ],
         ),
         FutureBuilder<List<PlaceModel>>(
-          future: getOrFetch(
-            cacheKey: userId != null
-                ? 'recommended_$userId'
-                : 'top_places',
-            fetcher: () => userId != null
-                ? apiService.fetchRecommendedPlaces(userId)
-                : apiService.fetchPlacesRated(),
+          future: userId != null
+          ? apiService.fetchRecommendedPlaces(userId)
+          :getOrFetch(
+            cacheKey: 'top_places',
+            fetcher: () =>  apiService.fetchPlacesRated(),
           ),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
