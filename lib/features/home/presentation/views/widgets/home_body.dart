@@ -7,7 +7,7 @@ import 'package:egyptopia/features/Profile/bloc/user_state.dart';
 import 'package:egyptopia/features/home/presentation/views/widgets/build_home_section.dart';
 import 'package:egyptopia/features/places/data/models/place_model.dart';
 import 'package:egyptopia/features/places/data/places_api_service.dart';
-import 'package:egyptopia/features/home/presentation/views/widgets/feature_slider.dart'; 
+import 'package:egyptopia/features/home/presentation/views/widgets/feature_slider.dart';
 import 'package:egyptopia/features/Profile/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -39,6 +39,7 @@ class _HomeBodyState extends State<HomeBody> {
       return data;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final userState = context.watch<UserBloc>().state;
@@ -55,11 +56,6 @@ class _HomeBodyState extends State<HomeBody> {
           children: [
             Image.asset(
               AssetsData.fixedLogo,
-            ),
-            IconButton(
-              icon: const Icon(Icons.notifications_none_outlined,
-                  size: 27.5, color: Colors.white),
-              onPressed: () {},
             ),
           ],
         ),
@@ -102,11 +98,11 @@ class _HomeBodyState extends State<HomeBody> {
         ),
         FutureBuilder<List<PlaceModel>>(
           future: userId != null
-          ? apiService.fetchRecommendedPlaces(userId)
-          :getOrFetch(
-            cacheKey: 'top_places',
-            fetcher: () =>  apiService.fetchPlacesRated(),
-          ),
+              ? apiService.fetchRecommendedPlaces(userId)
+              : getOrFetch(
+                  cacheKey: 'top_places',
+                  fetcher: () => apiService.fetchPlacesRated(),
+                ),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -163,16 +159,15 @@ class _HomeBodyState extends State<HomeBody> {
           ],
         ),
         const VerticalSpace(1),
-
         ...sections.map((section) => BuildHomeSection(
-          cacheKey: section['cacheKey']!,
-          title: section['title']!,
-          apiTitle: section['apiTitle']!,
-          emptyText: section['emptyText']!,
-          failText: section['failText']!,
-          getOrFetch: getOrFetch,
-          apiService: apiService,
-        )),
+              cacheKey: section['cacheKey']!,
+              title: section['title']!,
+              apiTitle: section['apiTitle']!,
+              emptyText: section['emptyText']!,
+              failText: section['failText']!,
+              getOrFetch: getOrFetch,
+              apiService: apiService,
+            )),
       ],
     );
   }

@@ -25,8 +25,10 @@ class BuildCategoryIcon extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(label,
-              style: GoogleFonts.inter(
-                  fontSize: 12, color: const Color(0xFF1F2544))),
+              style: GoogleFonts.playfairDisplay(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFF1F2544))),
         ],
       ),
     );
