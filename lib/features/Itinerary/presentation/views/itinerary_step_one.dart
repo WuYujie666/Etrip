@@ -119,8 +119,14 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
                       if (checked == true) {
                         if (selectedTourismTypes.length < 2) {
                           selectedTourismTypes.add(type);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                            "يا معرص اختار 2 بس",
+                            style: GoogleFonts.inter(fontSize: 18),
+                          )));
                         }
-                      } else {
+                      } else if (checked == false) {
                         selectedTourismTypes.remove(type);
                       }
                     });

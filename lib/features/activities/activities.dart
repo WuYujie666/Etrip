@@ -139,6 +139,7 @@ class _ActivitiesState extends State<Activities> {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: FilterChip(
+                      checkmarkColor: Colors.white,
                       label: Text(type),
                       labelStyle: GoogleFonts.inter(
                         fontWeight: FontWeight.w600,
@@ -261,7 +262,11 @@ class _ActivitiesState extends State<Activities> {
                                             const Icon(Icons.whatshot,
                                                 size: 16, color: Colors.orange),
                                             const HorizantalSpace(0.1),
-                                            CustomStarRatingWidget(rating: double.tryParse(activity['rating'].toString()) ?? 0),
+                                            CustomStarRatingWidget(
+                                                rating: double.tryParse(
+                                                        activity['rating']
+                                                            .toString()) ??
+                                                    0),
                                             const HorizantalSpace(0.3),
                                             Text(
                                               activity['rating'],
