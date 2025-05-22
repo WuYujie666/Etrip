@@ -52,7 +52,7 @@ class _ItineraryStepTwoState extends State<ItineraryStepTwo> {
   @override
   Widget build(BuildContext context) {
     return ReusableScreen(
-      showBackButton: true,
+      //showBackButton: true,
       gradientStops: const [0, 0.6],
       backgroundColor: kSecondaryColor,
       imageColor: Colors.black,
@@ -92,6 +92,7 @@ class _ItineraryStepTwoState extends State<ItineraryStepTwo> {
                     final cat = categories[index];
                     final isSelected = selectedCategories.contains(cat);
                     return ChoiceChip(
+                      checkmarkColor: Colors.white,
                       label:
                           Text(cat.replaceFirst(cat[0], cat[0].toUpperCase())),
                       selected: isSelected,
@@ -104,7 +105,7 @@ class _ItineraryStepTwoState extends State<ItineraryStepTwo> {
                           }
                         });
                       },
-                      selectedColor: Colors.deepPurple,
+                      selectedColor: const Color.fromARGB(255, 64, 77, 151),
                       labelStyle: TextStyle(
                         color: isSelected ? Colors.white : Colors.black87,
                         fontWeight: FontWeight.bold,
@@ -124,8 +125,8 @@ class _ItineraryStepTwoState extends State<ItineraryStepTwo> {
                 text: "Create Itinerary",
                 onTap: () {
                   if (selectedCategories.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Select at least one category.")));
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Select at least one category.")));
                     return;
                   }
                   final resultArgs = {
