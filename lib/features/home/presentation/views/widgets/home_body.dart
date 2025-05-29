@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:egyptopia/core/utils/assets.dart';
 import 'package:egyptopia/core/widgets/build_category_icon.dart';
-import 'package:egyptopia/core/widgets/custom_search.dart';
+import 'package:egyptopia/features/search/presentation/widgets/custom_search.dart';
 import 'package:egyptopia/core/widgets/space_widget.dart';
 import 'package:egyptopia/features/Profile/bloc/user_state.dart';
 import 'package:egyptopia/features/home/presentation/views/widgets/build_home_section.dart';
@@ -14,6 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -60,7 +62,29 @@ class _HomeBodyState extends State<HomeBody> {
           ],
         ),
         const VerticalSpace(2),
-        const CustomSearch(),
+        CustomSearch(
+          fetchPlaces: () => apiService.fetchAllPlaces(),
+          fetchEvents: () async {
+            final url = Uri.parse('http://192.168.1.12:8000/api/event');
+            final response = await http.get(url);
+            if (response.statusCode == 200) {
+              return List<Map<String, dynamic>>.from(
+                  jsonDecode(utf8.decode(response.bodyBytes)));
+            } else {
+              throw Exception('Failed to load events');
+            }
+          },
+          fetchActivities: () async {
+            final url = Uri.parse('http://192.168.1.12:8000/api/activity');
+            final response = await http.get(url);
+            if (response.statusCode == 200) {
+              return List<Map<String, dynamic>>.from(
+                  jsonDecode(utf8.decode(response.bodyBytes)));
+            } else {
+              throw Exception('Failed to load activities');
+            }
+          },
+        ),
         const VerticalSpace(1),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

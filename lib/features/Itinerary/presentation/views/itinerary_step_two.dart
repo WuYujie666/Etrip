@@ -6,7 +6,6 @@ import 'package:egyptopia/core/widgets/custom_buttons.dart';
 import 'package:egyptopia/core/widgets/reusable_screen.dart';
 import 'package:egyptopia/core/widgets/space_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ItineraryStepTwo extends StatefulWidget {
   final int noOfDays;
@@ -148,10 +147,9 @@ class _ItineraryStepTwoState extends State<ItineraryStepTwo> {
                                   selectedCategories.add(cat);
                                 } else {
                                   ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
+                                      .showSnackBar(const SnackBar(
                                           content: Text(
-                                    "You cannot select more than 2",
-                                    style: GoogleFonts.inter(fontSize: 18),
+                                    "You cannot select more than 10",
                                   )));
                                 }
                               });
