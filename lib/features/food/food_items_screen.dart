@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:egyptopia/core/config.dart';
 import 'package:egyptopia/core/constants.dart';
 import 'package:egyptopia/core/widgets/reusable_screen.dart';
 import 'package:egyptopia/core/widgets/space_widget.dart';
@@ -29,7 +30,7 @@ class _FoodItemsScreenState extends State<FoodItemsScreen> {
 
   Future<void> fetchFoodItems() async {
     final String apiUrl =
-        "http://192.168.1.12:8000/api/foods/?classification=${Uri.encodeComponent(widget.category)}";
+        "${AppConfig.apiBaseUrl}/api/foods/?classification=${Uri.encodeComponent(widget.category)}";
     try {
       final response = await http.get(Uri.parse(apiUrl));
 

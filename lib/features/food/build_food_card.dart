@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:egyptopia/core/config.dart';
 import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +27,7 @@ class BuildFoodCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: CachedNetworkImage(
-                  imageUrl: "http://192.168.1.12:8000${foodItem['Image']}",
+                  imageUrl: "${AppConfig.apiBaseUrl}${foodItem['Image']}",
                   fit: BoxFit.cover,
                   width: double.infinity,
                   errorWidget: (context, url, error) =>

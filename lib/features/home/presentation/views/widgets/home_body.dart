@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:egyptopia/core/config.dart';
 import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:egyptopia/core/utils/assets.dart';
 import 'package:egyptopia/core/widgets/build_category_icon.dart';
@@ -65,7 +66,7 @@ class _HomeBodyState extends State<HomeBody> {
         CustomSearch(
           fetchPlaces: () => apiService.fetchAllPlaces(),
           fetchEvents: () async {
-            final url = Uri.parse('http://192.168.1.12:8000/api/event');
+            final url = Uri.parse('${AppConfig.apiBaseUrl}/api/event');
             final response = await http.get(url);
             if (response.statusCode == 200) {
               return List<Map<String, dynamic>>.from(
@@ -75,7 +76,7 @@ class _HomeBodyState extends State<HomeBody> {
             }
           },
           fetchActivities: () async {
-            final url = Uri.parse('http://192.168.1.12:8000/api/activity');
+            final url = Uri.parse('${AppConfig.apiBaseUrl}/api/activity');
             final response = await http.get(url);
             if (response.statusCode == 200) {
               return List<Map<String, dynamic>>.from(

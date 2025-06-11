@@ -1,12 +1,13 @@
 import 'dart:convert';
+import 'package:egyptopia/core/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:egyptopia/features/auth/data/models/egyptopia_user.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EgyptopiaApiService {
-  static const String _baseUrl = 'http://192.168.1.12:8000/api/users';
+  static const String _baseUrl = '${AppConfig.apiBaseUrl}/api/users';
   static const String _preferencesBaseUrl =
-      'http://192.168.1.12:8000/api/preferences';
+      '${AppConfig.apiBaseUrl}/api/preferences';
 
   // Existing user-related methods
   Future<bool> userExists(String id) async {

@@ -1,3 +1,5 @@
+import 'package:egyptopia/core/config.dart';
+
 class PlaceModel {
   final String id;
   final String name;
@@ -32,7 +34,7 @@ class PlaceModel {
         if (item is Map && item['image'] != null) {
           String url = item['image'].toString();
           if (!url.startsWith('http')) {
-            url = 'http://192.168.1.12:8000/$url';
+            url = '${AppConfig.apiBaseUrl}/$url';
           }
           return url;
         }
@@ -42,7 +44,7 @@ class PlaceModel {
 
     String profileImage = json['profile_image']?.toString() ?? '';
     if (profileImage.isNotEmpty && !profileImage.startsWith('http')) {
-      profileImage = 'http://192.168.1.12:8000/$profileImage';
+      profileImage = '${AppConfig.apiBaseUrl}/$profileImage';
     }
 
     // لو الكاروسيل فاضي عايزين صورة واحدة على الأقل

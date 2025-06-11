@@ -1,10 +1,11 @@
+import 'package:egyptopia/core/config.dart';
 import 'package:egyptopia/features/Itinerary/data/models/itinerary_request.dart';
 import 'package:egyptopia/features/Itinerary/data/models/itinerary_response.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ItineraryService {
-  static const String baseUrl = 'http://192.168.1.12:8000/api/itinerary';
+  static const String baseUrl = '${AppConfig.apiBaseUrl}/api/itinerary';
 
   Future<ItineraryResponse> getItinerary({
     required String userId,

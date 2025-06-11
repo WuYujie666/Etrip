@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'package:egyptopia/core/config.dart';
 import 'package:http/http.dart' as http;
 import 'models/place_model.dart';
 
 class PlacesApiService {
-  static const String _baseUrl = 'http://192.168.1.12:8000/api/places';
+  static const String _baseUrl = '${AppConfig.apiBaseUrl}/api/places';
 
   // ----------------- Get all places -----------------
 

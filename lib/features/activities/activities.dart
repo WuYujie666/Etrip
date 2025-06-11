@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:egyptopia/core/config.dart';
 import 'package:egyptopia/core/widgets/custom_buttons.dart';
 import 'package:egyptopia/core/widgets/custom_star_rating_widget.dart';
 import 'package:egyptopia/core/widgets/space_widget.dart';
@@ -40,7 +41,7 @@ class _ActivitiesState extends State<Activities> {
   }
 
   Future<List<dynamic>> fetchActivities() async {
-    final url = Uri.parse('http://192.168.1.12:8000/api/activity');
+    final url = Uri.parse('${AppConfig.apiBaseUrl}/api/activity');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

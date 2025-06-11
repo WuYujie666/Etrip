@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:egyptopia/core/config.dart';
 import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:egyptopia/core/widgets/space_widget.dart';
 import 'package:egyptopia/features/wishlist/data/model/favorite_model.dart';
@@ -28,7 +29,7 @@ class _EventsState extends State<Events> {
   }
 
   Future<List<dynamic>> fetchEvents() async {
-    final url = Uri.parse('http://192.168.1.12:8000/api/event');
+    final url = Uri.parse('${AppConfig.apiBaseUrl}/api/event');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

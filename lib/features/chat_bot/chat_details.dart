@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:egyptopia/core/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,7 @@ class _ChatDetailsState extends State<ChatDetails> {
   final TextEditingController _controller = TextEditingController();
   final List<Map<String, String>> _messages = [];
 
-  final String apiUrl = 'http://192.168.1.12:8000/api/ask/';
+  final String apiUrl = '${AppConfig.apiBaseUrl}/api/ask/';
 
   void _sendMessage() async {
     if (_controller.text.trim().isEmpty) return;
