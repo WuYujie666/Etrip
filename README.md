@@ -5,6 +5,13 @@
 
 ---
 
+## 🎬 Demo
+
+Check out the live demo of Egyptopia here:  
+[View Demo on Google Drive](https://drive.google.com/drive/folders/1QLdG1CKmMxqe2sZGutFxgTD0TLlIfV5J?usp=drive_link)
+
+---
+
 ## 🌍 App Highlights
 
 - 🎓 **Graduation Project – Grade: Excellent**
