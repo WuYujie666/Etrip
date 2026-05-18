@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:egyptopia/features/Profile/bloc/user_bloc.dart';
 import 'package:egyptopia/features/Profile/bloc/user_event.dart';
-import 'package:egyptopia/features/auth/data/egyptopia_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:egyptopia/features/auth/data/models/egyptopia_user.dart';
@@ -82,42 +81,18 @@ class SignUpController {
         );
       },
       (userCredential) {
-        if (userCredential == null) {
-          final user = userCredential?.user;
-          if (user != null) {
-            context.read<UserBloc>().add(LoadUser(user.uid));
-          }
-          showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-              title: Text(
-                'Verify Your Email',
-                style: GoogleFonts.playfairDisplay(),
-              ),
-              content: Text(
-                'A verification email has been sent. Please check your inbox and verify your email address before logging in.',
-                style: GoogleFonts.lato(fontWeight: FontWeight.bold),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    GoRouter.of(context).pushReplacement(AppRouter.kSignIn);
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content: Text(
-              'Sign up was successful!',
-              style: GoogleFonts.lato(),
-            )),
-          );
+        final user = userCredential?.user;
+        if (user != null) {
+          context.read<UserBloc>().add(LoadUser(user.uid));
         }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+            'Sign up successful!',
+            style: GoogleFonts.lato(),
+          )),
+        );
+        GoRouter.of(context).pushReplacement(AppRouter.kScreens);
       },
     );
   }
@@ -142,19 +117,12 @@ class SignUpController {
       final user = userCredential.user;
       if (user != null) {
         context.read<UserBloc>().add(LoadUser(user.uid));
-        final apiService = EgyptopiaApiService();
-        final existingPreferences =
-            await apiService.getUserPreferences(user.uid);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text('Sign in with Google successful ✅',
                   style: GoogleFonts.lato())),
         );
-        if (existingPreferences != null) {
-          GoRouter.of(context).pushReplacement(AppRouter.kScreens);
-        } else {
-          GoRouter.of(context).pushReplacement(AppRouter.kPreferenceOne);
-        }
+        GoRouter.of(context).pushReplacement(AppRouter.kScreens);
       }
     });
   }

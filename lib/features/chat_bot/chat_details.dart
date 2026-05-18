@@ -1,8 +1,5 @@
-import 'dart:convert';
-import 'package:egyptopia/core/config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:egyptopia/core/constants.dart';
 import 'package:egyptopia/core/utils/assets.dart';
 import 'package:egyptopia/core/widgets/reusable_screen.dart';
@@ -19,8 +16,6 @@ class _ChatDetailsState extends State<ChatDetails> {
   final TextEditingController _controller = TextEditingController();
   final List<Map<String, String>> _messages = [];
 
-  final String apiUrl = '${AppConfig.apiBaseUrl}/api/ask/';
-
   void _sendMessage() async {
     if (_controller.text.trim().isEmpty) return;
 
@@ -33,36 +28,24 @@ class _ChatDetailsState extends State<ChatDetails> {
 
     _controller.clear();
 
-    try {
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'question': userMessage}),
-      );
+    // Mock response delay
+    await Future.delayed(const Duration(milliseconds: 800));
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        String botReply = data['answer'] ?? 'Sorry, I didn\'t understand that.';
-        botReply = botReply.replaceAll('\n\n', '\n');
-        botReply = botReply.replaceAll('\n', '\n\n');
+    final mockResponses = [
+      'You can visit the Pyramids of Giza, the Egyptian Museum, and Khan El Khalili in Cairo.',
+      'The best time to visit Egypt is from October to April when the weather is mild.',
+      'Absolutely! Luxor and Aswan are must-visit destinations with amazing temples.',
+      'I recommend trying Koshari, Ful Medames, and fresh seafood in Alexandria.',
+      'You can book a Nile cruise between Luxor and Aswan for a wonderful experience.',
+      'Sharm El-Sheikh and Hurghada are perfect for diving and snorkeling!',
+    ];
 
-        setState(() {
-          _messages.removeLast();
-          _messages.add({'role': 'bot', 'text': botReply});
-        });
-      } else {
-        setState(() {
-          _messages.removeLast();
-          _messages
-              .add({'role': 'bot', 'text': 'Error: Could not fetch reply.'});
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _messages.removeLast();
-        _messages.add({'role': 'bot', 'text': 'Error: Check your connection.'});
-      });
-    }
+    final reply = mockResponses[userMessage.length % mockResponses.length];
+
+    setState(() {
+      _messages.removeLast();
+      _messages.add({'role': 'bot', 'text': reply});
+    });
   }
 
   @override

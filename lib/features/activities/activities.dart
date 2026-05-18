@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:egyptopia/core/config.dart';
+import 'package:egyptopia/core/mock_data.dart';
 import 'package:egyptopia/core/widgets/custom_buttons.dart';
 import 'package:egyptopia/core/widgets/custom_star_rating_widget.dart';
 import 'package:egyptopia/core/widgets/space_widget.dart';
@@ -7,7 +6,6 @@ import 'package:egyptopia/features/wishlist/data/model/favorite_model.dart';
 import 'package:egyptopia/features/wishlist/presentation/views/widgets/favorite_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:egyptopia/core/constants.dart';
 import 'package:egyptopia/core/widgets/reusable_screen.dart';
 import 'package:egyptopia/core/utils/size_config.dart';
@@ -41,14 +39,8 @@ class _ActivitiesState extends State<Activities> {
   }
 
   Future<List<dynamic>> fetchActivities() async {
-    final url = Uri.parse('${AppConfig.apiBaseUrl}/api/activity');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      return jsonDecode(utf8.decode(response.bodyBytes));
-    } else {
-      throw Exception('Failed to load activities');
-    }
+    await Future.delayed(const Duration(milliseconds: 300));
+    return mockActivities;
   }
 
   List<dynamic> filterActivities(List<dynamic> allActivities) {

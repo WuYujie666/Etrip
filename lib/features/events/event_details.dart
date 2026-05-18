@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:egyptopia/core/config.dart';
+import 'package:egyptopia/core/mock_data.dart';
 import 'package:egyptopia/core/widgets/custom_buttons.dart';
 import 'package:egyptopia/core/widgets/space_widget.dart';
 import 'package:egyptopia/features/wishlist/data/model/favorite_model.dart';
@@ -10,7 +9,6 @@ import 'package:egyptopia/core/widgets/reusable_screen.dart';
 import 'package:egyptopia/core/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:egyptopia/core/utils/size_config.dart';
-import 'package:http/http.dart' as http;
 
 class EventDetails extends StatefulWidget {
   final Map<String, dynamic> event;
@@ -31,19 +29,12 @@ class _EventDetailsState extends State<EventDetails> {
   }
 
   Future<Map<String, dynamic>> fetchEvent(String eventId) async {
-    final url = Uri.parse('${AppConfig.apiBaseUrl}/api/event/');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final List<dynamic> events = jsonDecode(utf8.decode(response.bodyBytes));
-      final event = events.firstWhere(
-        (e) => e['event_id'].toString() == eventId,
-        orElse: () => throw Exception('Event not found'),
-      );
-      return event as Map<String, dynamic>;
-    } else {
-      throw Exception('Failed to load event details');
-    }
+    await Future.delayed(const Duration(milliseconds: 200));
+    final event = mockEvents.firstWhere(
+      (e) => e['event_id'].toString() == eventId,
+      orElse: () => throw Exception('Event not found'),
+    );
+    return event;
   }
 
   void _openMap(String url) async {

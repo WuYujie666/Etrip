@@ -3,7 +3,6 @@
 import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:egyptopia/core/utils/assets.dart';
 import 'package:egyptopia/core/utils/size_config.dart';
-import 'package:egyptopia/features/auth/data/egyptopia_api_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -94,15 +93,7 @@ class _SplashBodyState extends State<SplashBody>
       final user = FirebaseAuth.instance.currentUser;
       if (!mounted) return;
       if (user != null) {
-        final apiService = EgyptopiaApiService();
-        final existingPreferences =
-            await apiService.getUserPreferences(user.uid);
-
-        if (existingPreferences != null) {
-          GoRouter.of(context).pushReplacement(AppRouter.kScreens);
-        } else {
-          GoRouter.of(context).pushReplacement(AppRouter.kPreferenceOne);
-        }
+        GoRouter.of(context).pushReplacement(AppRouter.kScreens);
       } else {
         GoRouter.of(context).pushReplacement(AppRouter.kOnBordingView);
       }

@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:egyptopia/core/config.dart';
+import 'package:egyptopia/core/mock_data.dart';
 import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:egyptopia/core/utils/assets.dart';
 import 'package:egyptopia/core/widgets/build_category_icon.dart';
@@ -16,7 +15,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -66,24 +64,12 @@ class _HomeBodyState extends State<HomeBody> {
         CustomSearch(
           fetchPlaces: () => apiService.fetchAllPlaces(),
           fetchEvents: () async {
-            final url = Uri.parse('${AppConfig.apiBaseUrl}/api/event');
-            final response = await http.get(url);
-            if (response.statusCode == 200) {
-              return List<Map<String, dynamic>>.from(
-                  jsonDecode(utf8.decode(response.bodyBytes)));
-            } else {
-              throw Exception('Failed to load events');
-            }
+            await Future.delayed(const Duration(milliseconds: 200));
+            return mockEvents;
           },
           fetchActivities: () async {
-            final url = Uri.parse('${AppConfig.apiBaseUrl}/api/activity');
-            final response = await http.get(url);
-            if (response.statusCode == 200) {
-              return List<Map<String, dynamic>>.from(
-                  jsonDecode(utf8.decode(response.bodyBytes)));
-            } else {
-              throw Exception('Failed to load activities');
-            }
+            await Future.delayed(const Duration(milliseconds: 200));
+            return mockActivities;
           },
         ),
         const VerticalSpace(1),

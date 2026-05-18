@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:egyptopia/core/config.dart';
+import 'package:egyptopia/core/mock_data.dart';
 import 'package:egyptopia/core/utils/app_router.dart';
 import 'package:egyptopia/core/widgets/space_widget.dart';
 import 'package:egyptopia/features/wishlist/data/model/favorite_model.dart';
@@ -7,7 +6,6 @@ import 'package:egyptopia/features/wishlist/presentation/views/widgets/favorite_
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:egyptopia/core/constants.dart';
 import 'package:egyptopia/core/widgets/reusable_screen.dart';
 import 'package:egyptopia/core/utils/size_config.dart';
@@ -29,14 +27,8 @@ class _EventsState extends State<Events> {
   }
 
   Future<List<dynamic>> fetchEvents() async {
-    final url = Uri.parse('${AppConfig.apiBaseUrl}/api/event');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      return jsonDecode(utf8.decode(response.bodyBytes));
-    } else {
-      throw Exception('Failed to load events');
-    }
+    await Future.delayed(const Duration(milliseconds: 300));
+    return mockEvents;
   }
 
   @override
