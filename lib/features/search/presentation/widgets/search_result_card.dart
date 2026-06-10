@@ -1,3 +1,4 @@
+import 'package:etrip/core/widgets/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
@@ -106,13 +107,11 @@ class SearchResultCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: Container(
                 color: Colors.grey[200],
-                child: Image.network(
+                child: AppImage(
                   item.imageUrl,
                   width: 80,
                   height: 70,
                   fit: BoxFit.fill,
-                  errorBuilder: (_, __, ___) =>
-                      Icon(Icons.photo, color: Colors.grey[400], size: 40),
                 ),
               ),
             ),

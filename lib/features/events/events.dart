@@ -1,5 +1,6 @@
 import 'package:etrip/core/mock_data.dart';
 import 'package:etrip/core/utils/app_router.dart';
+import 'package:etrip/core/widgets/app_image.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/features/wishlist/data/model/favorite_model.dart';
 import 'package:etrip/features/wishlist/presentation/views/widgets/favorite_icon.dart';
@@ -108,7 +109,7 @@ class _EventsState extends State<Events> {
                               children: [
                                 Stack(
                                   children: [
-                                    Image.network(
+                                    AppImage(
                                       event['Image'],
                                       width: double.infinity,
                                       height: 180,

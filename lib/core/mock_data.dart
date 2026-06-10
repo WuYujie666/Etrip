@@ -1,7 +1,7 @@
 import 'package:etrip/features/auth/data/models/egyptopia_user.dart';
 import 'package:etrip/features/places/data/models/place_model.dart';
 
-const _img = 'https://picsum.photos/seed';
+const _places = 'assets/images/places';
 
 // ============ Mock Places ============
 
@@ -9,11 +9,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '1',
     name: 'Great Wall',
-    profileImage: '$_img/greatwall/400/300',
+    profileImage: '$_places/great_wall.jpg',
     carouselImages: [
-      '$_img/greatwall1/400/300',
-      '$_img/greatwall2/400/300',
-      '$_img/greatwall3/400/300',
+      '$_places/great_wall.jpg',
     ],
     tourismType: 'Cultural and Historical Attractions',
     category: 'historical site',
@@ -28,10 +26,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '2',
     name: 'Forbidden City',
-    profileImage: '$_img/forbiddencity/400/300',
+    profileImage: '$_places/forbidden_city.jpg',
     carouselImages: [
-      '$_img/forbiddencity1/400/300',
-      '$_img/forbiddencity2/400/300',
+      '$_places/forbidden_city.jpg',
     ],
     tourismType: 'Cultural and Historical Attractions',
     category: 'palace',
@@ -46,10 +43,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '3',
     name: 'The Bund',
-    profileImage: '$_img/bund/400/300',
+    profileImage: '$_places/the_bund.jpg',
     carouselImages: [
-      '$_img/bund1/400/300',
-      '$_img/bund2/400/300',
+      '$_places/the_bund.jpg',
     ],
     tourismType: 'Entertainment and Modern Attractions',
     category: 'shopping',
@@ -64,10 +60,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '4',
     name: 'Leshan Giant Buddha',
-    profileImage: '$_img/leshan/400/300',
+    profileImage: '$_places/leshan_buddha.jpg',
     carouselImages: [
-      '$_img/leshan1/400/300',
-      '$_img/leshan2/400/300',
+      '$_places/leshan_buddha.jpg',
     ],
     tourismType: 'Religious and Spiritual Attractions',
     category: 'historical site',
@@ -82,10 +77,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '5',
     name: 'Zhangjiajie National Forest',
-    profileImage: '$_img/zhangjiajie/400/300',
+    profileImage: '$_places/zhangjiajie.jpg',
     carouselImages: [
-      '$_img/zhangjiajie1/400/300',
-      '$_img/zhangjiajie2/400/300',
+      '$_places/zhangjiajie.jpg',
     ],
     tourismType: 'Natural Attractions',
     category: 'historical site',
@@ -100,10 +94,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '6',
     name: 'Terracotta Warriors',
-    profileImage: '$_img/terracotta/400/300',
+    profileImage: '$_places/terracotta.jpg',
     carouselImages: [
-      '$_img/terracotta1/400/300',
-      '$_img/terracotta2/400/300',
+      '$_places/terracotta.jpg',
     ],
     tourismType: 'Cultural and Historical Attractions',
     category: 'museum',
@@ -118,10 +111,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '7',
     name: 'West Lake',
-    profileImage: '$_img/westlake/400/300',
+    profileImage: '$_places/west_lake.jpg',
     carouselImages: [
-      '$_img/westlake1/400/300',
-      '$_img/westlake2/400/300',
+      '$_places/west_lake.jpg',
     ],
     tourismType: 'Natural Attractions',
     category: 'garden',
@@ -136,10 +128,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '8',
     name: 'Potala Palace',
-    profileImage: '$_img/potala/400/300',
+    profileImage: '$_places/potala_palace.jpg',
     carouselImages: [
-      '$_img/potala1/400/300',
-      '$_img/potala2/400/300',
+      '$_places/potala_palace.jpg',
     ],
     tourismType: 'Religious and Spiritual Attractions',
     category: 'palace',
@@ -154,10 +145,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '9',
     name: 'Li River',
-    profileImage: '$_img/liriver/400/300',
+    profileImage: '$_places/li_river.jpg',
     carouselImages: [
-      '$_img/liriver1/400/300',
-      '$_img/liriver2/400/300',
+      '$_places/li_river.jpg',
     ],
     tourismType: 'Natural Attractions',
     category: 'historical site',
@@ -172,10 +162,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '10',
     name: 'Summer Palace',
-    profileImage: '$_img/summerpalace/400/300',
+    profileImage: '$_places/summer_palace.jpg',
     carouselImages: [
-      '$_img/summerpalace1/400/300',
-      '$_img/summerpalace2/400/300',
+      '$_places/summer_palace.jpg',
     ],
     tourismType: 'Cultural and Historical Attractions',
     category: 'palace',
@@ -190,10 +179,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '11',
     name: 'Shanghai Disneyland',
-    profileImage: '$_img/disney/400/300',
+    profileImage: '$_places/disneyland.jpg',
     carouselImages: [
-      '$_img/disney1/400/300',
-      '$_img/disney2/400/300',
+      '$_places/disneyland.jpg',
     ],
     tourismType: 'Entertainment and Modern Attractions',
     category: 'shopping',
@@ -208,10 +196,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '12',
     name: 'Chengdu Panda Base',
-    profileImage: '$_img/panda/400/300',
+    profileImage: '$_places/panda_base.jpg',
     carouselImages: [
-      '$_img/panda1/400/300',
-      '$_img/panda2/400/300',
+      '$_places/panda_base.jpg',
     ],
     tourismType: 'Entertainment and Modern Attractions',
     category: 'garden',
@@ -226,10 +213,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '13',
     name: 'Shaolin Temple',
-    profileImage: '$_img/shaolin/400/300',
+    profileImage: '$_places/shaolin.jpg',
     carouselImages: [
-      '$_img/shaolin1/400/300',
-      '$_img/shaolin2/400/300',
+      '$_places/shaolin.jpg',
     ],
     tourismType: 'Religious and Spiritual Attractions',
     category: 'temple',
@@ -244,10 +230,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '14',
     name: 'Yellow Mountain',
-    profileImage: '$_img/huangshan/400/300',
+    profileImage: '$_places/huangshan.jpg',
     carouselImages: [
-      '$_img/huangshan1/400/300',
-      '$_img/huangshan2/400/300',
+      '$_places/huangshan.jpg',
     ],
     tourismType: 'Natural Attractions',
     category: 'historical site',
@@ -262,10 +247,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '15',
     name: 'Mogao Caves',
-    profileImage: '$_img/mogao/400/300',
+    profileImage: '$_places/mogao_caves.jpg',
     carouselImages: [
-      '$_img/mogao1/400/300',
-      '$_img/mogao2/400/300',
+      '$_places/mogao_caves.jpg',
     ],
     tourismType: 'Cultural and Historical Attractions',
     category: 'museum',
@@ -280,10 +264,9 @@ final List<PlaceModel> mockPlaces = [
   PlaceModel(
     id: '16',
     name: 'Victoria Harbour',
-    profileImage: '$_img/victoria/400/300',
+    profileImage: '$_places/victoria_harbour.jpg',
     carouselImages: [
-      '$_img/victoria1/400/300',
-      '$_img/victoria2/400/300',
+      '$_places/victoria_harbour.jpg',
     ],
     tourismType: 'Entertainment and Modern Attractions',
     category: 'shopping',
@@ -303,7 +286,7 @@ final List<Map<String, dynamic>> mockEvents = [
   {
     'event_id': '1',
     'event_name': 'Shanghai International Film Festival',
-    'Image': '$_img/shanghaifilm/400/300',
+    'Image': '$_places/film_festival.jpg',
     'event_date': '15 Jun 2026',
     'event_type': 'Cultural',
     'city_name': 'Shanghai',
@@ -314,7 +297,7 @@ final List<Map<String, dynamic>> mockEvents = [
   {
     'event_id': '2',
     'event_name': 'Beijing Jazz Festival',
-    'Image': '$_img/beijingjazz/400/300',
+    'Image': '$_places/jazz_festival.jpg',
     'event_date': '20-22 Jul 2026',
     'event_type': 'Music',
     'city_name': 'Beijing',
@@ -325,7 +308,7 @@ final List<Map<String, dynamic>> mockEvents = [
   {
     'event_id': '3',
     'event_name': 'Chengdu Food Festival',
-    'Image': '$_img/chengdufood/400/300',
+    'Image': '$_places/food_festival.jpg',
     'event_date': '10 Aug 2026',
     'event_type': 'Food',
     'city_name': 'Chengdu',
@@ -336,7 +319,7 @@ final List<Map<String, dynamic>> mockEvents = [
   {
     'event_id': '4',
     'event_name': 'Guilin International Music Festival',
-    'Image': '$_img/guilinmusic/400/300',
+    'Image': '$_places/music_festival.jpg',
     'event_date': '15 Sep 2026',
     'event_type': 'Music',
     'city_name': 'Guilin',
@@ -347,7 +330,7 @@ final List<Map<String, dynamic>> mockEvents = [
   {
     'event_id': '5',
     'event_name': 'Xi\'an Cultural Heritage Expo',
-    'Image': '$_img/xianexpo/400/300',
+    'Image': '$_places/heritage_expo.jpg',
     'event_date': '5 Oct 2026',
     'event_type': 'Cultural',
     'city_name': "Xi'an",
@@ -363,7 +346,7 @@ final List<Map<String, dynamic>> mockActivities = [
   {
     'id': '1',
     'title': 'Li River Bamboo Rafting',
-    'Image': '$_img/bambooraft/400/300',
+    'Image': '$_places/bamboo_raft.jpg',
     'activity_type': 'Safari',
     'city_name': 'Guilin',
     'price_before': '800',
@@ -374,7 +357,7 @@ final List<Map<String, dynamic>> mockActivities = [
   {
     'id': '2',
     'title': 'Hot Air Balloon over Yangshuo',
-    'Image': '$_img/yangshuoballoon/400/300',
+    'Image': '$_places/hot_air_balloon.jpg',
     'activity_type': 'Balloon Tours',
     'city_name': 'Yangshuo',
     'price_before': '1500',
@@ -385,7 +368,7 @@ final List<Map<String, dynamic>> mockActivities = [
   {
     'id': '3',
     'title': 'Great Wall Hiking Adventure',
-    'Image': '$_img/greatwallhike/400/300',
+    'Image': '$_places/great_wall_hike.jpg',
     'activity_type': 'Safari',
     'city_name': 'Beijing',
     'price_before': '600',
@@ -396,7 +379,7 @@ final List<Map<String, dynamic>> mockActivities = [
   {
     'id': '4',
     'title': 'Huangshan Mountain Trek',
-    'Image': '$_img/huangshantrek/400/300',
+    'Image': '$_places/huangshan_trek.jpg',
     'activity_type': 'Safari',
     'city_name': 'Huangshan',
     'price_before': '1200',
@@ -407,7 +390,7 @@ final List<Map<String, dynamic>> mockActivities = [
   {
     'id': '5',
     'title': 'Panda Volunteering in Chengdu',
-    'Image': '$_img/pandavolunteer/400/300',
+    'Image': '$_places/panda_volunteer.jpg',
     'activity_type': 'Swimming With Dolphins',
     'city_name': 'Chengdu',
     'price_before': '1000',
@@ -418,7 +401,7 @@ final List<Map<String, dynamic>> mockActivities = [
   {
     'id': '6',
     'title': 'Zhangjiajie Glass Bridge Walk',
-    'Image': '$_img/glassbridge/400/300',
+    'Image': '$_places/glass_bridge.jpg',
     'activity_type': 'Balloon Tours',
     'city_name': 'Zhangjiajie',
     'price_before': '500',

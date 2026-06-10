@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:etrip/core/widgets/app_image.dart';
 import 'package:etrip/core/widgets/custom_star_rating_widget.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/features/places/data/models/place_model.dart';
@@ -99,17 +100,10 @@ class PlaceDetails extends StatelessWidget {
                           return ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: imageUrl.isNotEmpty
-                                ? Image.network(
+                                ? AppImage(
                                     imageUrl,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: Colors.grey,
-                                        child: Center(
-                                            child: Text(Translations.tr('image_failed', lang))),
-                                      );
-                                    },
                                   )
                                 : Container(
                                     color: Colors.grey,

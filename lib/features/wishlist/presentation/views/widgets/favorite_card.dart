@@ -6,6 +6,7 @@ import 'package:etrip/core/utils/app_router.dart';
 import 'package:etrip/core/utils/size_config.dart';
 import 'package:etrip/core/widgets/custom_buttons.dart';
 import 'package:etrip/features/places/data/models/place_model.dart';
+import 'package:etrip/core/widgets/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -93,16 +94,11 @@ class FavoriteCard extends StatelessWidget {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
+                        child: AppImage(
                           fav.imageUrl,
                           width: SizeConfig.defaultSize! * 13,
                           height: double.infinity,
                           fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(
-                            color: Colors.grey[300],
-                            child: const Icon(Icons.error, color: Colors.red),
-                          ),
                         ),
                       ),
                       const HorizantalSpace(1),

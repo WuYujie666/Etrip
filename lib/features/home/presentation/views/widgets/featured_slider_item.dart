@@ -1,3 +1,4 @@
+import 'package:etrip/core/widgets/app_image.dart';
 import 'package:etrip/features/wishlist/data/model/favorite_model.dart';
 import 'package:etrip/features/wishlist/presentation/views/widgets/favorite_icon.dart';
 import 'package:flutter/material.dart';
@@ -62,17 +63,11 @@ class FeaturedSliderItem extends StatelessWidget {
                       width: double.infinity,
                       height: double.infinity,
                     )
-                  : Image.network(
+                  : AppImage(
                       imageUrl!,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Colors.grey[300],
-                          child: const Center(child: Icon(Icons.error)),
-                        );
-                      },
                     ),
             ),
             if (cityName != null && name != null && rate != null) ...[

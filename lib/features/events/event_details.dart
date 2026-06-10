@@ -1,4 +1,5 @@
 import 'package:etrip/core/mock_data.dart';
+import 'package:etrip/core/widgets/app_image.dart';
 import 'package:etrip/core/widgets/custom_buttons.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/features/wishlist/data/model/favorite_model.dart';
@@ -117,18 +118,11 @@ class _EventDetailsState extends State<EventDetails> {
                                   borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(16),
                                   ),
-                                  child: Image.network(
+                                  child: AppImage(
                                     event['Image'],
                                     height: 180,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            Container(
-                                      color: Colors.grey[300],
-                                      child: const Icon(Icons.error,
-                                          color: Colors.red),
-                                    ),
                                   ),
                                 ),
                                 Positioned(

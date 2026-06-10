@@ -1,4 +1,5 @@
 import 'package:etrip/core/mock_data.dart';
+import 'package:etrip/core/widgets/app_image.dart';
 import 'package:etrip/core/widgets/custom_buttons.dart';
 import 'package:etrip/core/widgets/custom_star_rating_widget.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
@@ -191,7 +192,7 @@ class _ActivitiesState extends State<Activities> {
                               // Image + badge
                               Stack(
                                 children: [
-                                  Image.network(
+                                  AppImage(
                                     activity['Image'],
                                     width: double.infinity,
                                     height: 180,

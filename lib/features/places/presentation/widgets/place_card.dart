@@ -1,3 +1,4 @@
+import 'package:etrip/core/widgets/app_image.dart';
 import 'package:etrip/core/widgets/custom_star_rating_widget.dart';
 import 'package:etrip/features/places/data/models/place_model.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +34,10 @@ class PlaceCard extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Image.network(
+                  AppImage(
                     (place.profileImage.isNotEmpty
-                        ?place.profileImage
-                        :  place.carouselImages.first),
+                        ? place.profileImage
+                        : place.carouselImages.first),
                     width: double.infinity,
                     height: 180,
                     fit: BoxFit.cover,
