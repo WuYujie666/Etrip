@@ -22,6 +22,8 @@ final List<PlaceModel> mockPlaces = [
         'The Great Wall of China is one of the most iconic wonders of the world, stretching over 13,000 miles. '
         'Built across multiple dynasties, it offers breathtaking views and a glimpse into China\'s ancient history.',
     googleMapsLink: 'https://maps.google.com/?q=Great+Wall+of+China',
+    lat: 40.4319,
+    lng: 116.5704,
   ),
   PlaceModel(
     id: '2',
@@ -39,6 +41,8 @@ final List<PlaceModel> mockPlaces = [
         'The Forbidden City was the Chinese imperial palace from the Ming to the Qing dynasty. '
         'It houses over 1 million artifacts and is the world\'s largest palace complex.',
     googleMapsLink: 'https://maps.google.com/?q=Forbidden+City+Beijing',
+    lat: 39.9163,
+    lng: 116.3972,
   ),
   PlaceModel(
     id: '3',
@@ -56,6 +60,8 @@ final List<PlaceModel> mockPlaces = [
         'The Bund is Shanghai\'s iconic waterfront promenade, lined with colonial-era buildings '
         'and modern skyscrapers. It offers spectacular views of the Huangpu River and Pudong skyline.',
     googleMapsLink: 'https://maps.google.com/?q=The+Bund+Shanghai',
+    lat: 31.2400,
+    lng: 121.4900,
   ),
   PlaceModel(
     id: '4',
@@ -73,6 +79,8 @@ final List<PlaceModel> mockPlaces = [
         'The Leshan Giant Buddha is a 71-meter tall stone statue carved into a cliff face. '
         'Built during the Tang dynasty, it is the largest stone Buddha in the world.',
     googleMapsLink: 'https://maps.google.com/?q=Leshan+Giant+Buddha',
+    lat: 29.5472,
+    lng: 103.7695,
   ),
   PlaceModel(
     id: '5',
@@ -90,6 +98,8 @@ final List<PlaceModel> mockPlaces = [
         'Zhangjiajie National Forest Park is famous for its towering sandstone pillars, '
         'which inspired the floating mountains in Avatar. It offers stunning hiking trails and glass bridges.',
     googleMapsLink: 'https://maps.google.com/?q=Zhangjiajie+National+Forest',
+    lat: 29.3992,
+    lng: 110.4666,
   ),
   PlaceModel(
     id: '6',
@@ -107,6 +117,8 @@ final List<PlaceModel> mockPlaces = [
         'The Terracotta Army is a collection of thousands of life-sized clay soldiers buried with Emperor Qin. '
         'Discovered in 1974, it is considered the eighth wonder of the world.',
     googleMapsLink: 'https://maps.google.com/?q=Terracotta+Warriors+Xian',
+    lat: 34.3841,
+    lng: 109.2739,
   ),
   PlaceModel(
     id: '7',
@@ -124,6 +136,8 @@ final List<PlaceModel> mockPlaces = [
         'West Lake is a UNESCO World Heritage site in Hangzhou, known for its natural beauty '
         'and historic pagodas. It has inspired poets and artists for centuries.',
     googleMapsLink: 'https://maps.google.com/?q=West+Lake+Hangzhou',
+    lat: 30.2590,
+    lng: 120.1485,
   ),
   PlaceModel(
     id: '8',
@@ -141,6 +155,8 @@ final List<PlaceModel> mockPlaces = [
         'The Potala Palace in Lhasa was the winter residence of the Dalai Lama. '
         'This stunning 13-story palace features over 1,000 rooms with beautiful Tibetan Buddhist art.',
     googleMapsLink: 'https://maps.google.com/?q=Potala+Palace+Lhasa',
+    lat: 29.6579,
+    lng: 91.1172,
   ),
   PlaceModel(
     id: '9',
@@ -158,6 +174,8 @@ final List<PlaceModel> mockPlaces = [
         'The Li River cruise from Guilin to Yangshuo offers some of China\'s most spectacular scenery, '
         'with dramatic karst mountains reflected in the emerald water.',
     googleMapsLink: 'https://maps.google.com/?q=Li+River+Guilin',
+    lat: 24.8840,
+    lng: 110.4420,
   ),
   PlaceModel(
     id: '10',
@@ -175,6 +193,8 @@ final List<PlaceModel> mockPlaces = [
         'The Summer Palace is a magnificent ensemble of lakes, gardens and palaces in Beijing. '
         'It served as a royal retreat and is a masterpiece of Chinese landscape design.',
     googleMapsLink: 'https://maps.google.com/?q=Summer+Palace+Beijing',
+    lat: 39.9998,
+    lng: 116.2755,
   ),
   PlaceModel(
     id: '11',
@@ -192,6 +212,8 @@ final List<PlaceModel> mockPlaces = [
         'Shanghai Disneyland is a world-class theme park with unique attractions blending '
         'Disney magic with Chinese culture, including the Enchanted Storybook Castle.',
     googleMapsLink: 'https://maps.google.com/?q=Shanghai+Disneyland',
+    lat: 31.1439,
+    lng: 121.6575,
   ),
   PlaceModel(
     id: '12',
@@ -209,6 +231,8 @@ final List<PlaceModel> mockPlaces = [
         'The Chengdu Research Base of Giant Panda Breeding lets visitors see giant pandas up close '
         'in a natural setting. It\'s one of the most popular wildlife attractions in China.',
     googleMapsLink: 'https://maps.google.com/?q=Chengdu+Panda+Base',
+    lat: 30.7310,
+    lng: 104.1450,
   ),
   PlaceModel(
     id: '13',
@@ -226,6 +250,8 @@ final List<PlaceModel> mockPlaces = [
         'Shaolin Temple is the birthplace of Chan (Zen) Buddhism and Shaolin Kung Fu. '
         'Located at Songshan Mountain, it attracts martial arts enthusiasts from around the world.',
     googleMapsLink: 'https://maps.google.com/?q=Shaolin+Temple',
+    lat: 34.5050,
+    lng: 112.9350,
   ),
   PlaceModel(
     id: '14',
@@ -243,6 +269,8 @@ final List<PlaceModel> mockPlaces = [
         'Huangshan, the Yellow Mountain, is renowned for its magnificent granite peaks, '
         'hot springs, and seas of clouds. It\'s one of China\'s most famous scenic areas.',
     googleMapsLink: 'https://maps.google.com/?q=Yellow+Mountain+Huangshan',
+    lat: 30.1320,
+    lng: 118.1690,
   ),
   PlaceModel(
     id: '15',
@@ -260,6 +288,8 @@ final List<PlaceModel> mockPlaces = [
         'The Mogao Caves are a UNESCO World Heritage site featuring hundreds of Buddhist cave temples '
         'filled with exquisite murals and sculptures spanning over 1,000 years.',
     googleMapsLink: 'https://maps.google.com/?q=Mogao+Caves+Dunhuang',
+    lat: 40.0400,
+    lng: 94.8000,
   ),
   PlaceModel(
     id: '16',
@@ -277,6 +307,8 @@ final List<PlaceModel> mockPlaces = [
         'Victoria Harbour is a major attraction in Hong Kong, famous for its stunning skyline '
         'and the Symphony of Lights show. The Star Ferry offers a classic harbour crossing.',
     googleMapsLink: 'https://maps.google.com/?q=Victoria+Harbour+Hong+Kong',
+    lat: 22.2854,
+    lng: 114.1628,
   ),
 ];
 
@@ -293,6 +325,8 @@ final List<Map<String, dynamic>> mockEvents = [
     'event_time': '7:00 PM',
     'ticket_price': '280',
     'registration_link': 'https://example.com/shanghaifilm',
+    'lat': 31.2400,
+    'lng': 121.4900,
   },
   {
     'event_id': '2',
@@ -304,6 +338,8 @@ final List<Map<String, dynamic>> mockEvents = [
     'event_time': '6:00 PM',
     'ticket_price': '380',
     'registration_link': 'https://example.com/beijingjazz',
+    'lat': 39.9163,
+    'lng': 116.3972,
   },
   {
     'event_id': '3',
@@ -315,6 +351,8 @@ final List<Map<String, dynamic>> mockEvents = [
     'event_time': '10:00 AM',
     'ticket_price': '120',
     'registration_link': 'https://example.com/chengdufood',
+    'lat': 30.5728,
+    'lng': 104.0668,
   },
   {
     'event_id': '4',
@@ -326,6 +364,8 @@ final List<Map<String, dynamic>> mockEvents = [
     'event_time': '4:00 PM',
     'ticket_price': '200',
     'registration_link': 'https://example.com/guilinmusic',
+    'lat': 25.2736,
+    'lng': 110.2902,
   },
   {
     'event_id': '5',
@@ -337,6 +377,34 @@ final List<Map<String, dynamic>> mockEvents = [
     'event_time': '9:00 AM',
     'ticket_price': '150',
     'registration_link': 'https://example.com/xianexpo',
+    'lat': 34.3416,
+    'lng': 108.9398,
+  },
+  {
+    'event_id': '6',
+    'event_name': 'Spring Festival Fair',
+    'Image': '$_places/heritage_expo.jpg',
+    'event_date': '28 Jan 2026',
+    'event_type': 'Cultural',
+    'city_name': 'Beijing',
+    'event_time': '10:00 AM',
+    'ticket_price': '50',
+    'registration_link': 'https://example.com/springfest',
+    'lat': 39.9000,
+    'lng': 116.4000,
+  },
+  {
+    'event_id': '7',
+    'event_name': 'Dragon Boat Festival',
+    'Image': '$_places/music_festival.jpg',
+    'event_date': '12 Jun 2026',
+    'event_type': 'Cultural',
+    'city_name': 'Hangzhou',
+    'event_time': '8:00 AM',
+    'ticket_price': '80',
+    'registration_link': 'https://example.com/dragonboat',
+    'lat': 30.3000,
+    'lng': 120.1800,
   },
 ];
 
@@ -353,6 +421,8 @@ final List<Map<String, dynamic>> mockActivities = [
     'price_after': '500',
     'rating': '4.8',
     'link': 'https://example.com/liriver',
+    'lat': 24.8840,
+    'lng': 110.4420,
   },
   {
     'id': '2',
@@ -364,6 +434,8 @@ final List<Map<String, dynamic>> mockActivities = [
     'price_after': '980',
     'rating': '4.9',
     'link': 'https://example.com/yangshuo',
+    'lat': 24.7800,
+    'lng': 110.4900,
   },
   {
     'id': '3',
@@ -375,6 +447,8 @@ final List<Map<String, dynamic>> mockActivities = [
     'price_after': '350',
     'rating': '4.7',
     'link': 'https://example.com/greatwallhike',
+    'lat': 40.3500,
+    'lng': 116.0100,
   },
   {
     'id': '4',
@@ -386,6 +460,8 @@ final List<Map<String, dynamic>> mockActivities = [
     'price_after': '800',
     'rating': '4.8',
     'link': 'https://example.com/huangshan',
+    'lat': 30.1320,
+    'lng': 118.1690,
   },
   {
     'id': '5',
@@ -397,6 +473,8 @@ final List<Map<String, dynamic>> mockActivities = [
     'price_after': '600',
     'rating': '4.9',
     'link': 'https://example.com/pandavolunteer',
+    'lat': 30.7310,
+    'lng': 104.1450,
   },
   {
     'id': '6',
@@ -408,6 +486,21 @@ final List<Map<String, dynamic>> mockActivities = [
     'price_after': '300',
     'rating': '4.6',
     'link': 'https://example.com/glassbridge',
+    'lat': 29.3992,
+    'lng': 110.4666,
+  },
+  {
+    'id': '7',
+    'title': 'Silk Road Cycling Tour',
+    'Image': '$_places/great_wall_hike.jpg',
+    'activity_type': 'Safari',
+    'city_name': 'Beijing',
+    'price_before': '2000',
+    'price_after': '1200',
+    'rating': '4.6',
+    'link': 'https://example.com/silkroad',
+    'lat': 38.0500,
+    'lng': 114.4800,
   },
 ];
 
@@ -532,6 +625,8 @@ final Map<String, String> eventNamesZh = {
   '3': '成都美食节',
   '4': '桂林国际音乐节',
   '5': "西安文化遗产博览会",
+  '6': '春节庙会',
+  '7': '龙舟赛',
 };
 
 /// Chinese activity titles keyed by activity id.
@@ -542,6 +637,7 @@ final Map<String, String> activityTitlesZh = {
   '4': '黄山登山之旅',
   '5': '成都大熊猫志愿者',
   '6': '张家界玻璃桥漫步',
+  '7': '丝绸之路骑行',
 };
 
 /// Chinese event types.

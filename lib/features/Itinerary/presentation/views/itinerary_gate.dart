@@ -1,7 +1,6 @@
-import 'package:etrip/features/Itinerary/data/models/itinerary_request.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:etrip/features/Itinerary/data/itinerary_api_service.dart';
+import 'package:etrip/features/auth/data/services/local_storage_service.dart';
 import 'package:etrip/features/Itinerary/data/models/itinerary_response.dart';
 import 'package:etrip/features/Itinerary/presentation/views/itinerary_step_one.dart';
 import 'package:etrip/features/Itinerary/presentation/views/itinerary_step_two.dart';
@@ -28,11 +27,11 @@ class _ItineraryGateState extends State<ItineraryGate> {
   }
 
   void _loadItinerary() {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    final uid = LocalStorageService().currentUid;
+    if (uid != null) {
       setState(() {
-        futureLatestItinerary = ItineraryService().getLatestItinerary(user.uid);
-        itineraryStep = 2; // حاول تعرض النتيجة مباشرة
+        futureLatestItinerary = ItineraryService().getLatestItinerary(uid);
+        itineraryStep = 2;
       });
     } else {
       setState(() {
@@ -44,7 +43,7 @@ class _ItineraryGateState extends State<ItineraryGate> {
 
   void _startNewItinerary() {
     setState(() {
-      itineraryStep = 0;  // ارجع لأول خطوة
+      itineraryStep = 0;
       collectedArgs = null;
     });
   }
@@ -52,6 +51,15 @@ class _ItineraryGateState extends State<ItineraryGate> {
   @override
   Widget build(BuildContext context) {
     if (itineraryStep == 2) {
+      // If we have collected args from step two, show result directly
+      if (collectedArgs != null) {
+        return ItineraryResultView(
+          args: collectedArgs!,
+          onStartNew: _startNewItinerary,
+        );
+      }
+
+      // Otherwise try loading existing itinerary
       return FutureBuilder<ItineraryResponse?>(
         future: futureLatestItinerary,
         builder: (context, snapshot) {
@@ -59,7 +67,6 @@ class _ItineraryGateState extends State<ItineraryGate> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError || snapshot.data == null) {
-            // لو مفيش رحلة ارجع لأول خطوة
             return ItineraryStepOne(
               onStepTwo: (args) {
                 setState(() {
@@ -72,9 +79,15 @@ class _ItineraryGateState extends State<ItineraryGate> {
           final itinerary = snapshot.data!;
           final args = {
             'noOfDays': itinerary.noOfDays,
-            'categoryWeights': itinerary.plan.values.expand((places) => places.map((e) => e.category)).toSet().toList(),
-            'tourismTypeWeights': itinerary.plan.values.expand((places) => places.map((e) => e.tourismType)).toSet().toList(),
-            'budget': itinerary.description, // عدل لو عندك الخاصية
+            'categoryWeights': itinerary.plan.values
+                .expand((places) => places.map((e) => e.category))
+                .toSet()
+                .toList(),
+            'tourismTypeWeights': itinerary.plan.values
+                .expand((places) => places.map((e) => e.tourismType))
+                .toSet()
+                .toList(),
+            'budget': itinerary.description,
             'popularity': '',
             'withWho': '',
           };
@@ -90,24 +103,13 @@ class _ItineraryGateState extends State<ItineraryGate> {
         budget: collectedArgs!["budget"],
         popularity: collectedArgs!["popularity"],
         withWho: collectedArgs!["withWho"],
-        tourismTypeWeights: List<String>.from(collectedArgs!["tourismTypeWeights"]),
+        tourismTypeWeights:
+            List<String>.from(collectedArgs!["tourismTypeWeights"]),
         onItineraryCreated: (stepTwoArgs) {
-          final user = FirebaseAuth.instance.currentUser;
-          if (user != null) {
-            ItineraryService().getItinerary(
-              userId: user.uid,
-              request: ItineraryRequest(
-                noOfDays: stepTwoArgs['noOfDays'],
-                categoryWeights: {for (var e in stepTwoArgs['categoryWeights']) e: 1},
-                tourismTypeWeights: {for (var e in stepTwoArgs['tourismTypeWeights']) e: 1},
-                budget: stepTwoArgs['budget'],
-                popularity: stepTwoArgs['popularity'],
-                withWho: stepTwoArgs['withWho'],
-              ),
-            ).then((_) {
-              _loadItinerary();
-            });
-          }
+          setState(() {
+            collectedArgs = Map<String, dynamic>.from(stepTwoArgs);
+            itineraryStep = 2;
+          });
         },
       );
     } else {

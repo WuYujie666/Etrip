@@ -1,13 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:etrip/core/localization/locale_cubit.dart';
-import 'package:etrip/core/localization/translations.dart';
 import 'package:etrip/core/utils/app_router.dart';
 import 'package:etrip/core/utils/assets.dart';
 import 'package:etrip/core/utils/size_config.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:etrip/features/auth/data/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashBody extends StatefulWidget {
@@ -93,9 +90,9 @@ class _SplashBodyState extends State<SplashBody>
 
   void goNextPage() {
     Future.delayed(const Duration(seconds: 4), () async {
-      final user = FirebaseAuth.instance.currentUser;
+      final loggedIn = LocalStorageService().isLoggedIn;
       if (!mounted) return;
-      if (user != null) {
+      if (loggedIn) {
         GoRouter.of(context).pushReplacement(AppRouter.kScreens);
       } else {
         GoRouter.of(context).pushReplacement(AppRouter.kOnBordingView);

@@ -8,6 +8,7 @@ import 'package:etrip/features/Profile/bloc/user_state.dart';
 import 'package:etrip/features/Profile/presentation/views/widgets/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:etrip/features/auth/data/models/egyptopia_user.dart';
+import 'package:etrip/features/auth/data/services/firestore_user_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -134,6 +135,8 @@ class _EditProfileState extends State<EditProfile> {
                       dateOfBirth: dateOfBirthController.text.trim(),
                       profileImg: currentUser.profileImg,
                     );
+                    await FirestoreUserService()
+                        .updateUserProfile(updatedUser);
                     context.read<UserBloc>().add(UpdateUser(updatedUser));
                     GoRouter.of(context).pop();
                   },

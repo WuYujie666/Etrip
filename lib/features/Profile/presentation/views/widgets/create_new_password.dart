@@ -8,11 +8,11 @@ import 'package:etrip/core/widgets/custom_fields.dart';
 import 'package:etrip/core/widgets/reusable_screen.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/core/widgets/custom_buttons.dart';
+import 'package:etrip/features/auth/data/services/local_storage_service.dart';
 import 'package:etrip/features/onbording/presentation/views/widgets/page_view_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class CreateNewPassword extends StatefulWidget {
   const CreateNewPassword({super.key});
@@ -42,25 +42,15 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
     required String lang,
   }) async {
     try {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null || user.email == null) return Translations.tr('no_user_logged_in', lang);
+      final uid = LocalStorageService().currentUid;
+      if (uid == null) return Translations.tr('no_user_logged_in', lang);
 
-      // عمل re-authenticate بالباسورد القديم
-      AuthCredential credential = EmailAuthProvider.credential(
-        email: user.email!,
-        password: currentPassword,
-      );
-      await user.reauthenticateWithCredential(credential);
-
-      // تغيير الباسورد للباسورد الجديد
-      await user.updatePassword(newPassword);
-      return null; // يعني success!
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'wrong-password') {
+      await LocalStorageService().changePassword(uid, currentPassword, newPassword);
+      return null;
+    } catch (e) {
+      if (e.toString().contains('旧密码不正确')) {
         return Translations.tr('old_password_incorrect', lang);
       }
-      return e.message;
-    } catch (e) {
       return e.toString();
     }
   }
