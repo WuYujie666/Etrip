@@ -14,7 +14,6 @@ import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/features/wishlist/data/model/favorite_model.dart';
 import 'package:etrip/features/wishlist/data/service/favorite_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'favorite_icon.dart';
 import 'package:go_router/go_router.dart';
 
@@ -47,48 +46,31 @@ class FavoriteCard extends StatelessWidget {
           itemBuilder: (context, index) {
             final fav = favorites[index];
 
-            // Determine card shape based on type
-            final isPlace = fav.type == FavoriteType.place;
-            final isEvent = fav.type == FavoriteType.event;
-            final cardShape = RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(isPlace ? 30 : 20),
-            );
-            final cardElevation = isPlace ? 6.0 : 4.0;
-
             return GestureDetector(
               onTap: () {
-                if (isEvent) {
-                  // Pass minimal event data, primarily the event_id
-                  final eventData = {
-                    'event_id': fav.id,
-                    'event_name': fav.title, // Optional: for immediate display
-                    'Image': fav.imageUrl, // Optional: for immediate display
-                  };
-                  context.push(AppRouter.kEventDetails, extra: eventData);
-                } else if (isPlace) {
-                  // Existing place navigation logic
-                  final place = PlaceModel(
-      id: fav.id,
-      name: fav.title,
-      profileImage: fav.imageUrl,
-      carouselImages: (fav.carousel ?? []).cast<String>(),
-      tourismType: fav.tourismType ?? '',
-      category: fav.category ?? '',
-      cityName: fav.city,
-      rate: double.tryParse(fav.rate ?? '') ?? 0.0,
-      totalRates: fav.totalRates ?? 0,
-      description: fav.description ?? Translations.tr('description_not_available', lang),
-      googleMapsLink: fav.googleMapsLink ?? '',
-    );
-    context.push(AppRouter.kPlaceDetails, extra: place);
-  }
+                final place = PlaceModel(
+                  id: fav.id,
+                  name: fav.title,
+                  profileImage: fav.imageUrl,
+                  carouselImages: (fav.carousel ?? []).cast<String>(),
+                  tourismType: fav.tourismType ?? '',
+                  category: fav.category ?? '',
+                  cityName: fav.city,
+                  rate: double.tryParse(fav.rate ?? '') ?? 0.0,
+                  totalRates: fav.totalRates ?? 0,
+                  description: fav.description ?? Translations.tr('description_not_available', lang),
+                  googleMapsLink: fav.googleMapsLink ?? '',
+                );
+                context.push(AppRouter.kPlaceDetails, extra: place);
               },
               child: Card(
-                shape: cardShape,
-                elevation: cardElevation,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                elevation: 6.0,
                 clipBehavior: Clip.antiAlias,
                 child: Container(
-                  height: SizeConfig.defaultSize! * (isPlace ? 22 : 18),
+                  height: SizeConfig.defaultSize! * 22,
                   padding: const EdgeInsets.all(10),
                   child: Row(
                     children: [
@@ -133,124 +115,91 @@ class FavoriteCard extends StatelessWidget {
                               ],
                             ),
                             const VerticalSpace(0.4),
-                            if (fav.price != null && fav.price!.isNotEmpty)
+                            if (fav.category != null &&
+                                fav.category!.isNotEmpty)
                               Row(
                                 children: [
-                                  const Icon(Icons.discount, size: 16),
+                                  const Icon(Icons.category, size: 16),
                                   const HorizantalSpace(0.5),
                                   Text(
-                                    "${fav.price} LE",
+                                    '${Translations.tr('category_label', lang)}${fav.category}',
                                     style: GoogleFonts.inter(
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeight.w600,
                                       color: Colors.black,
                                     ),
                                   ),
                                 ],
                               ),
-                            if (isPlace) ...[
-                              if (fav.category != null &&
-                                  fav.category!.isNotEmpty)
-                                Row(
-                                  children: [
-                                    const Icon(Icons.category, size: 16),
-                                    const HorizantalSpace(0.5),
-                                    Text(
-                                      '${Translations.tr('category_label', lang)}${fav.category}',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              const VerticalSpace(0.5),
-                              if (fav.tourismType != null &&
-                                  fav.tourismType!.isNotEmpty)
-                                Row(
-                                  children: [
-                                    const Icon(Icons.travel_explore, size: 16),
-                                    const HorizantalSpace(0.5),
-                                    Expanded(
-                                      child: Tooltip(
-                                        message: fav.tourismType ??
-                                            Translations.tr('n_a', lang),
-                                        child: Text(
-                                          '${Translations.tr('type_label_short', lang)}${fav.tourismType ?? Translations.tr('n_a', lang)}',
-                                          style: GoogleFonts.inter(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.black,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+                            const VerticalSpace(0.5),
+                            if (fav.tourismType != null &&
+                                fav.tourismType!.isNotEmpty)
+                              Row(
+                                children: [
+                                  const Icon(Icons.travel_explore, size: 16),
+                                  const HorizantalSpace(0.5),
+                                  Expanded(
+                                    child: Tooltip(
+                                      message: fav.tourismType ??
+                                          Translations.tr('n_a', lang),
+                                      child: Text(
+                                        '${Translations.tr('type_label_short', lang)}${fav.tourismType != null && fav.tourismType!.isNotEmpty ? Translations.trTourismType(fav.tourismType!, lang) : Translations.tr('n_a', lang)}',
+                                        style: GoogleFonts.inter(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black,
                                         ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                  ],
-                                ),
-                              const VerticalSpace(0.5),
-                              if (fav.rate != null && fav.rate!.isNotEmpty)
-                                Row(
-                                  children: [
-                                    const Icon(Icons.star,
-                                        size: 16, color: Colors.amber),
-                                    const HorizantalSpace(0.5),
-                                    Text(
-                                      '${Translations.tr('rating_label', lang)}${fav.rate}',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black,
-                                      ),
+                                  ),
+                                ],
+                              ),
+                            const VerticalSpace(0.5),
+                            if (fav.rate != null && fav.rate!.isNotEmpty)
+                              Row(
+                                children: [
+                                  const Icon(Icons.star,
+                                      size: 16, color: Colors.amber),
+                                  const HorizantalSpace(0.5),
+                                  Text(
+                                    '${Translations.tr('rating_label', lang)}${fav.rate}',
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
                                     ),
-                                  ],
-                                ),
-                            ],
+                                  ),
+                                ],
+                              ),
                             const Spacer(),
                             Row(
                               children: [
                                 Expanded(
                                   child: CustomJoinButton(
-                                    text: isPlace ? Translations.tr('explore_now', lang) : Translations.tr('join_now', lang),
-                                    onTap: () async {
-                                      if (isPlace) {
-                                        final place = PlaceModel(
-                                          id: fav.id,
-                                          name: fav.title,
-                                          profileImage: fav.imageUrl,
-                                          carouselImages: (fav.carousel ?? [])
-                                              .cast<String>(),
-                                          tourismType: fav.tourismType ?? '',
-                                          category: fav.category ?? '',
-                                          cityName: fav.city,
-                                          rate:
-                                              double.tryParse(fav.rate ?? '') ??
-                                                  0.0,
-                                          totalRates: fav.totalRates ?? 0,
-                                          description: fav.description ??
-                                              Translations.tr('description_not_available', lang),
-                                          googleMapsLink:
-                                              fav.googleMapsLink ?? '',
-                                        );
-                                        context.push(AppRouter.kPlaceDetails,
-                                            extra: place);
-                                      } else {
-                                        final uri =
-                                            Uri.parse(fav.additionalInfo ?? '');
-                                        if (await canLaunchUrl(uri)) {
-                                          await launchUrl(uri);
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  Translations.tr('could_not_launch', lang)),
-                                            ),
-                                          );
-                                        }
-                                      }
+                                    text: Translations.tr('explore_now', lang),
+                                    onTap: () {
+                                      final place = PlaceModel(
+                                        id: fav.id,
+                                        name: fav.title,
+                                        profileImage: fav.imageUrl,
+                                        carouselImages: (fav.carousel ?? [])
+                                            .cast<String>(),
+                                        tourismType: fav.tourismType ?? '',
+                                        category: fav.category ?? '',
+                                        cityName: fav.city,
+                                        rate:
+                                            double.tryParse(fav.rate ?? '') ??
+                                                0.0,
+                                        totalRates: fav.totalRates ?? 0,
+                                        description: fav.description ??
+                                            Translations.tr('description_not_available', lang),
+                                        googleMapsLink:
+                                            fav.googleMapsLink ?? '',
+                                      );
+                                      context.push(AppRouter.kPlaceDetails,
+                                          extra: place);
                                     },
                                   ),
                                 ),

@@ -92,7 +92,7 @@ class PlacesDrawer extends StatelessWidget {
               items: tourismTypes
                   .map((type) => DropdownMenuItem(
                         value: type,
-                        child: Text(type,
+                        child: Text(Translations.trTourismType(type, lang),
                         style: GoogleFonts.playfairDisplay(),
                             overflow: TextOverflow.ellipsis, maxLines: 1),
                       ))

@@ -1,6 +1,7 @@
 import 'package:etrip/core/constants.dart';
 import 'package:etrip/core/localization/locale_cubit.dart';
 import 'package:etrip/core/localization/translations.dart';
+import 'package:etrip/core/mock_data.dart';
 import 'package:etrip/core/widgets/custom_buttons.dart';
 import 'package:etrip/core/widgets/reusable_screen.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
@@ -11,7 +12,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ItineraryStepOne extends StatefulWidget {
   final Function(Map<String, dynamic> args)? onStepTwo;
-  const ItineraryStepOne({super.key, this.onStepTwo});
+  final VoidCallback? onBack;
+  const ItineraryStepOne({super.key, this.onStepTwo, this.onBack});
 
   @override
   State<ItineraryStepOne> createState() => _ItineraryStepOneState();
@@ -22,6 +24,8 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
   String _budget = 'medium';
   String _popularity = 'high';
   String _withWho = 'solo';
+  String _selectedCity = 'Chengdu';
+  late List<String> _availableCities;
 
   final List<String> budgets = ["low", "medium", "high"];
   final List<String> popularities = ["low", "medium", "high"];
@@ -31,15 +35,36 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
     "entertainment and modern attractions",
     "cultural and historical attractions",
     "natural attractions",
-    "religious and spiritual attractions"
   ];
 
   final Set<String> selectedTourismTypes = {};
 
   @override
+  void initState() {
+    super.initState();
+    _availableCities =
+        mockPlaces.map((p) => p.cityName).toSet().toList()..sort();
+    if (!_availableCities.contains(_selectedCity) && _availableCities.isNotEmpty) {
+      _selectedCity = _availableCities.first;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final lang = context.watch<LocaleCubit>().state.languageCode;
-    return ReusableScreen(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) widget.onBack?.call();
+      },
+      child: GestureDetector(
+        onHorizontalDragEnd: (details) {
+          if (details.primaryVelocity != null &&
+              details.primaryVelocity! > 200) {
+            widget.onBack?.call();
+          }
+        },
+        child: ReusableScreen(
       gradientStops: const [0, 0.6],
       backgroundColor: kSecondaryColor,
       imageColor: Colors.black,
@@ -105,6 +130,14 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
               onChanged: (val) => setState(() => _withWho = val!),
               itemLabelBuilder: (val) => Translations.tr(val, lang),
             ),
+            const VerticalSpace(0.8),
+            CustomDropdown<String>(
+              label: Translations.tr('city', lang),
+              items: _availableCities,
+              value: _selectedCity,
+              onChanged: (val) => setState(() => _selectedCity = val!),
+              itemLabelBuilder: (val) => localizedCityName(val, lang),
+            ),
             const VerticalSpace(1),
             Text(
               Translations.tr('tourism_types_choose', lang),
@@ -116,7 +149,7 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
             const VerticalSpace(0.5),
             ...tourismTypes.map((type) => CheckboxListTile(
                   title: Text(
-                    Translations.tr(type, lang),
+                    Translations.trTourismType(type, lang),
                     style: GoogleFonts.lato(color: Colors.black),
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
@@ -144,7 +177,7 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
             SizedBox(
               width: double.infinity,
               child: CustomJoinButton(
-                text: Translations.tr('next', lang),
+                text: Translations.tr('generate_itinerary', lang),
                 onTap: () {
                   if (selectedTourismTypes.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -158,6 +191,7 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
                       "budget": _budget,
                       "popularity": _popularity,
                       "withWho": _withWho,
+                      "city": _selectedCity,
                       "tourismTypeWeights": selectedTourismTypes.toList(),
                     });
                   }
@@ -167,6 +201,8 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
           ],
         ),
       ),
+      ),
+    ),
     );
   }
 }

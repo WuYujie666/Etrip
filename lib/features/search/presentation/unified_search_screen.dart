@@ -13,14 +13,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UnifiedSearchScreen extends StatefulWidget {
   final Future<List<PlaceModel>> Function() fetchPlaces;
-  final Future<List<Map<String, dynamic>>> Function() fetchEvents;
-  final Future<List<Map<String, dynamic>>> Function() fetchActivities;
 
   const UnifiedSearchScreen({
     super.key,
     required this.fetchPlaces,
-    required this.fetchEvents,
-    required this.fetchActivities,
   });
 
   @override
@@ -29,18 +25,12 @@ class UnifiedSearchScreen extends StatefulWidget {
 
 class _UnifiedSearchScreenState extends State<UnifiedSearchScreen> {
   List<PlaceModel>? _places;
-  List<Map<String, dynamic>>? _events;
-  List<Map<String, dynamic>>? _activities;
 
   bool _loading = true;
   bool _error = false;
 
   String _query = '';
-  Map<String, List<SearchItem>> _results = {
-    "places": [],
-    "events": [],
-    "activities": []
-  };
+  List<SearchItem> _results = [];
 
   @override
   void initState() {
@@ -54,15 +44,9 @@ class _UnifiedSearchScreenState extends State<UnifiedSearchScreen> {
       _error = false;
     });
     try {
-      final results = await Future.wait([
-        widget.fetchPlaces(),
-        widget.fetchEvents(),
-        widget.fetchActivities(),
-      ]);
+      final places = await widget.fetchPlaces();
       setState(() {
-        _places = results[0] as List<PlaceModel>;
-        _events = results[1] as List<Map<String, dynamic>>;
-        _activities = results[2] as List<Map<String, dynamic>>;
+        _places = places;
         _loading = false;
       });
     } catch (e) {
@@ -76,12 +60,10 @@ class _UnifiedSearchScreenState extends State<UnifiedSearchScreen> {
   void _onQueryChanged(String val) {
     setState(() {
       _query = val;
-      if (_places != null && _events != null && _activities != null) {
+      if (_places != null) {
         _results = UnifiedSearchService.search(
           query: _query,
           places: _places!,
-          events: _events!,
-          activities: _activities!,
         );
       }
     });
@@ -152,11 +134,7 @@ class _UnifiedSearchScreenState extends State<UnifiedSearchScreen> {
                     );
                   }
 
-                  final nothingFound = (_results["places"]?.isEmpty ?? true) &&
-                      (_results["events"]?.isEmpty ?? true) &&
-                      (_results["activities"]?.isEmpty ?? true);
-
-                  if (nothingFound) {
+                  if (_results.isEmpty) {
                     return Center(
                       child: Text(
                         Translations.tr('no_results', lang),
@@ -169,8 +147,7 @@ class _UnifiedSearchScreenState extends State<UnifiedSearchScreen> {
                     padding: const EdgeInsets.only(
                         top: 12, left: 4, right: 4, bottom: 8),
                     children: [
-                      if (_results["places"] != null &&
-                          _results["places"]!.isNotEmpty) ...[
+                      if (_results.isNotEmpty) ...[
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 12, bottom: 4, top: 12),
@@ -184,66 +161,14 @@ class _UnifiedSearchScreenState extends State<UnifiedSearchScreen> {
                             ),
                           ),
                         ),
-                        ..._results["places"]!.map(
+                        ..._results.map(
                           (item) => SearchResultCard(
                             item: item,
                             places: _places,
-                            events: _events,
-                            activities: _activities,
                           ),
                         ),
                         const VerticalSpace(1),
                       ],
-                      if (_results["events"] != null &&
-                          _results["events"]!.isNotEmpty) ...[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12, bottom: 4, top: 12),
-                          child: Text(
-                            Translations.tr('events_section', lang),
-                            style: GoogleFonts.merriweather(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                              letterSpacing: .7,
-                            ),
-                          ),
-                        ),
-                        ..._results["events"]!.map(
-                          (item) => SearchResultCard(
-                            item: item,
-                            places: _places,
-                            events: _events,
-                            activities: _activities,
-                          ),
-                        ),
-                        const VerticalSpace(1),
-                      ],
-                      if (_results["activities"] != null &&
-                          _results["activities"]!.isNotEmpty) ...[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12, bottom: 4, top: 12),
-                          child: Text(
-                            Translations.tr('activities_section', lang),
-                            style: GoogleFonts.merriweather(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                              letterSpacing: .7,
-                            ),
-                          ),
-                        ),
-                        ..._results["activities"]!.map(
-                          (item) => SearchResultCard(
-                            item: item,
-                            places: _places,
-                            events: _events,
-                            activities: _activities,
-                          ),
-                        ),
-                      ],
-                      const VerticalSpace(1),
                     ],
                   );
                 },

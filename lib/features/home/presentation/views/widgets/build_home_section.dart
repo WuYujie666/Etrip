@@ -17,13 +17,6 @@ List<Map<String, String>> sections(String lang) => [
     'failText': Translations.tr('fail_cultural', lang),
   },
   {
-    'cacheKey': 'religious',
-    'title': "  ${Translations.tr('religious', lang)}",
-    'apiTitle': "Religious and Spiritual Attractions",
-    'emptyText': Translations.tr('no_religious', lang),
-    'failText': Translations.tr('fail_religious', lang),
-  },
-  {
     'cacheKey': 'natural',
     'title': "  ${Translations.tr('natural', lang)}",
     'apiTitle': 'Natural Attractions',
@@ -36,13 +29,6 @@ List<Map<String, String>> sections(String lang) => [
     'apiTitle': 'Entertainment and Modern Attractions',
     'emptyText': Translations.tr('no_entertainment', lang),
     'failText': Translations.tr('fail_entertainment', lang),
-  },
-  {
-    'cacheKey': 'medical',
-    'title': "  ${Translations.tr('medical', lang)}",
-    'apiTitle': 'Medical Attractions',
-    'emptyText': Translations.tr('no_medical', lang),
-    'failText': Translations.tr('fail_medical', lang),
   },
 ];
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:etrip/features/Itinerary/data/itinerary_api_service.dart';
 import 'package:etrip/features/auth/data/services/local_storage_service.dart';
-import 'package:etrip/features/Itinerary/data/models/itinerary_response.dart';
 import 'package:etrip/features/Itinerary/presentation/views/itinerary_step_one.dart';
-import 'package:etrip/features/Itinerary/presentation/views/itinerary_step_two.dart';
 import 'package:etrip/features/Itinerary/presentation/views/itinerary_result_view.dart';
+import 'package:etrip/features/Itinerary/presentation/views/itinerary_home.dart';
+
+enum _ItineraryMode { home, planning, result }
 
 class ItineraryGate extends StatefulWidget {
   const ItineraryGate({super.key});
@@ -14,113 +14,65 @@ class ItineraryGate extends StatefulWidget {
 }
 
 class _ItineraryGateState extends State<ItineraryGate> {
-  Future<ItineraryResponse?>? futureLatestItinerary;
-
-  // 0=step one, 1=step two, 2=result
-  int itineraryStep = 0;
-  Map<String, dynamic>? collectedArgs;
+  _ItineraryMode _mode = _ItineraryMode.home;
+  Map<String, dynamic>? _args;
+  String _userId = '';
 
   @override
   void initState() {
     super.initState();
-    _loadItinerary();
+    _userId = LocalStorageService().currentUid ?? '';
   }
 
-  void _loadItinerary() {
-    final uid = LocalStorageService().currentUid;
-    if (uid != null) {
-      setState(() {
-        futureLatestItinerary = ItineraryService().getLatestItinerary(uid);
-        itineraryStep = 2;
-      });
-    } else {
-      setState(() {
-        futureLatestItinerary = Future.value(null);
-        itineraryStep = 0;
-      });
-    }
-  }
-
-  void _startNewItinerary() {
+  void _startNew() {
     setState(() {
-      itineraryStep = 0;
-      collectedArgs = null;
+      _args = null;
+      _mode = _ItineraryMode.planning;
+    });
+  }
+
+  void _onStepOneDone(Map<String, dynamic> stepOneArgs) {
+    setState(() {
+      _args = {
+        ...stepOneArgs,
+        'categoryWeights': <String>[],
+      };
+      _mode = _ItineraryMode.result;
+    });
+  }
+
+  void _onViewSaved(Map<String, dynamic> savedArgs) {
+    setState(() {
+      _args = savedArgs;
+      _mode = _ItineraryMode.result;
+    });
+  }
+
+  void _backToHome() {
+    setState(() {
+      _args = null;
+      _mode = _ItineraryMode.home;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (itineraryStep == 2) {
-      // If we have collected args from step two, show result directly
-      if (collectedArgs != null) {
-        return ItineraryResultView(
-          args: collectedArgs!,
-          onStartNew: _startNewItinerary,
-        );
-      }
+    if (_mode == _ItineraryMode.planning) {
+      return ItineraryStepOne(onStepTwo: _onStepOneDone, onBack: _backToHome);
+    }
 
-      // Otherwise try loading existing itinerary
-      return FutureBuilder<ItineraryResponse?>(
-        future: futureLatestItinerary,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError || snapshot.data == null) {
-            return ItineraryStepOne(
-              onStepTwo: (args) {
-                setState(() {
-                  collectedArgs = args;
-                  itineraryStep = 1;
-                });
-              },
-            );
-          }
-          final itinerary = snapshot.data!;
-          final args = {
-            'noOfDays': itinerary.noOfDays,
-            'categoryWeights': itinerary.plan.values
-                .expand((places) => places.map((e) => e.category))
-                .toSet()
-                .toList(),
-            'tourismTypeWeights': itinerary.plan.values
-                .expand((places) => places.map((e) => e.tourismType))
-                .toSet()
-                .toList(),
-            'budget': itinerary.description,
-            'popularity': '',
-            'withWho': '',
-          };
-          return ItineraryResultView(
-            args: args,
-            onStartNew: _startNewItinerary,
-          );
-        },
-      );
-    } else if (itineraryStep == 1) {
-      return ItineraryStepTwo(
-        noOfDays: collectedArgs!["noOfDays"],
-        budget: collectedArgs!["budget"],
-        popularity: collectedArgs!["popularity"],
-        withWho: collectedArgs!["withWho"],
-        tourismTypeWeights:
-            List<String>.from(collectedArgs!["tourismTypeWeights"]),
-        onItineraryCreated: (stepTwoArgs) {
-          setState(() {
-            collectedArgs = Map<String, dynamic>.from(stepTwoArgs);
-            itineraryStep = 2;
-          });
-        },
-      );
-    } else {
-      return ItineraryStepOne(
-        onStepTwo: (stepOneArgs) {
-          setState(() {
-            collectedArgs = stepOneArgs;
-            itineraryStep = 1;
-          });
-        },
+    if (_mode == _ItineraryMode.result && _args != null) {
+      return ItineraryResultView(
+        args: _args!,
+        onStartNew: _backToHome,
       );
     }
+
+    // home mode
+    return ItineraryHome(
+      userId: _userId,
+      onNewItinerary: _startNew,
+      onViewItinerary: _onViewSaved,
+    );
   }
 }

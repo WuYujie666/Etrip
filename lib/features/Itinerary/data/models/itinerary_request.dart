@@ -5,6 +5,7 @@ class ItineraryRequest {
   final String budget;
   final String popularity;
   final String withWho;
+  final String city;
 
   ItineraryRequest({
     required this.noOfDays,
@@ -13,6 +14,7 @@ class ItineraryRequest {
     required this.budget,
     required this.popularity,
     required this.withWho,
+    this.city = '',
   });
 
   Map<String, dynamic> toJson() => {
@@ -22,5 +24,6 @@ class ItineraryRequest {
         'budget': budget,
         'popularity': popularity,
         'with_who': withWho,
+        'city': city,
       };
 }

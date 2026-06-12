@@ -87,12 +87,8 @@ class Translations {
       'top_places': 'Top Places',
       'all_places': 'All Places',
       'places': 'Places',
-      'events': 'Events',
-      'activities': 'Activities',
       'weather': 'Weather',
       'chatbot': 'ChatBot',
-      'login_required_activities':
-          'You cannot use the Activities feature without logging in!',
       'login_required_weather':
           'You cannot use the Weather feature without logging in!',
       'login_required_chatbot':
@@ -140,32 +136,6 @@ class Translations {
       'open_in_maps': 'Open in Google Maps',
       'add_to_wishlist': 'Add to Wishlist',
       'remove_from_wishlist': 'Remove from Wishlist',
-
-      // Events
-      'events_title': 'Events',
-      'event_details': 'Event Details',
-      'about_event': 'About event',
-      'organizer': 'Organizer:',
-      'n_a': 'N/A',
-      'contact_info': 'Contact Info',
-      'join_event': 'Join event',
-      'type_label': 'Type: ',
-      'price_label': 'Price: ',
-      'free': 'Free',
-      'date': 'Date',
-      'time': 'Time',
-      'price': 'Price',
-      'book_now': 'Book Now',
-
-      // Activities
-      'activities_title': 'Activities',
-      'join_now': 'Join Now',
-      'explore_now': 'Explore Now',
-      'filter_by_price': 'Filter by Price',
-      'activity_details': 'Activity Details',
-      'duration': 'Duration',
-      'difficulty': 'Difficulty',
-      'what_to_bring': 'What to Bring',
 
       // Profile
       'edit_profile': 'Edit Profile',
@@ -238,13 +208,11 @@ class Translations {
       'removed_from_favorites': 'has been removed from favorites',
       'added_to_favorites': 'has been added to favorites',
 
-      // Wishlist tabs
-      'places_tab': 'Places',
-      'activities_tab': 'Activities',
-      'events_tab': 'Events',
-
       // Itinerary
       'itinerary': 'Itinerary',
+      'generate_itinerary': 'Generate Itinerary',
+      'no_itineraries': 'No itineraries yet',
+      'tap_to_start': 'Tap + to start planning',
       'plan_your_trip': 'Plan your trip',
       'days': 'Days',
       'budget': 'Budget',
@@ -301,16 +269,14 @@ class Translations {
           'You must be logged in first to use this feature',
 
       // Search
-      'search_hint': 'Search Places, Events, Activities...',
-      'search_placeholder': 'Search Places, Activities...',
+      'search_hint': 'Search Places...',
+      'search_placeholder': 'Search Places...',
       'start_typing': 'Start typing to search...',
       'no_results': 'No Results Found',
       'retry': 'Retry',
       'error_loading_data': 'Error loading data',
       'error_loading_filters': 'Error loading filters: ',
       'places_section': 'Places',
-      'events_section': 'Events',
-      'activities_section': 'Activities',
 
       // Weather
       'location_permission_required': 'Location Permission Required',
@@ -356,11 +322,36 @@ class Translations {
       'chat_response_6':
           'Zhangjiajie and Guilin are perfect for nature lovers and photography!',
 
+      // Tourism type names (full)
+      'tourism_type_cultural': 'Cultural and Historical Attractions',
+      'tourism_type_natural': 'Natural Attractions',
+      'tourism_type_entertainment': 'Entertainment and Modern Attractions',
+      'tourism_type_religious': 'Cultural and Historical Attractions',
+      'tourism_type_medical': 'Medical Attractions',
+
+      // Place category names (itinerary step 2)
+      'cat_library': 'Library',
+      'cat_museum': 'Museum',
+      'cat_theater': 'Theater',
+      'cat_garden': 'Garden',
+      'cat_fortress': 'Fortress',
+      'cat_mosque': 'Mosque',
+      'cat_tower': 'Tower',
+      'cat_palace': 'Palace',
+      'cat_tomb': 'Tomb',
+      'cat_shopping': 'Shopping',
+      'cat_zoo': 'Zoo',
+      'cat_synagogue': 'Synagogue',
+      'cat_historical_site': 'Historical Site',
+      'cat_temple': 'Temple',
+      'cat_aquarium': 'Aquarium',
+      'cat_church': 'Church',
+
       // Errors
       'error_load_places': 'Failed to load places',
-      'error_load_events': 'Failed to load events',
       'error_load_profile': 'Failed to load profile',
       'error_update_profile': 'Error updating profile',
+      'n_a': 'N/A',
       'no_internet': 'No internet connection',
     },
     'zh': {
@@ -446,11 +437,8 @@ class Translations {
       'top_places': '热门景点',
       'all_places': '全部景点',
       'places': '景点',
-      'events': '活动',
-      'activities': '户外',
       'weather': '天气',
       'chatbot': '智能助手',
-      'login_required_activities': '您需要登录才能使用户外活动功能！',
       'login_required_weather': '您需要登录才能查看天气！',
       'login_required_chatbot': '您需要登录才能使用智能助手！',
       'no_recommended': '暂无推荐景点',
@@ -496,32 +484,6 @@ class Translations {
       'open_in_maps': '在谷歌地图中打开',
       'add_to_wishlist': '加入收藏',
       'remove_from_wishlist': '移除收藏',
-
-      // Events
-      'events_title': '活动',
-      'event_details': '活动详情',
-      'about_event': '关于活动',
-      'organizer': '主办方：',
-      'n_a': '暂无',
-      'contact_info': '联系方式',
-      'join_event': '参加活动',
-      'type_label': '类型：',
-      'price_label': '价格：',
-      'free': '免费',
-      'date': '日期',
-      'time': '时间',
-      'price': '价格',
-      'book_now': '立即预订',
-
-      // Activities
-      'activities_title': '户外活动',
-      'join_now': '立即参加',
-      'explore_now': '立即查看',
-      'filter_by_price': '按价格筛选',
-      'activity_details': '活动详情',
-      'duration': '时长',
-      'difficulty': '难度',
-      'what_to_bring': '携带物品',
 
       // Profile
       'edit_profile': '编辑资料',
@@ -593,13 +555,11 @@ class Translations {
       'removed_from_favorites': '已从收藏中移除',
       'added_to_favorites': '已添加到收藏',
 
-      // Wishlist tabs
-      'places_tab': '景点',
-      'activities_tab': '户外',
-      'events_tab': '活动',
-
       // Itinerary
       'itinerary': '行程规划',
+      'generate_itinerary': '生成规划',
+      'no_itineraries': '暂无行程',
+      'tap_to_start': '点击 + 开始规划旅程',
       'plan_your_trip': '规划您的旅程',
       'days': '天数',
       'budget': '预算',
@@ -652,16 +612,14 @@ class Translations {
       'login_required_feature': '请先登录后再使用此功能',
 
       // Search
-      'search_hint': '搜索景点、活动、户外...',
-      'search_placeholder': '搜索景点、户外...',
+      'search_hint': '搜索景点...',
+      'search_placeholder': '搜索景点...',
       'start_typing': '开始输入搜索...',
       'no_results': '未找到结果',
       'retry': '重试',
       'error_loading_data': '加载数据失败',
       'error_loading_filters': '加载筛选条件失败：',
       'places_section': '景点',
-      'events_section': '活动',
-      'activities_section': '户外',
 
       // Weather
       'location_permission_required': '需要位置权限',
@@ -699,16 +657,87 @@ class Translations {
       'chat_response_5': '您可以乘坐长江游轮，在壮丽的风景中享受美妙的体验。',
       'chat_response_6': '张家界和桂林是自然爱好者和摄影爱好者的绝佳去处！',
 
+      // Tourism type names (full)
+      'tourism_type_cultural': '文化与历史景点',
+      'tourism_type_natural': '自然景观',
+      'tourism_type_entertainment': '娱乐与现代景点',
+      'tourism_type_religious': '文化与历史景点',
+      'tourism_type_medical': '医疗旅游',
+
+      // Place category names (itinerary step 2)
+      'cat_library': '图书馆',
+      'cat_museum': '博物馆',
+      'cat_theater': '剧院',
+      'cat_garden': '花园',
+      'cat_fortress': '堡垒',
+      'cat_mosque': '清真寺',
+      'cat_tower': '塔楼',
+      'cat_palace': '宫殿',
+      'cat_tomb': '陵墓',
+      'cat_shopping': '购物',
+      'cat_zoo': '动物园',
+      'cat_synagogue': '犹太教堂',
+      'cat_historical_site': '历史遗址',
+      'cat_temple': '寺庙',
+      'cat_aquarium': '水族馆',
+      'cat_church': '教堂',
+
       // Errors
       'error_load_places': '加载景点失败',
-      'error_load_events': '加载活动失败',
       'error_load_profile': '加载个人资料失败',
       'error_update_profile': '更新个人资料失败',
+      'n_a': '暂无',
       'no_internet': '没有网络连接',
     },
   };
 
   static String tr(String key, String languageCode) {
     return _data[languageCode]?[key] ?? _data['en']?[key] ?? key;
+  }
+
+  /// Translate a tourism type English string (e.g. "Cultural and Historical Attractions")
+  /// by mapping it to the appropriate translation key first.
+  static String trTourismType(String englishType, String lang) {
+    const map = {
+      'Cultural and Historical Attractions': 'tourism_type_cultural',
+      'Natural Attractions': 'tourism_type_natural',
+      'Entertainment and Modern Attractions': 'tourism_type_entertainment',
+      'Religious and Spiritual Attractions': 'tourism_type_religious',
+      'Medical Attractions': 'tourism_type_medical',
+      // Lowercase versions (used in itinerary_step_one)
+      'cultural and historical attractions': 'tourism_type_cultural',
+      'natural attractions': 'tourism_type_natural',
+      'entertainment and modern attractions': 'tourism_type_entertainment',
+      'religious and spiritual attractions': 'tourism_type_religious',
+    };
+    final key = map[englishType] ?? '';
+    if (key.isEmpty) return englishType;
+    return tr(key, lang);
+  }
+
+  /// Translate a place category name (e.g. "museum", "library") by mapping
+  /// it to the appropriate translation key.
+  static String trCategory(String englishCat, String lang) {
+    const map = {
+      'library': 'cat_library',
+      'museum': 'cat_museum',
+      'theater': 'cat_theater',
+      'garden': 'cat_garden',
+      'fortress': 'cat_fortress',
+      'mosque': 'cat_mosque',
+      'tower': 'cat_tower',
+      'palace': 'cat_palace',
+      'tomb': 'cat_tomb',
+      'shopping': 'cat_shopping',
+      'zoo': 'cat_zoo',
+      'synagogue': 'cat_synagogue',
+      'historical site': 'cat_historical_site',
+      'temple': 'cat_temple',
+      'aquarium': 'cat_aquarium',
+      'church': 'cat_church',
+    };
+    final key = map[englishCat.toLowerCase()] ?? '';
+    if (key.isEmpty) return englishCat;
+    return tr(key, lang);
   }
 }

@@ -80,12 +80,6 @@ class ProfileContent extends StatelessWidget {
               GoRouter.of(context).push(AppRouter.kAboutMe, extra: user);
             }),
         CustomCard(
-            icon: const Icon(Icons.directions_bike_outlined),
-            text: Translations.tr('edit_preference', lang),
-            onTap: () {
-              GoRouter.of(context).push(AppRouter.kPreferenceOne);
-            }),
-        CustomCard(
           icon: const Icon(Icons.language),
           text: Translations.tr('language', lang),
           onTap: () {

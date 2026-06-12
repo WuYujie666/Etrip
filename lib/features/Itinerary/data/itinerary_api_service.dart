@@ -8,9 +8,14 @@ class ItineraryService {
     required ItineraryRequest request,
   }) async {
     await Future.delayed(const Duration(seconds: 1));
+    final tourismTypes = request.tourismTypeWeights.keys.toList();
     return ItineraryResponse(
       noOfDays: request.noOfDays,
-      plan: getMockItineraryPlan(request.noOfDays),
+      plan: getMockItineraryPlan(
+        request.noOfDays,
+        city: request.city.isNotEmpty ? request.city : null,
+        tourismTypes: tourismTypes.isNotEmpty ? tourismTypes : null,
+      ),
       description: 'A wonderful trip through China exploring cultural and natural highlights.',
     );
   }

@@ -1,6 +1,5 @@
 import 'package:etrip/features/Itinerary/presentation/views/itinerary_result_view.dart';
 import 'package:etrip/features/Itinerary/presentation/views/itinerary_step_one.dart';
-import 'package:etrip/features/Itinerary/presentation/views/itinerary_step_two.dart';
 import 'package:etrip/features/Profile/presentation/views/widgets/about_me.dart';
 import 'package:etrip/features/Profile/presentation/views/widgets/edit_profile.dart';
 import 'package:etrip/features/Profile/presentation/views/widgets/preference_one.dart';
@@ -11,11 +10,9 @@ import 'package:etrip/features/home/presentation/views/home_view.dart';
 import 'package:etrip/features/map/map_screen.dart';
 import 'package:etrip/features/places/data/models/place_model.dart';
 import 'package:etrip/features/weather/presentation/weather_screen.dart';
-import 'package:etrip/features/activities/activities.dart';
+import 'package:etrip/features/wishlist/presentation/views/wish_list_view.dart';
 import 'package:etrip/features/Profile/presentation/views/widgets/create_new_password.dart';
 import 'package:etrip/features/chat_bot/chat_details.dart';
-import 'package:etrip/features/events/event_details.dart';
-import 'package:etrip/features/events/events.dart';
 import 'package:etrip/features/auth/presentation/views/widgets/forget_password.dart';
 import 'package:etrip/features/auth/presentation/views/registration_view.dart';
 import 'package:etrip/features/auth/presentation/views/sign_in_view.dart';
@@ -38,10 +35,7 @@ abstract class AppRouter {
   static const kScreens = '/screens';
   static const kHomePage = '/home';
   static const kPlaces = '/places';
-  static const kEvents = '/events';
-  static const kActivities = '/activities';
   static const kChatbot = '/chatbot';
-  static const kEventDetails = '/eventDetails';
   static const kPlaceDetails = '/placeDetails';
   static const kWeather = '/weather';
   static const kWishList = '/wishList';
@@ -51,7 +45,6 @@ abstract class AppRouter {
   static const kPreferenceTwo = '/preferenceTwo';
   static const kPreferenceThree = '/preferenceThree';
   static const kItineraryStepone = '/itineraryStepone';
-  static const kItineraryStepTwo = '/itineraryStepTwo';
   static const kItineraryResult = '/itineraryResult';
   static const kMap = '/map';
 
@@ -84,16 +77,8 @@ abstract class AppRouter {
     GoRoute(path: kScreens, builder: (context, state) => const Screens()),
     GoRoute(path: kHomePage, builder: (context, state) => const HomeView()),
     GoRoute(path: kPlaces, builder: (context, state) => const PlacesScreen()),
-    GoRoute(path: kEvents, builder: (context, state) => const Events()),
-    GoRoute(path: kActivities, builder: (context, state) => const Activities()),
     GoRoute(path: kChatbot, builder: (context, state) => const ChatDetails()),
-    GoRoute(
-      path: kEventDetails,
-      builder: (context, state) {
-        final event = state.extra as Map<String, dynamic>? ?? {};
-        return EventDetails(event: event);
-      },
-    ),
+    GoRoute(path: kWishList, builder: (context, state) => const WishListView()),
     GoRoute(
       path: kPlaceDetails,
       builder: (context, state) {
@@ -133,19 +118,6 @@ abstract class AppRouter {
       GoRoute(
       path: kItineraryStepone,
       builder: (context, state) => const ItineraryStepOne(),
-    ),
-    GoRoute(
-      path: kItineraryStepTwo,
-      builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>;
-        return ItineraryStepTwo(
-          noOfDays: args["noOfDays"],
-          budget: args["budget"],
-          popularity: args["popularity"],
-          withWho: args["withWho"],
-          tourismTypeWeights: List<String>.from(args["tourismTypeWeights"]),
-        );
-      },
     ),
     GoRoute(
   path: kItineraryResult,
