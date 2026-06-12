@@ -13,7 +13,6 @@ import 'package:etrip/features/places/data/places_api_service.dart';
 import 'package:etrip/features/home/presentation/views/widgets/feature_slider.dart';
 import 'package:etrip/features/Profile/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -189,7 +188,7 @@ class _HomeBodyState extends State<HomeBody> {
               },
             ),
             BuildCategoryIcon(
-              icon: FontAwesomeIcons.redditAlien,
+              icon: Icons.smart_toy_outlined,
               label: Translations.tr('chatbot', lang),
               onTap: () {
                 final userState = context.read<UserBloc>().state;
