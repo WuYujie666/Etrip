@@ -55,17 +55,14 @@ class SignInController {
           ),
         );
       },
-      (userCredential) async {
-        final user = userCredential.user;
-        if (user != null) {
-          context.read<UserBloc>().add(LoadUser(user.uid));
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content:
-                    Text(Translations.tr('sign_in_successful', context.read<LocaleCubit>().state.languageCode), style: GoogleFonts.lato())),
-          );
-          GoRouter.of(context).pushReplacement(AppRouter.kScreens);
-        }
+      (user) async {
+        context.read<UserBloc>().add(LoadUser(user.id));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text(Translations.tr('sign_in_successful', context.read<LocaleCubit>().state.languageCode), style: GoogleFonts.lato())),
+        );
+        GoRouter.of(context).pushReplacement(AppRouter.kScreens);
       },
     );
   }
@@ -86,17 +83,14 @@ class SignInController {
           backgroundColor: Colors.red[800],
         ),
       );
-    }, (userCredential) async {
-      final user = userCredential.user;
-      if (user != null) {
-        context.read<UserBloc>().add(LoadUser(user.uid));
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(Translations.tr('google_sign_in_successful', context.read<LocaleCubit>().state.languageCode),
-                  style: GoogleFonts.lato())),
-        );
-        GoRouter.of(context).pushReplacement(AppRouter.kScreens);
-      }
+    }, (user) async {
+      context.read<UserBloc>().add(LoadUser(user.id));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(Translations.tr('google_sign_in_successful', context.read<LocaleCubit>().state.languageCode),
+                style: GoogleFonts.lato())),
+      );
+      GoRouter.of(context).pushReplacement(AppRouter.kScreens);
     });
   }
 

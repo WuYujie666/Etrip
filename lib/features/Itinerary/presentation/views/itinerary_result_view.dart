@@ -7,8 +7,8 @@ import 'package:etrip/features/Itinerary/data/itinerary_api_service.dart';
 import 'package:etrip/features/Itinerary/data/models/itinerary_request.dart';
 import 'package:etrip/features/Itinerary/data/models/itinerary_response.dart';
 import 'package:etrip/features/places/presentation/widgets/place_card.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:etrip/features/auth/data/services/local_storage_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,10 +38,10 @@ class _ItineraryResultViewState extends State<ItineraryResultView> {
       popularity: widget.args['popularity'],
       withWho: widget.args['withWho'],
     );
-    final user = FirebaseAuth.instance.currentUser;
+    final uid = LocalStorageService().currentUid ?? '';
 
     futureItinerary = ItineraryService().getItinerary(
-      userId: user!.uid,
+      userId: uid,
       request: req,
     );
   }

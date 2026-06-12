@@ -58,17 +58,18 @@ class SignUpController {
 
     setLoading(true);
 
-    final user = EgyptopiaUser(
-      id: '',
-      name: name,
-      email: email,
-      country: userCountry,
-      dateOfBirth: dob,
-      gender: userGender,
-      profileImg: null,
+    final result = await _authRepo.signUpWithEmail(
+      EgyptopiaUser(
+        id: '',
+        name: name,
+        email: email,
+        country: userCountry,
+        dateOfBirth: dob,
+        gender: userGender,
+        profileImg: null,
+      ),
+      password,
     );
-
-    final result = await _authRepo.signUpWithEmail(user, password);
 
     setLoading(false);
 
@@ -82,11 +83,8 @@ class SignUpController {
           ),
         );
       },
-      (userCredential) {
-        final user = userCredential?.user;
-        if (user != null) {
-          context.read<UserBloc>().add(LoadUser(user.uid));
-        }
+      (user) async {
+        context.read<UserBloc>().add(LoadUser(user.id));
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text(
@@ -115,17 +113,14 @@ class SignUpController {
           backgroundColor: Colors.red[800],
         ),
       );
-    }, (userCredential) async {
-      final user = userCredential.user;
-      if (user != null) {
-        context.read<UserBloc>().add(LoadUser(user.uid));
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(Translations.tr('google_sign_in_successful', context.read<LocaleCubit>().state.languageCode),
-                  style: GoogleFonts.lato())),
-        );
-        GoRouter.of(context).pushReplacement(AppRouter.kScreens);
-      }
+    }, (user) async {
+      context.read<UserBloc>().add(LoadUser(user.id));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(Translations.tr('google_sign_in_successful', context.read<LocaleCubit>().state.languageCode),
+                style: GoogleFonts.lato())),
+      );
+      GoRouter.of(context).pushReplacement(AppRouter.kScreens);
     });
   }
 }

@@ -205,6 +205,11 @@ class _HomeBodyState extends State<HomeBody> {
                 }
               },
             ),
+            BuildCategoryIcon(
+              icon: Icons.map,
+              label: lang == 'zh' ? '地图' : 'Map',
+              onTap: () => context.push(AppRouter.kMap),
+            ),
           ],
         ),
         const VerticalSpace(1),

@@ -12,6 +12,8 @@ class PlaceModel {
   final int totalRates;
   final String description;
   final String googleMapsLink;
+  final double lat;
+  final double lng;
 
   PlaceModel({
     required this.id,
@@ -25,6 +27,8 @@ class PlaceModel {
     required this.totalRates,
     required this.description,
     required this.googleMapsLink,
+    this.lat = 0.0,
+    this.lng = 0.0,
   });
 
   factory PlaceModel.fromJson(Map<String, dynamic> json) {
@@ -64,6 +68,8 @@ class PlaceModel {
       totalRates: int.tryParse(json['total_rates']?.toString() ?? json['total_reviews']?.toString() ?? '0') ?? 0,
       description: json['description'] ?? '',
       googleMapsLink: json['google_maps_link'] ?? '',
+      lat: double.tryParse(json['lat']?.toString() ?? '') ?? 0.0,
+      lng: double.tryParse(json['lng']?.toString() ?? '') ?? 0.0,
     );
   }
 
@@ -80,6 +86,8 @@ class PlaceModel {
       'total_rates': totalRates,
       'description': description,
       'google_maps_link': googleMapsLink,
+      'lat': lat,
+      'lng': lng,
     };
   }
 }

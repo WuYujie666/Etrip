@@ -8,6 +8,7 @@ import 'package:etrip/features/Profile/presentation/views/widgets/preference_thr
 import 'package:etrip/features/Profile/presentation/views/widgets/preference_two.dart';
 import 'package:etrip/features/auth/data/models/egyptopia_user.dart';
 import 'package:etrip/features/home/presentation/views/home_view.dart';
+import 'package:etrip/features/map/map_screen.dart';
 import 'package:etrip/features/places/data/models/place_model.dart';
 import 'package:etrip/features/weather/presentation/weather_screen.dart';
 import 'package:etrip/features/wishlist/presentation/views/wish_list_view.dart';
@@ -55,6 +56,7 @@ abstract class AppRouter {
   static const kItineraryStepone = '/itineraryStepone';
   static const kItineraryStepTwo = '/itineraryStepTwo';
   static const kItineraryResult = '/itineraryResult';
+  static const kMap = '/map';
 
   static final router = GoRouter(routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashView()),
@@ -156,5 +158,6 @@ abstract class AppRouter {
     return ItineraryResultView(args: args);
   },
 ),
+    GoRoute(path: kMap, builder: (context, state) => const MapScreen()),
   ]);
 }

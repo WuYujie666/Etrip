@@ -11,12 +11,11 @@ import 'package:etrip/features/Profile/bloc/user_bloc.dart';
 import 'package:etrip/features/Profile/bloc/user_event.dart';
 import 'package:etrip/features/Profile/presentation/views/widgets/profile_image.dart';
 import 'package:etrip/features/auth/data/models/egyptopia_user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:etrip/features/auth/data/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfileContent extends StatelessWidget {
   const ProfileContent({super.key, required this.user});
@@ -106,8 +105,7 @@ class ProfileContent extends StatelessWidget {
           icon: const Icon(Icons.logout),
           text: Translations.tr('log_out', lang),
           onTap: () async {
-            await FirebaseAuth.instance.signOut();
-            await GoogleSignIn().signOut();
+            await LocalStorageService().logout();
             context.read<UserBloc>().add(LogoutUser());
             GoRouter.of(context).pushReplacement(AppRouter.kSignIn);
           },

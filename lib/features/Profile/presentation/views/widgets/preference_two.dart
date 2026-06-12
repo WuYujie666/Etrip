@@ -10,7 +10,7 @@ import 'package:etrip/core/widgets/custom_buttons.dart';
 import 'package:etrip/core/widgets/reusable_screen.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/features/auth/data/egyptopia_api_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:etrip/features/auth/data/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +41,7 @@ class _PreferenceTwoState extends State<PreferenceTwo> {
   }
 
   Future<void> _loadPreferences() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+    final userId = LocalStorageService().currentUid ?? '';
     if (userId.isEmpty) return;
 
     setState(() {

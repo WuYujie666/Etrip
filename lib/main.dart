@@ -1,11 +1,8 @@
 import 'package:etrip/core/localization/locale_cubit.dart';
-import 'package:etrip/core/localization/translations.dart';
 import 'package:etrip/core/utils/app_router.dart';
 import 'package:etrip/features/Profile/bloc/user_bloc.dart';
 import 'package:etrip/features/Profile/bloc/user_event.dart';
-import 'package:etrip/firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:etrip/features/auth/data/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,9 +13,9 @@ import 'features/wishlist/data/service/favorite_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await Hive.initFlutter();
+  await LocalStorageService.init();
   await FavoriteService.initHive();
   await LocaleCubit.ensureBoxOpen();
   runApp(const MyApp());
@@ -37,8 +34,7 @@ class MyApp extends StatelessWidget {
           providers: [
             BlocProvider(
               create: (ctx) {
-                final user = FirebaseAuth.instance.currentUser;
-                final uid = user != null ? user.uid : '';
+                final uid = LocalStorageService().currentUid ?? '';
                 return UserBloc()..add(LoadUser(uid));
               },
             ),

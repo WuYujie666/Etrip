@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBu_Dnl55OqEK2x8OJFaEYjqOM-ZD4BQf4',
-    appId: '1:393485979516:android:be0969d8ff14b51e495ef9',
-    messagingSenderId: '393485979516',
-    projectId: 'egyptopia-22975',
-    storageBucket: 'egyptopia-22975.firebasestorage.app',
+    apiKey: 'AIzaSyBKnXVtwftW5ZisZZVhOQgPLLizIye2_XA',
+    appId: '1:129845520661:android:2dbd3fd303566cb06e211c',
+    messagingSenderId: '129845520661',
+    projectId: 'etrip-98e1c',
+    storageBucket: 'etrip-98e1c.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCnHRqI6lWw4wv-ZpLtZhZUvNxjI0WjQ2M',
-    appId: '1:393485979516:ios:3cf4190d2fa06ab3495ef9',
-    messagingSenderId: '393485979516',
-    projectId: 'egyptopia-22975',
-    storageBucket: 'egyptopia-22975.firebasestorage.app',
-    iosBundleId: 'com.example.egyptopia',
+    apiKey: 'AIzaSyBKnXVtwftW5ZisZZVhOQgPLLizIye2_XA',
+    appId: '1:129845520661:android:2dbd3fd303566cb06e211c',
+    messagingSenderId: '129845520661',
+    projectId: 'etrip-98e1c',
+    storageBucket: 'etrip-98e1c.firebasestorage.app',
+    iosBundleId: 'com.example.etrip',
   );
 }
