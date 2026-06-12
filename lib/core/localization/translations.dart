@@ -335,6 +335,12 @@ class Translations {
       'type_message': 'Type your message...',
       'ask_me': 'Ask me something...',
       'bot_thinking': '...',
+      'chat_error':
+          'The network seems unstable right now, but here is a quick tip:',
+      'chat_suggest_1': 'What are the must-see places in Beijing?',
+      'chat_suggest_2': "How's the weather in Chengdu right now?",
+      'chat_suggest_3': 'Recommend a trip based on my favorites',
+      'chat_suggest_4': 'What food must I try in China?',
 
       // Chatbot mock responses
       'chat_response_1':
@@ -679,6 +685,11 @@ class Translations {
       'type_message': '输入您的消息...',
       'ask_me': '问我点什么...',
       'bot_thinking': '...',
+      'chat_error': '当前网络似乎不太稳定，先给您一个小提示：',
+      'chat_suggest_1': '北京有什么必去景点？',
+      'chat_suggest_2': '现在成都天气怎么样？',
+      'chat_suggest_3': '根据我的收藏推荐行程',
+      'chat_suggest_4': '中国有什么必吃美食？',
 
       // Chatbot mock responses
       'chat_response_1': '您可以参观北京的长城、故宫和颐和园。',
