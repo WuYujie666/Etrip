@@ -326,7 +326,6 @@ class Translations {
       'tourism_type_cultural': 'Cultural and Historical Attractions',
       'tourism_type_natural': 'Natural Attractions',
       'tourism_type_entertainment': 'Entertainment and Modern Attractions',
-      'tourism_type_religious': 'Cultural and Historical Attractions',
       'tourism_type_medical': 'Medical Attractions',
 
       // Place category names (itinerary step 2)
@@ -661,7 +660,6 @@ class Translations {
       'tourism_type_cultural': '文化与历史景点',
       'tourism_type_natural': '自然景观',
       'tourism_type_entertainment': '娱乐与现代景点',
-      'tourism_type_religious': '文化与历史景点',
       'tourism_type_medical': '医疗旅游',
 
       // Place category names (itinerary step 2)
@@ -702,13 +700,14 @@ class Translations {
       'Cultural and Historical Attractions': 'tourism_type_cultural',
       'Natural Attractions': 'tourism_type_natural',
       'Entertainment and Modern Attractions': 'tourism_type_entertainment',
-      'Religious and Spiritual Attractions': 'tourism_type_religious',
+      // Religious attractions are merged into the cultural category for display
+      'Religious and Spiritual Attractions': 'tourism_type_cultural',
       'Medical Attractions': 'tourism_type_medical',
       // Lowercase versions (used in itinerary_step_one)
       'cultural and historical attractions': 'tourism_type_cultural',
       'natural attractions': 'tourism_type_natural',
       'entertainment and modern attractions': 'tourism_type_entertainment',
-      'religious and spiritual attractions': 'tourism_type_religious',
+      'religious and spiritual attractions': 'tourism_type_cultural',
     };
     final key = map[englishType] ?? '';
     if (key.isEmpty) return englishType;
