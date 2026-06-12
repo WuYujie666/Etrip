@@ -268,6 +268,38 @@ class Translations {
       'trip_description': 'Trip Description',
       'error_loading': 'Error loading data',
 
+      // Tourism types (keys match API values)
+      'entertainment and modern attractions':
+          'Entertainment and modern attractions',
+      'cultural and historical attractions':
+          'Cultural and historical attractions',
+      'natural attractions': 'Natural attractions',
+      'religious and spiritual attractions':
+          'Religious and spiritual attractions',
+
+      // Itinerary categories (keys match API values)
+      'library': 'Library',
+      'museum': 'Museum',
+      'theater': 'Theater',
+      'garden': 'Garden',
+      'fortress': 'Fortress',
+      'mosque': 'Mosque',
+      'tower': 'Tower',
+      'palace': 'Palace',
+      'tomb': 'Tomb',
+      'shopping': 'Shopping',
+      'zoo': 'Zoo',
+      'synagogue': 'Synagogue',
+      'historical site': 'Historical site',
+      'temple': 'Temple',
+      'aquarium': 'Aquarium',
+      'church': 'Church',
+
+      // Bottom navigation
+      'discover': 'Discover',
+      'login_required_feature':
+          'You must be logged in first to use this feature',
+
       // Search
       'search_hint': 'Search Places, Events, Activities...',
       'search_placeholder': 'Search Places, Activities...',
@@ -584,6 +616,34 @@ class Translations {
       'new_fab': '新建',
       'trip_description': '行程描述',
       'error_loading': '加载数据失败',
+
+      // Tourism types (keys match API values)
+      'entertainment and modern attractions': '娱乐与现代景点',
+      'cultural and historical attractions': '文化与历史景点',
+      'natural attractions': '自然景观',
+      'religious and spiritual attractions': '宗教与人文景点',
+
+      // Itinerary categories (keys match API values)
+      'library': '图书馆',
+      'museum': '博物馆',
+      'theater': '剧院',
+      'garden': '园林',
+      'fortress': '城堡要塞',
+      'mosque': '清真寺',
+      'tower': '塔楼',
+      'palace': '宫殿',
+      'tomb': '陵墓',
+      'shopping': '购物',
+      'zoo': '动物园',
+      'synagogue': '犹太会堂',
+      'historical site': '历史遗迹',
+      'temple': '寺庙',
+      'aquarium': '水族馆',
+      'church': '教堂',
+
+      // Bottom navigation
+      'discover': '发现',
+      'login_required_feature': '请先登录后再使用此功能',
 
       // Search
       'search_hint': '搜索景点、活动、户外...',

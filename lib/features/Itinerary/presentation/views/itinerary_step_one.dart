@@ -116,7 +116,7 @@ class _ItineraryStepOneState extends State<ItineraryStepOne> {
             const VerticalSpace(0.5),
             ...tourismTypes.map((type) => CheckboxListTile(
                   title: Text(
-                    type[0].toUpperCase() + type.substring(1),
+                    Translations.tr(type, lang),
                     style: GoogleFonts.lato(color: Colors.black),
                   ),
                   controlAffinity: ListTileControlAffinity.leading,

@@ -2,8 +2,8 @@ import 'package:etrip/core/localization/locale_cubit.dart';
 import 'package:etrip/core/localization/translations.dart';
 import 'package:etrip/core/mock_data.dart';
 import 'package:etrip/core/utils/app_router.dart';
-import 'package:etrip/core/utils/assets.dart';
 import 'package:etrip/core/widgets/build_category_icon.dart';
+import 'package:etrip/core/widgets/panda_logo.dart';
 import 'package:etrip/features/search/presentation/widgets/custom_search.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/features/Profile/bloc/user_state.dart';
@@ -57,8 +57,19 @@ class _HomeBodyState extends State<HomeBody> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              AssetsData.fixedLogo,
+            Row(
+              children: [
+                const PandaLogo(size: 44),
+                const SizedBox(width: 8),
+                Text(
+                  Translations.tr('app_name', lang),
+                  style: GoogleFonts.merriweather(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

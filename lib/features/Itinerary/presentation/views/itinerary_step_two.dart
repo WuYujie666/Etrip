@@ -140,8 +140,7 @@ class _ItineraryStepTwoState extends State<ItineraryStepTwo> {
                           final isSelected = selectedCategories.contains(cat);
                           return ChoiceChip(
                             checkmarkColor: Colors.white,
-                            label: Text(
-                                cat.replaceFirst(cat[0], cat[0].toUpperCase())),
+                            label: Text(Translations.tr(cat, lang)),
                             selected: isSelected,
                             onSelected: (selected) {
                               setState(() {
