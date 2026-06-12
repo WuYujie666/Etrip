@@ -29,12 +29,28 @@ class PlaceDetails extends StatelessWidget {
         : place.description;
   }
 
-  void _openMap(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch $url';
+  void _openMap(PlaceModel place, BuildContext context) async {
+    // 尝试用高德地图打开
+    final amapUri = Uri.parse(
+        'androidamap://viewRegeo?sourceApplication=etrip&lat=${place.lat}&lng=${place.lng}');
+    if (await canLaunchUrl(amapUri)) {
+      await launchUrl(amapUri, mode: LaunchMode.externalApplication);
+      return;
+    }
+
+    // 备用：用浏览器打开高德网页版
+    final webUri = Uri.parse(
+        'https://uri.amap.com/marker?position=${place.lng},${place.lat}&name=${Uri.encodeComponent(place.name)}');
+    if (await canLaunchUrl(webUri)) {
+      await launchUrl(webUri, mode: LaunchMode.externalApplication);
+      return;
+    }
+
+    // 最后备用：复制坐标
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('坐标: ${place.lat}, ${place.lng}')),
+      );
     }
   }
 
@@ -218,7 +234,7 @@ class PlaceDetails extends StatelessWidget {
                             )),
                         const SizedBox(height: 8),
                         GestureDetector(
-                          onTap: () => _openMap(place.googleMapsLink),
+                          onTap: () => _openMap(place, context),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
