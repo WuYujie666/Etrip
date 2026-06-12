@@ -70,7 +70,7 @@ final List<PlaceModel> mockPlaces = [
     carouselImages: [
       '$_places/leshan_buddha.jpg',
     ],
-    tourismType: 'Religious and Spiritual Attractions',
+    tourismType: 'Cultural and Historical Attractions',
     category: 'historical site',
     cityName: 'Leshan',
     rate: 4.7,
@@ -146,7 +146,7 @@ final List<PlaceModel> mockPlaces = [
     carouselImages: [
       '$_places/potala_palace.jpg',
     ],
-    tourismType: 'Religious and Spiritual Attractions',
+    tourismType: 'Cultural and Historical Attractions',
     category: 'palace',
     cityName: 'Lhasa',
     rate: 4.8,
@@ -241,7 +241,7 @@ final List<PlaceModel> mockPlaces = [
     carouselImages: [
       '$_places/shaolin.jpg',
     ],
-    tourismType: 'Religious and Spiritual Attractions',
+    tourismType: 'Cultural and Historical Attractions',
     category: 'temple',
     cityName: 'Zhengzhou',
     rate: 4.5,
@@ -310,199 +310,373 @@ final List<PlaceModel> mockPlaces = [
     lat: 22.2854,
     lng: 114.1628,
   ),
+
+  // ====== Chengdu / Sichuan Attractions (added for Step 2) ======
+
+  PlaceModel(
+    id: '17',
+    name: 'Jinli Ancient Street',
+    profileImage: '$_places/jinli.jpg',
+    carouselImages: ['$_places/jinli.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.5,
+    totalRates: 5200,
+    description:
+        'Jinli Ancient Street is a bustling pedestrian street in Chengdu that recreates '
+        'the architectural style of the Qing Dynasty. It offers traditional snacks, crafts, '
+        'and folk performances in a lively atmosphere.',
+    googleMapsLink: 'https://maps.google.com/?q=Jinli+Ancient+Street+Chengdu',
+    lat: 30.6440,
+    lng: 104.0470,
+  ),
+  PlaceModel(
+    id: '18',
+    name: 'Wuhou Shrine',
+    profileImage: '$_places/wuhou.jpg',
+    carouselImages: ['$_places/wuhou.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.6,
+    totalRates: 7200,
+    description:
+        'Wuhou Shrine is a memorial dedicated to Zhuge Liang, the famous strategist '
+        'of the Three Kingdoms period. The serene temple grounds feature beautiful '
+        'architecture, ancient inscriptions, and statues.',
+    googleMapsLink: 'https://maps.google.com/?q=Wuhou+Shrine+Chengdu',
+    lat: 30.6490,
+    lng: 104.0478,
+  ),
+  PlaceModel(
+    id: '19',
+    name: 'Mount Qingcheng',
+    profileImage: '$_places/qingcheng.jpg',
+    carouselImages: ['$_places/qingcheng.jpg'],
+    tourismType: 'Natural Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.7,
+    totalRates: 8900,
+    description:
+        'Mount Qingcheng is one of the birthplaces of Taoism, known for its lush green forests, '
+        'ancient Taoist temples, and peaceful mountain paths. It offers a perfect escape from '
+        'the busy city into nature.',
+    googleMapsLink: 'https://maps.google.com/?q=Mount+Qingcheng+Chengdu',
+    lat: 30.8978,
+    lng: 103.5720,
+  ),
+  PlaceModel(
+    id: '20',
+    name: 'Dujiangyan Irrigation System',
+    profileImage: '$_places/dujiangyan.jpg',
+    carouselImages: ['$_places/dujiangyan.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.7,
+    totalRates: 6500,
+    description:
+        'Built over 2,200 years ago, the Dujiangyan Irrigation System is a marvel of ancient '
+        'Chinese engineering that still irrigates the Chengdu Plain today. A UNESCO World Heritage site.',
+    googleMapsLink: 'https://maps.google.com/?q=Dujiangyan+Irrigation+System',
+    lat: 31.0017,
+    lng: 103.6146,
+  ),
+  PlaceModel(
+    id: '21',
+    name: 'Mount Emei',
+    profileImage: '$_places/emei.jpg',
+    carouselImages: ['$_places/emei.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'temple',
+    cityName: 'Emeishan',
+    rate: 4.8,
+    totalRates: 11200,
+    description:
+        'Mount Emei is one of China\'s four sacred Buddhist mountains, with breathtaking '
+        'scenery, ancient temples, and the famous Golden Summit. It offers spectacular sunrise views '
+        'and a chance to see wild monkeys.',
+    googleMapsLink: 'https://maps.google.com/?q=Mount+Emei+Sichuan',
+    lat: 29.5200,
+    lng: 103.3400,
+  ),
+  PlaceModel(
+    id: '22',
+    name: 'Kuanzhai Ancient Alley',
+    profileImage: '$_places/kuanzhai.jpg',
+    carouselImages: ['$_places/kuanzhai.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.5,
+    totalRates: 7800,
+    description:
+        'Kuanzhai Ancient Alley consists of three parallel alleys — Wide, Narrow, and Well — '
+        'representing Chengdu\'s ancient urban layout. It\'s a perfect blend of traditional '
+        'architecture, trendy cafes, and local food.',
+    googleMapsLink: 'https://maps.google.com/?q=Kuanzhai+Alley+Chengdu',
+    lat: 30.6670,
+    lng: 104.0520,
+  ),
+  PlaceModel(
+    id: '23',
+    name: 'Chunxi Road',
+    profileImage: '$_places/chunxi.jpg',
+    carouselImages: ['$_places/chunxi.jpg'],
+    tourismType: 'Entertainment and Modern Attractions',
+    category: 'shopping',
+    cityName: 'Chengdu',
+    rate: 4.4,
+    totalRates: 15200,
+    description:
+        'Chunxi Road is Chengdu\'s premier shopping district, a vibrant pedestrian street '
+        'lined with modern malls, luxury boutiques, and countless local restaurants serving '
+        'authentic Sichuan cuisine.',
+    googleMapsLink: 'https://maps.google.com/?q=Chunxi+Road+Chengdu',
+    lat: 30.6550,
+    lng: 104.0830,
+  ),
+  PlaceModel(
+    id: '24',
+    name: 'Sichuan Opera Theater',
+    profileImage: '$_places/sichuan_opera.jpg',
+    carouselImages: ['$_places/sichuan_opera.jpg'],
+    tourismType: 'Entertainment and Modern Attractions',
+    category: 'theater',
+    cityName: 'Chengdu',
+    rate: 4.6,
+    totalRates: 4300,
+    description:
+        'Sichuan Opera is famous for its unique face-changing performance (Bian Lian), '
+        'where performers instantly change colorful masks. The theater in Chengdu offers '
+        'an unforgettable cultural show with music and puppetry.',
+    googleMapsLink: 'https://maps.google.com/?q=Sichuan+Opera+Chengdu',
+    lat: 30.6550,
+    lng: 104.0820,
+  ),
+  PlaceModel(
+    id: '25',
+    name: 'Jiuzhaigou Valley',
+    profileImage: '$_places/jiuzhaigou.jpg',
+    carouselImages: ['$_places/jiuzhaigou.jpg'],
+    tourismType: 'Natural Attractions',
+    category: 'historical site',
+    cityName: 'Jiuzhaigou',
+    rate: 4.9,
+    totalRates: 13500,
+    description:
+        'Jiuzhaigou Valley is a UNESCO World Heritage site famous for its turquoise lakes, '
+        'tiered waterfalls, and snow-capped peaks. Its colorful alpine lakes look like '
+        'scattered jewels in a forest paradise.',
+    googleMapsLink: 'https://maps.google.com/?q=Jiuzhaigou+Valley+Sichuan',
+    lat: 33.2667,
+    lng: 104.2333,
+  ),
+  PlaceModel(
+    id: '26',
+    name: 'Mount Siguniang',
+    profileImage: '$_places/siguniang.jpg',
+    carouselImages: ['$_places/siguniang.jpg'],
+    tourismType: 'Natural Attractions',
+    category: 'historical site',
+    cityName: 'Xiaojin',
+    rate: 4.8,
+    totalRates: 5600,
+    description:
+        'Mount Siguniang (Four Girls Mountain) is renowned for its four majestic peaks, '
+        'alpine meadows, and pristine glacial lakes. It\'s a paradise for hikers and '
+        'photographers, often called "Eastern Alps".',
+    googleMapsLink: 'https://maps.google.com/?q=Mount+Siguniang+Sichuan',
+    lat: 30.9972,
+    lng: 102.8361,
+  ),
+
+  // ====== Additional Chengdu / Sichuan Attractions (Step 4) ======
+
+  PlaceModel(
+    id: '27',
+    name: 'Du Fu Thatched Cottage',
+    profileImage: '$_places/dufu_cottage.jpg',
+    carouselImages: ['$_places/dufu_cottage.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.5,
+    totalRates: 6100,
+    description:
+        'Du Fu Thatched Cottage is a memorial to Du Fu, one of China\'s greatest poets. '
+        'Set in a peaceful garden with traditional architecture, it recreates the poet\'s '
+        'former residence and showcases his literary legacy.',
+    googleMapsLink: 'https://maps.google.com/?q=Du+Fu+Thatched+Cottage+Chengdu',
+    lat: 30.6630,
+    lng: 104.0310,
+  ),
+  PlaceModel(
+    id: '28',
+    name: 'People\'s Park',
+    profileImage: '$_places/peoples_park.jpg',
+    carouselImages: ['$_places/peoples_park.jpg'],
+    tourismType: 'Entertainment and Modern Attractions',
+    category: 'garden',
+    cityName: 'Chengdu',
+    rate: 4.3,
+    totalRates: 8900,
+    description:
+        'People\'s Park is Chengdu\'s most famous public park, where locals gather for tea, '
+        'dancing, and leisure. It offers a genuine glimpse into Chengdu\'s relaxed lifestyle '
+        'with its traditional tea houses and lively atmosphere.',
+    googleMapsLink: 'https://maps.google.com/?q=Peoples+Park+Chengdu',
+    lat: 30.6590,
+    lng: 104.0550,
+  ),
+  PlaceModel(
+    id: '29',
+    name: 'Huanglongxi Ancient Town',
+    profileImage: '$_places/huanglongxi.jpg',
+    carouselImages: ['$_places/huanglongxi.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.4,
+    totalRates: 4800,
+    description:
+        'Huanglongxi Ancient Town is a well-preserved water town near Chengdu, featuring '
+        'Ming and Qing dynasty architecture, winding stone streets, and ancient banyan trees '
+        'along scenic canals.',
+    googleMapsLink: 'https://maps.google.com/?q=Huanglongxi+Ancient+Town',
+    lat: 30.3200,
+    lng: 103.9700,
+  ),
+  PlaceModel(
+    id: '30',
+    name: 'Sanxingdui Museum',
+    profileImage: '$_places/sanxingdui.jpg',
+    carouselImages: ['$_places/sanxingdui.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'museum',
+    cityName: 'Guanghan',
+    rate: 4.7,
+    totalRates: 7400,
+    description:
+        'Sanxingdui Museum displays the mysterious Bronze Age artifacts from the Shu kingdom, '
+        'including huge bronze masks and a golden sun tree. These 3,000-year-old treasures '
+        'are one of China\'s greatest archaeological discoveries.',
+    googleMapsLink: 'https://maps.google.com/?q=Sanxingdui+Museum+Guanghan',
+    lat: 30.9930,
+    lng: 104.2000,
+  ),
+  PlaceModel(
+    id: '31',
+    name: 'Xiling Snow Mountain',
+    profileImage: '$_places/xiling.jpg',
+    carouselImages: ['$_places/xiling.jpg'],
+    tourismType: 'Natural Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.6,
+    totalRates: 5100,
+    description:
+        'Xiling Snow Mountain is a scenic ski resort and nature park located 95km from Chengdu. '
+        'In winter it offers skiing, and in summer it provides cool mountain escapes with '
+        'stunning alpine meadows and forests.',
+    googleMapsLink: 'https://maps.google.com/?q=Xiling+Snow+Mountain+Chengdu',
+    lat: 30.6200,
+    lng: 103.2300,
+  ),
+  PlaceModel(
+    id: '32',
+    name: 'Luodai Ancient Town',
+    profileImage: '$_places/luodai.jpg',
+    carouselImages: ['$_places/luodai.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.3,
+    totalRates: 3600,
+    description:
+        'Luodai Ancient Town is famous for its unique Hakka culture and architecture. '
+        'The town features well-preserved Hakka buildings, ancient temples, and a lively '
+        'street market selling local snacks.',
+    googleMapsLink: 'https://maps.google.com/?q=Luodai+Ancient+Town+Chengdu',
+    lat: 30.6300,
+    lng: 104.2900,
+  ),
+  PlaceModel(
+    id: '33',
+    name: 'Anren Ancient Town',
+    profileImage: '$_places/anren.jpg',
+    carouselImages: ['$_places/anren.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.4,
+    totalRates: 3200,
+    description:
+        'Anren Ancient Town is known for its cluster of historic mansions from the late Qing '
+        'and Republican periods. It also houses the Jianchuan Museum Cluster, China\'s largest '
+        'private museum group.',
+    googleMapsLink: 'https://maps.google.com/?q=Anren+Ancient+Town+Chengdu',
+    lat: 30.5100,
+    lng: 103.6200,
+  ),
+  PlaceModel(
+    id: '34',
+    name: 'Bifengxia Panda Base',
+    profileImage: '$_places/bifengxia.jpg',
+    carouselImages: ['$_places/bifengxia.jpg'],
+    tourismType: 'Entertainment and Modern Attractions',
+    category: 'zoo',
+    cityName: 'Ya\'an',
+    rate: 4.6,
+    totalRates: 5800,
+    description:
+        'Bifengxia Panda Base is a giant panda research center set in a lush valley. '
+        'It offers a more natural environment than Chengdu\'s base, with opportunities '
+        'to see pandas of all ages in spacious enclosures.',
+    googleMapsLink: 'https://maps.google.com/?q=Bifengxia+Panda+Base+Yaan',
+    lat: 30.0800,
+    lng: 103.0000,
+  ),
+  PlaceModel(
+    id: '35',
+    name: 'Chengdu Museum',
+    profileImage: '$_places/chengdu_museum.jpg',
+    carouselImages: ['$_places/chengdu_museum.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'museum',
+    cityName: 'Chengdu',
+    rate: 4.5,
+    totalRates: 4200,
+    description:
+        'Chengdu Museum showcases the rich history of Chengdu from prehistoric times '
+        'to the modern era. Its extensive collection includes ancient artifacts, '
+        'cultural relics, and interactive exhibits about Shu civilization.',
+    googleMapsLink: 'https://maps.google.com/?q=Chengdu+Museum',
+    lat: 30.6590,
+    lng: 104.0600,
+  ),
+  PlaceModel(
+    id: '36',
+    name: 'Wangjiang Tower Park',
+    profileImage: '$_places/wangjiang.jpg',
+    carouselImages: ['$_places/wangjiang.jpg'],
+    tourismType: 'Cultural and Historical Attractions',
+    category: 'historical site',
+    cityName: 'Chengdu',
+    rate: 4.3,
+    totalRates: 3100,
+    description:
+        'Wangjiang Tower Park is a scenic riverside park named after its iconic tower '
+        'dedicated to the Tang dynasty poetess Xue Tao. The park features bamboo groves, '
+        'traditional pavilions, and a tranquil atmosphere.',
+    googleMapsLink: 'https://maps.google.com/?q=Wangjiang+Tower+Park+Chengdu',
+    lat: 30.6430,
+    lng: 104.0880,
+  ),
 ];
 
-// ============ Mock Events ============
-
-final List<Map<String, dynamic>> mockEvents = [
-  {
-    'event_id': '1',
-    'event_name': 'Shanghai International Film Festival',
-    'Image': '$_places/film_festival.jpg',
-    'event_date': '15 Jun 2026',
-    'event_type': 'Cultural',
-    'city_name': 'Shanghai',
-    'event_time': '7:00 PM',
-    'ticket_price': '280',
-    'registration_link': 'https://example.com/shanghaifilm',
-    'lat': 31.2400,
-    'lng': 121.4900,
-  },
-  {
-    'event_id': '2',
-    'event_name': 'Beijing Jazz Festival',
-    'Image': '$_places/jazz_festival.jpg',
-    'event_date': '20-22 Jul 2026',
-    'event_type': 'Music',
-    'city_name': 'Beijing',
-    'event_time': '6:00 PM',
-    'ticket_price': '380',
-    'registration_link': 'https://example.com/beijingjazz',
-    'lat': 39.9163,
-    'lng': 116.3972,
-  },
-  {
-    'event_id': '3',
-    'event_name': 'Chengdu Food Festival',
-    'Image': '$_places/food_festival.jpg',
-    'event_date': '10 Aug 2026',
-    'event_type': 'Food',
-    'city_name': 'Chengdu',
-    'event_time': '10:00 AM',
-    'ticket_price': '120',
-    'registration_link': 'https://example.com/chengdufood',
-    'lat': 30.5728,
-    'lng': 104.0668,
-  },
-  {
-    'event_id': '4',
-    'event_name': 'Guilin International Music Festival',
-    'Image': '$_places/music_festival.jpg',
-    'event_date': '15 Sep 2026',
-    'event_type': 'Music',
-    'city_name': 'Guilin',
-    'event_time': '4:00 PM',
-    'ticket_price': '200',
-    'registration_link': 'https://example.com/guilinmusic',
-    'lat': 25.2736,
-    'lng': 110.2902,
-  },
-  {
-    'event_id': '5',
-    'event_name': 'Xi\'an Cultural Heritage Expo',
-    'Image': '$_places/heritage_expo.jpg',
-    'event_date': '5 Oct 2026',
-    'event_type': 'Cultural',
-    'city_name': "Xi'an",
-    'event_time': '9:00 AM',
-    'ticket_price': '150',
-    'registration_link': 'https://example.com/xianexpo',
-    'lat': 34.3416,
-    'lng': 108.9398,
-  },
-  {
-    'event_id': '6',
-    'event_name': 'Spring Festival Fair',
-    'Image': '$_places/heritage_expo.jpg',
-    'event_date': '28 Jan 2026',
-    'event_type': 'Cultural',
-    'city_name': 'Beijing',
-    'event_time': '10:00 AM',
-    'ticket_price': '50',
-    'registration_link': 'https://example.com/springfest',
-    'lat': 39.9000,
-    'lng': 116.4000,
-  },
-  {
-    'event_id': '7',
-    'event_name': 'Dragon Boat Festival',
-    'Image': '$_places/music_festival.jpg',
-    'event_date': '12 Jun 2026',
-    'event_type': 'Cultural',
-    'city_name': 'Hangzhou',
-    'event_time': '8:00 AM',
-    'ticket_price': '80',
-    'registration_link': 'https://example.com/dragonboat',
-    'lat': 30.3000,
-    'lng': 120.1800,
-  },
-];
-
-// ============ Mock Activities ============
-
-final List<Map<String, dynamic>> mockActivities = [
-  {
-    'id': '1',
-    'title': 'Li River Bamboo Rafting',
-    'Image': '$_places/bamboo_raft.jpg',
-    'activity_type': 'Safari',
-    'city_name': 'Guilin',
-    'price_before': '800',
-    'price_after': '500',
-    'rating': '4.8',
-    'link': 'https://example.com/liriver',
-    'lat': 24.8840,
-    'lng': 110.4420,
-  },
-  {
-    'id': '2',
-    'title': 'Hot Air Balloon over Yangshuo',
-    'Image': '$_places/hot_air_balloon.jpg',
-    'activity_type': 'Balloon Tours',
-    'city_name': 'Yangshuo',
-    'price_before': '1500',
-    'price_after': '980',
-    'rating': '4.9',
-    'link': 'https://example.com/yangshuo',
-    'lat': 24.7800,
-    'lng': 110.4900,
-  },
-  {
-    'id': '3',
-    'title': 'Great Wall Hiking Adventure',
-    'Image': '$_places/great_wall_hike.jpg',
-    'activity_type': 'Safari',
-    'city_name': 'Beijing',
-    'price_before': '600',
-    'price_after': '350',
-    'rating': '4.7',
-    'link': 'https://example.com/greatwallhike',
-    'lat': 40.3500,
-    'lng': 116.0100,
-  },
-  {
-    'id': '4',
-    'title': 'Huangshan Mountain Trek',
-    'Image': '$_places/huangshan_trek.jpg',
-    'activity_type': 'Safari',
-    'city_name': 'Huangshan',
-    'price_before': '1200',
-    'price_after': '800',
-    'rating': '4.8',
-    'link': 'https://example.com/huangshan',
-    'lat': 30.1320,
-    'lng': 118.1690,
-  },
-  {
-    'id': '5',
-    'title': 'Panda Volunteering in Chengdu',
-    'Image': '$_places/panda_volunteer.jpg',
-    'activity_type': 'Swimming With Dolphins',
-    'city_name': 'Chengdu',
-    'price_before': '1000',
-    'price_after': '600',
-    'rating': '4.9',
-    'link': 'https://example.com/pandavolunteer',
-    'lat': 30.7310,
-    'lng': 104.1450,
-  },
-  {
-    'id': '6',
-    'title': 'Zhangjiajie Glass Bridge Walk',
-    'Image': '$_places/glass_bridge.jpg',
-    'activity_type': 'Balloon Tours',
-    'city_name': 'Zhangjiajie',
-    'price_before': '500',
-    'price_after': '300',
-    'rating': '4.6',
-    'link': 'https://example.com/glassbridge',
-    'lat': 29.3992,
-    'lng': 110.4666,
-  },
-  {
-    'id': '7',
-    'title': 'Silk Road Cycling Tour',
-    'Image': '$_places/great_wall_hike.jpg',
-    'activity_type': 'Safari',
-    'city_name': 'Beijing',
-    'price_before': '2000',
-    'price_after': '1200',
-    'rating': '4.6',
-    'link': 'https://example.com/silkroad',
-    'lat': 38.0500,
-    'lng': 114.4800,
-  },
-];
 
 // ============ Mock User ============
 
@@ -524,21 +698,58 @@ final EgyptopiaUser mockUser = EgyptopiaUser(
 
 // ============ Mock Itinerary Helpers ============
 
-/// Returns a subset of places for the itinerary plan.
-Map<int, List<PlaceModel>> getMockItineraryPlan(int noOfDays) {
-  final plan = <int, List<PlaceModel>>{};
-  for (int day = 1; day <= noOfDays; day++) {
-    final startIndex = ((day - 1) * 2) % mockPlaces.length;
-    final endIndex = (startIndex + 2) % mockPlaces.length;
-    if (endIndex > startIndex) {
-      plan[day] = mockPlaces.sublist(startIndex, endIndex);
-    } else {
-      plan[day] = [
-        mockPlaces[startIndex],
-        mockPlaces[(startIndex + 1) % mockPlaces.length],
-      ];
-    }
+/// Returns a subset of places for the itinerary plan, filtered by city and tourism type.
+Map<int, List<PlaceModel>> getMockItineraryPlan(
+  int noOfDays, {
+  String? city,
+  List<String>? tourismTypes,
+}) {
+  // Build prioritized tiers
+  var tier1 = List<PlaceModel>.from(mockPlaces); // city + type match
+  var tier2 = List<PlaceModel>.from(mockPlaces); // city match only
+  var tier3 = List<PlaceModel>.from(mockPlaces); // all places (fallback)
+
+  if (city != null && city.isNotEmpty) {
+    tier1 = tier1.where((p) => p.cityName == city).toList();
+    tier2 = tier2.where((p) => p.cityName == city).toList();
+    tier3 = List<PlaceModel>.from(mockPlaces);
   }
+
+  if (tourismTypes != null && tourismTypes.isNotEmpty) {
+    final lowerTypes = tourismTypes.map((t) => t.toLowerCase()).toSet();
+    tier1 = tier1
+        .where((p) => lowerTypes.contains(p.tourismType.toLowerCase()))
+        .toList();
+  }
+
+  // If tier1 empty, fall back to tier2 for the preferred list
+  // If tier2 empty too, use tier3
+  var preferred = tier1.isNotEmpty ? tier1 : (tier2.isNotEmpty ? tier2 : tier3);
+  final fallback = tier2.isNotEmpty ? tier2 : tier3;
+
+  final usedIds = <String>{};
+  final plan = <int, List<PlaceModel>>{};
+
+  PlaceModel _pickNext() {
+    // Try preferred tier first
+    for (final list in [preferred, fallback, mockPlaces]) {
+      final available = list.where((p) => !usedIds.contains(p.id)).toList();
+      if (available.isNotEmpty) {
+        usedIds.add(available.first.id);
+        return available.first;
+      }
+    }
+    // All places used — reset and reuse (shouldn't normally happen)
+    usedIds.clear();
+    final first = preferred.isNotEmpty ? preferred.first : mockPlaces.first;
+    usedIds.add(first.id);
+    return first;
+  }
+
+  for (int day = 1; day <= noOfDays; day++) {
+    plan[day] = [_pickNext(), _pickNext()];
+  }
+
   return plan;
 }
 
@@ -576,6 +787,46 @@ final Map<String, String> placeDescriptionsZh = {
       '内有精美的壁画和雕塑，跨越一千多年。',
   '16': '维多利亚港是香港的主要景点，以其 stunning 的天际线'
       '和幻彩咏香江灯光秀而闻名。天星小轮提供经典的海港渡轮体验。',
+  '17': '锦里古街是成都一条热闹的步行街，再现了清代的建筑风格。'
+      '这里提供传统小吃、手工艺品和民间表演，氛围热闹非凡。',
+  '18': '武侯祠是为纪念三国时期著名战略家诸葛亮而建的祠堂。'
+      '宁静的庭院内有精美的建筑、古代碑刻和雕像。',
+  '19': '青城山是道教的发源地之一，以苍翠的森林、'
+      '古老的道观和幽静的山间小道而闻名。是远离城市喧嚣、亲近自然的绝佳去处。',
+  '20': '都江堰水利工程建于2200多年前，是中国古代工程的奇迹，'
+      '至今仍在灌溉成都平原。被联合国教科文组织列为世界遗产。',
+  '21': '峨眉山是中国四大佛教名山之一，拥有令人叹为观止的风景、'
+      '古刹和著名的金顶。可欣赏壮观的日出，还能见到野生猴子。',
+  '22': '宽窄巷子由三条平行巷道组成——宽巷子、窄巷子和井巷子——'
+      '代表了成都的古代城市布局。完美融合了传统建筑、时尚咖啡馆和当地美食。',
+  '23': '春熙路是成都首屈一指的商业区，是一条充满活力的步行街，'
+      '两旁林立着现代购物中心、奢侈品牌店和无数品尝正宗川菜的餐厅。',
+  '24': '川剧以其独特的变脸表演而闻名，表演者瞬间变换彩色面具。'
+      '成都的川剧剧场提供融合音乐和木偶戏的难忘文化表演。',
+  '25': '九寨沟是联合国教科文组织世界遗产，以碧蓝的湖泊、'
+      '层叠的瀑布和雪峰而闻名。五彩斑斓的高山湖泊犹如散落在森林中的宝石。',
+  '26': '四姑娘山以四座雄伟的山峰、高山草甸和原始的冰川湖泊而闻名。'
+      '这里是徒步旅行者和摄影爱好者的天堂，被誉为"东方阿尔卑斯"。',
+  '27': '杜甫草堂是为纪念中国伟大诗人杜甫而建的祠宇。'
+      '园内清幽雅致，传统建筑再现了诗人的故居风貌，展示了他的文学成就。',
+  '28': '人民公园是成都最著名的公共园林，当地人来此喝茶、跳舞、休闲。'
+      '传统的茶馆和热闹的氛围让人真实感受到成都的悠闲生活方式。',
+  '29': '黄龙溪古镇是成都附近保存完好的水乡古镇，'
+      '拥有明清建筑、蜿蜒的石板路和河岸旁的古榕树。',
+  '30': '三星堆博物馆展示了古蜀王国神秘的青铜器文物，'
+      '包括巨大的青铜面具和青铜神树。这些3000年前的宝藏是中国最伟大的考古发现之一。',
+  '31': '西岭雪山是距离成都95公里的滑雪胜地和自然风景区。'
+      '冬季可滑雪，夏季可避暑，拥有令人惊叹的高山草甸和森林。',
+  '32': '洛带古镇以独特的客家文化和建筑而闻名。'
+      '镇内保存完好的客家建筑、古庙和热闹的集市是感受客家文化的好去处。',
+  '33': '安仁古镇以清末民初的公馆群落而闻名，'
+      '还拥有建川博物馆聚落，是中国最大的私立博物馆群。',
+  '34': '碧峰峡大熊猫基地是一个坐落于翠绿山谷中的大熊猫研究中心。'
+      '这里环境更接近自然，可以在宽敞的园区内看到各个年龄段的大熊猫。',
+  '35': '成都博物馆展示了成都从史前到现代的历史。'
+      '丰富的馆藏包括古代文物、文化遗迹和关于古蜀文明的互动展览。',
+  '36': '望江楼公园是为纪念唐代女诗人薛涛而建的河滨公园。'
+      '园内翠竹成林，亭台楼阁古色古香，环境清幽宜人。',
 };
 
 // ============ Chinese Translations for Mock Data ============
@@ -598,6 +849,26 @@ final Map<String, String> placeNamesZh = {
   '14': '黄山',
   '15': '莫高窟',
   '16': '维多利亚港',
+  '17': '锦里古街',
+  '18': '武侯祠',
+  '19': '青城山',
+  '20': '都江堰',
+  '21': '峨眉山',
+  '22': '宽窄巷子',
+  '23': '春熙路',
+  '24': '川剧剧场',
+  '25': '九寨沟',
+  '26': '四姑娘山',
+  '27': '杜甫草堂',
+  '28': '人民公园',
+  '29': '黄龙溪古镇',
+  '30': '三星堆博物馆',
+  '31': '西岭雪山',
+  '32': '洛带古镇',
+  '33': '安仁古镇',
+  '34': '碧峰峡大熊猫基地',
+  '35': '成都博物馆',
+  '36': '望江楼公园',
 };
 
 /// Chinese city names keyed by English name.
@@ -616,42 +887,11 @@ final Map<String, String> cityNamesZh = {
   'Chengdu': '成都',
   'Zhengzhou': '郑州',
   'Yangshuo': '阳朔',
-};
-
-/// Chinese event names keyed by event_id.
-final Map<String, String> eventNamesZh = {
-  '1': '上海国际电影节',
-  '2': '北京爵士音乐节',
-  '3': '成都美食节',
-  '4': '桂林国际音乐节',
-  '5': "西安文化遗产博览会",
-  '6': '春节庙会',
-  '7': '龙舟赛',
-};
-
-/// Chinese activity titles keyed by activity id.
-final Map<String, String> activityTitlesZh = {
-  '1': '漓江竹筏漂流',
-  '2': '阳朔热气球之旅',
-  '3': '长城徒步探险',
-  '4': '黄山登山之旅',
-  '5': '成都大熊猫志愿者',
-  '6': '张家界玻璃桥漫步',
-  '7': '丝绸之路骑行',
-};
-
-/// Chinese event types.
-final Map<String, String> eventTypesZh = {
-  'Cultural': '文化',
-  'Music': '音乐',
-  'Food': '美食',
-};
-
-/// Chinese activity types.
-final Map<String, String> activityTypesZh = {
-  'Safari': '探险',
-  'Balloon Tours': '热气球',
-  'Swimming With Dolphins': '与海豚同游',
+  'Emeishan': '峨眉山',
+  'Jiuzhaigou': '九寨沟',
+  'Xiaojin': '小金',
+  'Guanghan': '广汉',
+  "Ya'an": '雅安',
 };
 
 /// Chinese tourism types keyed by English value.
@@ -705,26 +945,3 @@ String localizedCategory(String category, String lang) {
   return category;
 }
 
-String localizedEventName(Map<String, dynamic> event, String lang) {
-  if (lang == 'zh') {
-    return eventNamesZh[event['event_id']?.toString()] ?? event['event_name'] ?? '';
-  }
-  return event['event_name'] ?? '';
-}
-
-String localizedEventType(String type, String lang) {
-  if (lang == 'zh') return eventTypesZh[type] ?? type;
-  return type;
-}
-
-String localizedActivityTitle(Map<String, dynamic> activity, String lang) {
-  if (lang == 'zh') {
-    return activityTitlesZh[activity['id']?.toString()] ?? activity['title'] ?? '';
-  }
-  return activity['title'] ?? '';
-}
-
-String localizedActivityType(String type, String lang) {
-  if (lang == 'zh') return activityTypesZh[type] ?? type;
-  return type;
-}

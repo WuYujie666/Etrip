@@ -7,13 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomSearch extends StatelessWidget {
   final Future<List<PlaceModel>> Function() fetchPlaces;
-  final Future<List<Map<String, dynamic>>> Function() fetchEvents;
-  final Future<List<Map<String, dynamic>>> Function() fetchActivities;
 
   const CustomSearch({
     required this.fetchPlaces,
-    required this.fetchEvents,
-    required this.fetchActivities,
     super.key,
   });
 
@@ -25,8 +21,6 @@ class CustomSearch extends StatelessWidget {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => UnifiedSearchScreen(
             fetchPlaces: fetchPlaces,
-            fetchEvents: fetchEvents,
-            fetchActivities: fetchActivities,
           ),
         ));
       },

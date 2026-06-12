@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -6,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:etrip/core/mock_data.dart';
 import 'package:etrip/features/places/data/models/place_model.dart';
 
-/// 交互式地图页面 - 展示景点、活动和事件
+/// 交互式地图页面 - 仅展示景点
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
 
@@ -17,272 +18,150 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   final MapController _mapController = MapController();
 
-  // 地图标记集合
-  final List<Marker> _markers = [];
-  final List<CircleMarker> _circles = [];
-
   // 当前位置
   LatLng? _currentPosition;
+  bool _locationLoading = false;
 
-  // 是否显示我的位置
-  bool _myLocationEnabled = true;
+  /// 默认初始位置（中国中心）
+  static const LatLng _defaultCenter = LatLng(35.86, 104.19);
+  static const double _defaultZoom = 5;
 
-  // 选中的标记ID
-  String? _selectedMarkerId;
+  /// 用户位置附近的初始缩放
+  static const double _userZoom = 10;
 
-  // 筛选类型
-  String _selectedFilter = 'all'; // all, places, activities, events
-
-  /// 从共享数据源构建地图位置列表
-  List<MapLocation> get _locations {
-    final list = <MapLocation>[];
-
-    // 从 mockPlaces 转换景点
-    for (final place in mockPlaces) {
-      if (place.lat == 0.0 && place.lng == 0.0) continue;
-      list.add(MapLocation(
-        id: place.id,
-        name: placeNamesZh[place.id] ?? place.name,
-        nameEn: place.name,
-        lat: place.lat,
-        lng: place.lng,
-        type: LocationType.place,
-        category: categoriesZh[place.category] ?? place.category,
-        rating: place.rate,
-        imageUrl: place.profileImage,
-        description: placeDescriptionsZh[place.id] ?? place.description,
-      ));
-    }
-
-    // 从 mockEvents 转换事件
-    for (final event in mockEvents) {
-      final lat = event['lat'];
-      final lng = event['lng'];
-      if (lat == null || lng == null) continue;
-      final eid = event['event_id']?.toString() ?? '';
-      list.add(MapLocation(
-        id: 'event_$eid',
-        name: eventNamesZh[eid] ?? event['event_name'] ?? '',
-        nameEn: event['event_name'] ?? '',
-        lat: (lat as double),
-        lng: (lng as double),
-        type: LocationType.event,
-        category: eventTypesZh[event['event_type']?.toString() ?? ''] ?? event['event_type']?.toString() ?? '',
-        rating: 4.5,
-        imageUrl: event['Image']?.toString() ?? '',
-        description: event['event_name']?.toString() ?? '',
-      ));
-    }
-
-    // 从 mockActivities 转换活动
-    for (final activity in mockActivities) {
-      final lat = activity['lat'];
-      final lng = activity['lng'];
-      if (lat == null || lng == null) continue;
-      final aid = activity['id']?.toString() ?? '';
-      list.add(MapLocation(
-        id: 'activity_$aid',
-        name: activityTitlesZh[aid] ?? activity['title'] ?? '',
-        nameEn: activity['title'] ?? '',
-        lat: (lat as double),
-        lng: (lng as double),
-        type: LocationType.activity,
-        category: activityTypesZh[activity['activity_type']?.toString() ?? ''] ?? activity['activity_type']?.toString() ?? '',
-        rating: double.tryParse(activity['rating']?.toString() ?? '') ?? 4.5,
-        imageUrl: activity['Image']?.toString() ?? '',
-        description: activity['title']?.toString() ?? '',
-      ));
-    }
-
-    // 附加的地图特有位置（不在 mock 数据中）
-    list.addAll(_extraLocations);
-    return list;
-  }
-
-  /// 地图特有的位置（传统节日等活动）
-  static final List<MapLocation> _extraLocations = [
-    MapLocation(
-      id: 'spring_festival',
-      name: '春节庙会',
-      nameEn: 'Spring Festival Fair',
-      lat: 39.9000,
-      lng: 116.4000,
-      type: LocationType.event,
-      category: '传统节日',
-      rating: 4.7,
-      imageUrl: '',
-      description: '体验中国传统春节的热闹庙会',
-    ),
-    MapLocation(
-      id: 'dragon_boat',
-      name: '龙舟赛',
-      nameEn: 'Dragon Boat Festival',
-      lat: 30.3000,
-      lng: 120.1800,
-      type: LocationType.event,
-      category: '传统节日',
-      rating: 4.6,
-      imageUrl: '',
-      description: '端午节的龙舟竞渡，场面壮观',
-    ),
-    MapLocation(
-      id: 'silk_road',
-      name: '丝绸之路骑行',
-      nameEn: 'Silk Road Cycling',
-      lat: 38.0500,
-      lng: 114.4800,
-      type: LocationType.activity,
-      category: '骑行',
-      rating: 4.6,
-      imageUrl: '',
-      description: '沿着古丝绸之路骑行，探索西域文化',
-    ),
-  ];
+  /// 成都中心（备用位置）
+  static const LatLng _chengduCenter = LatLng(30.57, 104.07);
 
   @override
   void initState() {
     super.initState();
     _checkLocationPermission();
-    _loadMarkers();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   /// 检查位置权限
   Future<void> _checkLocationPermission() async {
-    LocationPermission permission = await Geolocator.checkPermission();
+    LocationPermission permission;
+    try {
+      permission = await Geolocator.checkPermission().timeout(const Duration(seconds: 5));
+    } on TimeoutException {
+      _useFallbackLocation();
+      return;
+    }
     if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
+      try {
+        permission = await Geolocator.requestPermission().timeout(const Duration(seconds: 5));
+      } on TimeoutException {
+        _useFallbackLocation();
+        return;
+      }
     }
 
     if (permission == LocationPermission.whileInUse ||
         permission == LocationPermission.always) {
       _getCurrentLocation();
+    } else {
+      _useFallbackLocation();
     }
+  }
+
+  /// 使用备用位置（成都）
+  void _useFallbackLocation() {
+    setState(() {
+      _currentPosition = _chengduCenter;
+      _locationLoading = false;
+    });
+    _mapController.move(_chengduCenter, _userZoom);
   }
 
   /// 获取当前位置
   Future<void> _getCurrentLocation() async {
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-      setState(() {
-        _currentPosition = LatLng(position.latitude, position.longitude);
-      });
+    setState(() => _locationLoading = true);
 
-      _mapController.move(
-        LatLng(position.latitude, position.longitude),
-        14,
-      );
+    // 先尝试获取上次已知位置（更快）
+    try {
+      final lastPos = await Geolocator.getLastKnownPosition().timeout(const Duration(seconds: 3));
+      if (lastPos != null) {
+        final pos = LatLng(lastPos.latitude, lastPos.longitude);
+        setState(() {
+          _currentPosition = pos;
+          _locationLoading = false;
+        });
+        _mapController.move(pos, _userZoom);
+        return;
+      }
+    } catch (_) {}
+
+    // 再尝试获取当前位置（带超时）
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      ).timeout(const Duration(seconds: 10));
+      final pos = LatLng(position.latitude, position.longitude);
+      setState(() {
+        _currentPosition = pos;
+        _locationLoading = false;
+      });
+      _mapController.move(pos, _userZoom);
     } catch (e) {
       debugPrint('Error getting location: $e');
+      _useFallbackLocation();
     }
   }
 
-  /// 加载标记
-  void _loadMarkers() {
-    final filteredLocations = _getFilteredLocations();
+  /// 重置到默认视角（用户位置或中国中心）
+  void _resetToDefault() {
+    if (_currentPosition != null) {
+      _mapController.move(_currentPosition!, _userZoom);
+    } else {
+      _mapController.move(_defaultCenter, _defaultZoom);
+    }
+  }
 
-    setState(() {
-      _markers.clear();
+  /// 计算两点间的距离（公里）
+  double _distanceBetween(LatLng a, LatLng b) {
+    const R = 6371.0; // 地球半径（公里）
+    final dLat = (b.latitude - a.latitude) * pi / 180;
+    final dLng = (b.longitude - a.longitude) * pi / 180;
+    final sinLat = sin(dLat / 2);
+    final sinLng = sin(dLng / 2);
+    final a2 = sinLat * sinLat +
+        cos(a.latitude * pi / 180) * cos(b.latitude * pi / 180) * sinLng * sinLng;
+    final c = 2 * atan2(sqrt(a2), sqrt(1 - a2));
+    return R * c;
+  }
 
-      for (var location in filteredLocations) {
-        final marker = Marker(
-          point: LatLng(location.lat, location.lng),
-          width: 44,
-          height: 44,
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                _selectedMarkerId = location.id;
-              });
-              _showLocationDetails(location);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: _getTypeColor(location.type).withOpacity(0.9),
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Icon(
-                _getTypeIcon(location.type),
-                color: Colors.white,
-                size: 22,
-              ),
-            ),
-          ),
-        );
+  /// 获取离用户最近的10个景点
+  List<MapLocation> _getNearestPlaces() {
+    final allLocations = mockPlaces
+        .where((p) => p.lat != 0.0 && p.lng != 0.0)
+        .map((p) => MapLocation(
+              id: p.id,
+              name: placeNamesZh[p.id] ?? p.name,
+              nameEn: p.name,
+              lat: p.lat,
+              lng: p.lng,
+              rating: p.rate,
+              imageUrl: p.profileImage,
+              description: placeDescriptionsZh[p.id] ?? p.description,
+            ))
+        .toList();
 
-        _markers.add(marker);
-      }
+    if (_currentPosition == null) {
+      return allLocations.take(10).toList();
+    }
+
+    allLocations.sort((a, b) {
+      final distA = _distanceBetween(_currentPosition!, LatLng(a.lat, a.lng));
+      final distB = _distanceBetween(_currentPosition!, LatLng(b.lat, b.lng));
+      return distA.compareTo(distB);
     });
+
+    return allLocations.take(10).toList();
   }
 
-  /// 根据筛选条件获取位置列表
-  List<MapLocation> _getFilteredLocations() {
-    if (_selectedFilter == 'all') {
-      return _locations;
-    }
-    return _locations.where((loc) {
-      switch (_selectedFilter) {
-        case 'places':
-          return loc.type == LocationType.place;
-        case 'activities':
-          return loc.type == LocationType.activity;
-        case 'events':
-          return loc.type == LocationType.event;
-        default:
-          return true;
-      }
-    }).toList();
-  }
-
-  Color _getTypeColor(LocationType type) {
-    switch (type) {
-      case LocationType.place:
-        return Colors.red;
-      case LocationType.activity:
-        return Colors.green;
-      case LocationType.event:
-        return Colors.purple;
-    }
-  }
-
-  IconData _getTypeIcon(LocationType type) {
-    switch (type) {
-      case LocationType.place:
-        return Icons.place;
-      case LocationType.activity:
-        return Icons.local_activity;
-      case LocationType.event:
-        return Icons.event;
-    }
-  }
-
-  /// 显示位置详情
-  void _showLocationDetails(MapLocation location) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => _LocationDetailSheet(location: location),
-    );
-  }
-
-  /// 移动到指定位置
-  void _moveToLocation(double lat, double lng, {double zoom = 15}) {
-    _mapController.move(LatLng(lat, lng), zoom);
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -291,17 +170,14 @@ class _MapScreenState extends State<MapScreen> {
       body: FlutterMap(
         mapController: _mapController,
         options: MapOptions(
-          initialCenter: const LatLng(35.86, 104.19),
-          initialZoom: 5,
+          initialCenter: _defaultCenter,
+          initialZoom: _defaultZoom,
           minZoom: 3,
           maxZoom: 18,
           interactionOptions: const InteractionOptions(
-            flags: InteractiveFlag.all,
+            flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
           ),
           onTap: (_, __) {
-            setState(() {
-              _selectedMarkerId = null;
-            });
           },
         ),
         children: [
@@ -311,7 +187,7 @@ class _MapScreenState extends State<MapScreen> {
             userAgentPackageName: 'com.example.etrip',
             maxZoom: 18,
           ),
-          if (_myLocationEnabled && _currentPosition != null)
+          if (_currentPosition != null)
             MarkerLayer(
               markers: [
                 Marker(
@@ -328,127 +204,55 @@ class _MapScreenState extends State<MapScreen> {
                 ),
               ],
             ),
-          MarkerLayer(markers: _markers),
+          MarkerLayer(
+            markers: mockPlaces
+                .where((p) => p.lat != 0.0 && p.lng != 0.0)
+                .map((place) => Marker(
+                      point: LatLng(place.lat, place.lng),
+                      width: 44,
+                      height: 44,
+                      child: GestureDetector(
+                        onTap: () {
+                          _showPlaceDetails(place);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.9),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 2),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.place,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                        ),
+                      ),
+                    ))
+                .toList(),
+          ),
         ],
       ),
-      bottomSheet: _buildBottomSheet(),
       floatingActionButton: FloatingActionButton(
         heroTag: 'location',
-        onPressed: _getCurrentLocation,
-        backgroundColor: Theme.of(context).primaryColor,
+        onPressed: _resetToDefault,
+        backgroundColor: Colors.purple,
         child: const Icon(Icons.my_location, color: Colors.white),
       ),
+      bottomSheet: _buildNearestPlacesSheet(),
     );
   }
 
-  /// 筛选芯片
-  Widget _buildFilterChips() {
-    final filters = [
-      {'key': 'all', 'label': '全部', 'icon': Icons.map},
-      {'key': 'places', 'label': '景点', 'icon': Icons.place},
-      {'key': 'activities', 'label': '活动', 'icon': Icons.local_activity},
-      {'key': 'events', 'label': '事件', 'icon': Icons.event},
-    ];
-
-    return Container(
-      height: 50,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: filters.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
-        itemBuilder: (context, index) {
-          final filter = filters[index];
-          final isSelected = _selectedFilter == filter['key'];
-
-          return FilterChip(
-            selected: isSelected,
-            showCheckmark: false,
-            backgroundColor: Colors.white,
-            selectedColor: Theme.of(context).primaryColor,
-            label: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  filter['icon'] as IconData,
-                  size: 16,
-                  color: isSelected ? Colors.white : Colors.grey[600],
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  filter['label'] as String,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.grey[800],
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
-                  ),
-                ),
-              ],
-            ),
-            onSelected: (_) {
-              setState(() {
-                _selectedFilter = filter['key'] as String;
-                _loadMarkers();
-              });
-            },
-          );
-        },
-      ),
-    );
-  }
-
-  /// 图例
-  Widget _buildLegend() {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildLegendItem(Colors.red, '景点'),
-          const SizedBox(height: 8),
-          _buildLegendItem(Colors.green, '活动'),
-          const SizedBox(height: 8),
-          _buildLegendItem(Colors.purple, '事件'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLegendItem(Color color, String label) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
-        ),
-        const SizedBox(width: 6),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12),
-        ),
-      ],
-    );
-  }
-
-  /// 底部列表
-  Widget _buildBottomSheet() {
-    final filteredLocations = _getFilteredLocations();
+  /// 最近景点底部列表
+  Widget _buildNearestPlacesSheet() {
+    final nearest = _getNearestPlaces();
 
     return Container(
       height: 180,
@@ -483,19 +287,25 @@ class _MapScreenState extends State<MapScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '附近 ${_getFilterLabel()}',
+                  _currentPosition != null ? '最近景点' : '景点列表',
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  '${filteredLocations.length} 个结果',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                  ),
-                ),
+                _locationLoading
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Text(
+                        '${nearest.length} 个结果',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
+                      ),
               ],
             ),
           ),
@@ -507,14 +317,21 @@ class _MapScreenState extends State<MapScreen> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              itemCount: filteredLocations.length,
+              itemCount: nearest.length,
               itemBuilder: (context, index) {
-                final location = filteredLocations[index];
-                return _LocationCard(
+                final location = nearest[index];
+                return _PlaceCard(
                   location: location,
                   onTap: () {
-                    _moveToLocation(location.lat, location.lng, zoom: 16);
-                    _showLocationDetails(location);
+                    _mapController.move(
+                      LatLng(location.lat, location.lng),
+                      16,
+                    );
+                    // Find the full place and show details
+                    final place = mockPlaces.firstWhere(
+                      (p) => p.id == location.id,
+                    );
+                    _showPlaceDetails(place);
                   },
                 );
               },
@@ -527,29 +344,24 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  String _getFilterLabel() {
-    switch (_selectedFilter) {
-      case 'places':
-        return '景点';
-      case 'activities':
-        return '活动';
-      case 'events':
-        return '事件';
-      default:
-        return '地点';
-    }
+  /// 显示景点详情
+  void _showPlaceDetails(PlaceModel place) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => _PlaceDetailSheet(place: place),
+    );
   }
 }
 
-/// 位置数据模型
+/// 位置数据模型（景点用）
 class MapLocation {
   final String id;
   final String name;
   final String nameEn;
   final double lat;
   final double lng;
-  final LocationType type;
-  final String category;
   final double rating;
   final String imageUrl;
   final String description;
@@ -560,47 +372,21 @@ class MapLocation {
     required this.nameEn,
     required this.lat,
     required this.lng,
-    required this.type,
-    required this.category,
     required this.rating,
     required this.imageUrl,
     required this.description,
   });
 }
 
-enum LocationType { place, activity, event }
-
-/// 位置卡片
-class _LocationCard extends StatelessWidget {
+/// 景点卡片
+class _PlaceCard extends StatelessWidget {
   final MapLocation location;
   final VoidCallback onTap;
 
-  const _LocationCard({
+  const _PlaceCard({
     required this.location,
     required this.onTap,
   });
-
-  Color _getTypeColor() {
-    switch (location.type) {
-      case LocationType.place:
-        return Colors.red;
-      case LocationType.activity:
-        return Colors.green;
-      case LocationType.event:
-        return Colors.purple;
-    }
-  }
-
-  IconData _getTypeIcon() {
-    switch (location.type) {
-      case LocationType.place:
-        return Icons.place;
-      case LocationType.activity:
-        return Icons.local_activity;
-      case LocationType.event:
-        return Icons.event;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -611,9 +397,9 @@ class _LocationCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 4),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: _getTypeColor().withOpacity(0.05),
+          color: Colors.red.withOpacity(0.05),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: _getTypeColor().withOpacity(0.2)),
+          border: Border.all(color: Colors.red.withOpacity(0.2)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -621,18 +407,18 @@ class _LocationCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(_getTypeIcon(), size: 14, color: _getTypeColor()),
+                const Icon(Icons.place, size: 14, color: Colors.red),
                 const SizedBox(width: 4),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: _getTypeColor().withOpacity(0.1),
+                    color: Colors.red.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(
-                    location.category,
+                  child: const Text(
+                    '景点',
                     style: TextStyle(
-                      color: _getTypeColor(),
+                      color: Colors.red,
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
                     ),
@@ -679,25 +465,17 @@ class _LocationCard extends StatelessWidget {
   }
 }
 
-/// 位置详情底部弹窗
-class _LocationDetailSheet extends StatelessWidget {
-  final MapLocation location;
+/// 景点详情底部弹窗
+class _PlaceDetailSheet extends StatelessWidget {
+  final PlaceModel place;
 
-  const _LocationDetailSheet({required this.location});
-
-  Color _getTypeColor() {
-    switch (location.type) {
-      case LocationType.place:
-        return Colors.red;
-      case LocationType.activity:
-        return Colors.green;
-      case LocationType.event:
-        return Colors.purple;
-    }
-  }
+  const _PlaceDetailSheet({required this.place});
 
   @override
   Widget build(BuildContext context) {
+    final nameZh = placeNamesZh[place.id] ?? place.name;
+    final descZh = placeDescriptionsZh[place.id] ?? place.description;
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.6,
       decoration: const BoxDecoration(
@@ -730,15 +508,11 @@ class _LocationDetailSheet extends StatelessWidget {
                       height: 200,
                       width: double.infinity,
                       color: Colors.grey[300],
-                      child: Center(
+                      child: const Center(
                         child: Icon(
-                          location.type == LocationType.place
-                              ? Icons.place
-                              : location.type == LocationType.activity
-                                  ? Icons.local_activity
-                                  : Icons.event,
+                          Icons.place,
                           size: 60,
-                          color: Colors.grey[400],
+                          color: Colors.grey,
                         ),
                       ),
                     ),
@@ -746,29 +520,9 @@ class _LocationDetailSheet extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // 类型标签
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: _getTypeColor().withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      location.category,
-                      style: TextStyle(
-                        color: _getTypeColor(),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 12),
-
                   // 名称
                   Text(
-                    location.name,
+                    nameZh,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -777,9 +531,8 @@ class _LocationDetailSheet extends StatelessWidget {
 
                   const SizedBox(height: 4),
 
-                  // 英文名
                   Text(
-                    location.nameEn,
+                    place.name,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey[600],
@@ -794,7 +547,7 @@ class _LocationDetailSheet extends StatelessWidget {
                       const Icon(Icons.star, color: Colors.amber, size: 24),
                       const SizedBox(width: 4),
                       Text(
-                        location.rating.toString(),
+                        place.rate.toString(),
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -802,7 +555,7 @@ class _LocationDetailSheet extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '(2,847 评价)',
+                        '(${place.totalRates} 评价)',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[600],
@@ -826,7 +579,7 @@ class _LocationDetailSheet extends StatelessWidget {
                   const SizedBox(height: 8),
 
                   Text(
-                    location.description,
+                    descZh,
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[700],
@@ -860,7 +613,7 @@ class _LocationDetailSheet extends StatelessWidget {
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                '${location.lat.toStringAsFixed(4)}, ${location.lng.toStringAsFixed(4)}',
+                                '${place.lat.toStringAsFixed(4)}, ${place.lng.toStringAsFixed(4)}',
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -874,75 +627,6 @@ class _LocationDetailSheet extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 24),
-
-                  // 操作按钮
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content:
-                                      Text('已将 ${location.name} 添加到行程')),
-                            );
-                          },
-                          icon: const Icon(Icons.add_location),
-                          label: const Text('添加到行程'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content:
-                                      Text('已将 ${location.name} 添加到收藏')),
-                            );
-                          },
-                          icon: const Icon(Icons.favorite_border),
-                          label: const Text('收藏'),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // 导航按钮
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.directions),
-                      label: const Text('开始导航'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ),
 
                   const SizedBox(height: 20),
                 ],

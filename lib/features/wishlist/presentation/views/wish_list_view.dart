@@ -7,7 +7,6 @@ import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/features/wishlist/data/model/favorite_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'widgets/favorite_card.dart';
 
@@ -19,14 +18,6 @@ class WishListView extends StatefulWidget {
 }
 
 class _WishListViewState extends State<WishListView> {
-  int selectedIndex = 0;
-
-  final tabs = [
-    FavoriteType.place,
-    FavoriteType.activity,
-    FavoriteType.event,
-  ];
-
   @override
   Widget build(BuildContext context) {
     final lang = context.watch<LocaleCubit>().state.languageCode;
@@ -59,35 +50,8 @@ class _WishListViewState extends State<WishListView> {
                 ),
               ),
               const VerticalSpace(1),
-              ToggleButtons(
-                color: Colors.white,
-                selectedColor: Colors.black,
-                borderColor: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                borderWidth: 1.5,
-                fillColor: Colors.white,
-                selectedBorderColor: Colors.white,
-                textStyle: GoogleFonts.inter(
-                    fontSize: 16, fontWeight: FontWeight.w600),
-                constraints: BoxConstraints(
-                  minWidth: SizeConfig.screenWidth! * 0.29,
-                  minHeight: SizeConfig.defaultSize! * 4.25,
-                ),
-                isSelected: List.generate(
-                    tabs.length, (index) => index == selectedIndex),
-                onPressed: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                children: [
-                  Text(Translations.tr('places_tab', lang)),
-                  Text(Translations.tr('activities_tab', lang)),
-                  Text(Translations.tr('events_tab', lang)),
-                ],
-              ),
               Expanded(
-                child: FavoriteCard(type: tabs[selectedIndex]),
+                child: FavoriteCard(type: FavoriteType.place),
               ),
             ],
           ),

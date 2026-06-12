@@ -1,6 +1,5 @@
 import 'package:etrip/core/localization/locale_cubit.dart';
 import 'package:etrip/core/localization/translations.dart';
-import 'package:etrip/core/mock_data.dart';
 import 'package:etrip/core/utils/app_router.dart';
 import 'package:etrip/core/utils/assets.dart';
 import 'package:etrip/core/widgets/build_category_icon.dart';
@@ -66,14 +65,6 @@ class _HomeBodyState extends State<HomeBody> {
         const VerticalSpace(2),
         CustomSearch(
           fetchPlaces: () => apiService.fetchAllPlaces(),
-          fetchEvents: () async {
-            await Future.delayed(const Duration(milliseconds: 200));
-            return mockEvents;
-          },
-          fetchActivities: () async {
-            await Future.delayed(const Duration(milliseconds: 200));
-            return mockActivities;
-          },
         ),
         const VerticalSpace(1),
         Row(
@@ -146,29 +137,6 @@ class _HomeBodyState extends State<HomeBody> {
               icon: Icons.place,
               label: Translations.tr('places', lang),
               route: AppRouter.kPlaces,
-            ),
-            BuildCategoryIcon(
-              icon: Icons.event,
-              label: Translations.tr('events', lang),
-              route: AppRouter.kEvents,
-            ),
-            BuildCategoryIcon(
-              icon: Icons.directions_walk,
-              label: Translations.tr('activities', lang),
-              onTap: () {
-                final userState = context.read<UserBloc>().state;
-                if (userState is! UserLoaded) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                          Translations.tr('login_required_activities', lang)),
-                      backgroundColor: Colors.black87,
-                    ),
-                  );
-                } else {
-                  context.push(AppRouter.kActivities);
-                }
-              },
             ),
             BuildCategoryIcon(
               icon: Icons.thunderstorm_outlined,

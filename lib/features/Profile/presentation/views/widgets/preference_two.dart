@@ -24,7 +24,6 @@ class PreferenceTwo extends StatefulWidget {
 
 class _PreferenceTwoState extends State<PreferenceTwo> {
   final List<String> categories = [
-    "Religious and Spiritual Attractions",
     "Cultural and Historical Attractions",
     "Entertainment and Modern Attractions",
     "Natural Attractions",
@@ -194,7 +193,7 @@ class _PreferenceTwoState extends State<PreferenceTwo> {
                               });
                             },
                             child: Text(
-                              categories[index],
+                              Translations.trTourismType(categories[index], lang),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.inter(
                                 fontSize: 13.5,
