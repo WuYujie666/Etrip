@@ -6,6 +6,7 @@ import 'package:etrip/core/utils/size_config.dart';
 import 'package:etrip/core/widgets/build_social_icon.dart';
 import 'package:etrip/core/widgets/custom_buttons.dart';
 import 'package:etrip/core/widgets/custom_fields.dart';
+import 'package:etrip/core/widgets/panda_logo.dart';
 import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:etrip/features/auth/data/logic/sign_in_controller.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +42,8 @@ class _SignInBodyState extends State<SignInBody> {
           width: SizeConfig.screenWidth,
           child: Column(
             children: [
-              Image.asset(
-                AssetsData.logo,
-                height: SizeConfig.defaultSize! * 10,
+              PandaLogo(
+                size: SizeConfig.defaultSize! * 10,
               ),
               Text(
                 Translations.tr('app_name', lang),

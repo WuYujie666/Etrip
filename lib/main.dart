@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'core/utils/size_config.dart';
+import 'features/chat_bot/data/chat_history_service.dart';
 import 'features/wishlist/data/service/favorite_service.dart';
 
 void main() async {
@@ -17,6 +18,7 @@ void main() async {
   await Hive.initFlutter();
   await LocalStorageService.init();
   await FavoriteService.initHive();
+  await ChatHistoryService.initHive();
   await LocaleCubit.ensureBoxOpen();
   runApp(const MyApp());
 }

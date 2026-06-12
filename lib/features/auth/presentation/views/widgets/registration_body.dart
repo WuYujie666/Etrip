@@ -5,8 +5,9 @@ import 'package:etrip/core/widgets/space_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:etrip/core/utils/assets.dart';
 import 'package:etrip/core/utils/size_config.dart';
+import 'package:etrip/core/widgets/bamboo_texture.dart';
+import 'package:etrip/core/widgets/panda_logo.dart';
 import 'package:etrip/core/constants.dart';
 import 'package:etrip/core/widgets/custom_buttons.dart';
 import 'package:go_router/go_router.dart';
@@ -97,9 +98,8 @@ class RegistrationBody extends StatelessWidget {
           right: 0,
           child: Column(
             children: [
-              Image.asset(
-                AssetsData.logo,
-                height: SizeConfig.defaultSize! * 13,
+              PandaLogo(
+                size: SizeConfig.defaultSize! * 13,
               ),
               const VerticalSpace(1),
               Text(
@@ -111,7 +111,7 @@ class RegistrationBody extends StatelessWidget {
                 ),
               ),
               const VerticalSpace(7),
-              Image.asset(AssetsData.vectors),
+              const BambooTexture(),
             ],
           ),
         ),

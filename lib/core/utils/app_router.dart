@@ -13,7 +13,6 @@ import 'package:etrip/features/weather/presentation/weather_screen.dart';
 import 'package:etrip/features/wishlist/presentation/views/wish_list_view.dart';
 import 'package:etrip/features/Profile/presentation/views/widgets/create_new_password.dart';
 import 'package:etrip/features/chat_bot/chat_details.dart';
-import 'package:etrip/features/chat_bot/chatbot.dart';
 import 'package:etrip/features/auth/presentation/views/widgets/forget_password.dart';
 import 'package:etrip/features/auth/presentation/views/registration_view.dart';
 import 'package:etrip/features/auth/presentation/views/sign_in_view.dart';
@@ -39,7 +38,6 @@ abstract class AppRouter {
   static const kChatbot = '/chatbot';
   static const kPlaceDetails = '/placeDetails';
   static const kWeather = '/weather';
-  static const kChatDetails = '/chatDetails';
   static const kWishList = '/wishList';
   static const kEditProfile = '/editProfile';
   static const kAboutMe = '/aboutme';
@@ -79,7 +77,7 @@ abstract class AppRouter {
     GoRoute(path: kScreens, builder: (context, state) => const Screens()),
     GoRoute(path: kHomePage, builder: (context, state) => const HomeView()),
     GoRoute(path: kPlaces, builder: (context, state) => const PlacesScreen()),
-    GoRoute(path: kChatbot, builder: (context, state) => const Chatbot()),
+    GoRoute(path: kChatbot, builder: (context, state) => const ChatDetails()),
     GoRoute(path: kWishList, builder: (context, state) => const WishListView()),
     GoRoute(
       path: kPlaceDetails,
@@ -89,7 +87,6 @@ abstract class AppRouter {
       },
     ),
     GoRoute(path: kWeather, builder: (context, state) => WeatherScreen()),
-    GoRoute(path: kChatDetails, builder: (context, state) => const ChatDetails()),
     GoRoute(
         path: kEditProfile,
         builder: (context, state) {

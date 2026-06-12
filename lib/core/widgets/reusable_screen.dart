@@ -1,6 +1,6 @@
 import 'package:etrip/core/constants.dart';
-import 'package:etrip/core/utils/assets.dart';
 import 'package:etrip/core/utils/size_config.dart';
+import 'package:etrip/core/widgets/bamboo_texture.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,8 +38,7 @@ class ReusableScreen extends StatelessWidget {
               top: 0,
               right: 0,
               left: 0,
-              child: Image.asset(
-                AssetsData.vectors,
+              child: BambooTexture(
                 color: imageColor,
               ),
             ),

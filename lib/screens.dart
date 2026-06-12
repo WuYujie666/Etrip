@@ -1,3 +1,5 @@
+import 'package:etrip/core/localization/locale_cubit.dart';
+import 'package:etrip/core/localization/translations.dart';
 import 'package:etrip/features/Itinerary/presentation/views/itinerary_gate.dart';
 import 'package:etrip/features/Profile/bloc/user_bloc.dart';
 import 'package:etrip/features/Profile/bloc/user_state.dart';
@@ -39,6 +41,7 @@ class _ScreensState extends State<Screens> {
   @override
   Widget build(BuildContext context) {
     final userState = context.watch<UserBloc>().state;
+    final lang = context.watch<LocaleCubit>().state.languageCode;
 
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
@@ -47,9 +50,9 @@ class _ScreensState extends State<Screens> {
             onTap: (val) {
               if ((val == 1 || val == 2) && userState is! UserLoaded) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
+                  SnackBar(
                     content:
-                        Text("You must be logged in first to use this feature"),
+                        Text(Translations.tr('login_required_feature', lang)),
                     backgroundColor: Colors.black87,
                   ),
                 );
@@ -66,17 +69,20 @@ class _ScreensState extends State<Screens> {
             unselectedItemColor: Colors.grey,
             backgroundColor: Colors.white,
             items: [
-              const BottomNavigationBarItem(
-                  icon: Icon(Icons.explore), label: "Discover"),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.explore),
+                  label: Translations.tr('discover', lang)),
               BottomNavigationBarItem(
                   icon: Icon(_selectedIndex == 1
                       ? Icons.favorite
                       : Icons.favorite_border),
-                  label: "Wishlist"),
-              const BottomNavigationBarItem(
-                  icon: Icon(Icons.map_outlined), label: "Itinerary"),
-              const BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle_outlined), label: "Profile")
+                  label: Translations.tr('wishlist', lang)),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.map_outlined),
+                  label: Translations.tr('itinerary', lang)),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.account_circle_outlined),
+                  label: Translations.tr('profile', lang))
             ]),
         body: _screens[_selectedIndex]);
   }

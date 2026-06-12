@@ -1,8 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:etrip/core/utils/app_router.dart';
-import 'package:etrip/core/utils/assets.dart';
 import 'package:etrip/core/utils/size_config.dart';
+import 'package:etrip/core/widgets/bamboo_texture.dart';
+import 'package:etrip/core/widgets/panda_logo.dart';
 import 'package:etrip/features/auth/data/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -58,9 +59,10 @@ class _SplashBodyState extends State<SplashBody>
           children: [
             RotationTransition(
               turns: rotateAnimation,
-              child: Image.asset(
-                AssetsData.logo,
-                height: SizeConfig.defaultSize! * 13,
+              child: Center(
+                child: PandaLogo(
+                  size: SizeConfig.defaultSize! * 13,
+                ),
               ),
             ),
             Center(
@@ -78,11 +80,11 @@ class _SplashBodyState extends State<SplashBody>
             ),
           ],
         ),
-        Positioned(
+        const Positioned(
           bottom: 0,
           left: 0,
           right: 0,
-          child: Image.asset(AssetsData.vectors),
+          child: BambooTexture(),
         ),
       ],
     );
