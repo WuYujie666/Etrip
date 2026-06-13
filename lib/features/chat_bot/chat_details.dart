@@ -107,13 +107,8 @@ class _ChatDetailsState extends State<ChatDetails> {
       reply = await _api.chat(history, lang);
       if (reply.isEmpty) throw Exception('empty reply');
     } catch (_) {
-      // Offline / API failure: fall back to the canned answers so the
-      // demo never dead-ends.
-      final mockResponses = [
-        for (var i = 1; i <= 6; i++) Translations.tr('chat_response_$i', lang),
-      ];
-      reply = '${Translations.tr('chat_error', lang)}\n'
-          '${mockResponses[userMessage.length % mockResponses.length]}';
+      // Offline / API unreachable: show only a network notice, nothing else.
+      reply = Translations.tr('chat_error', lang);
     }
 
     // Persist the full reply immediately so leaving mid-animation loses
