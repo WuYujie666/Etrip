@@ -24,6 +24,9 @@ class _MapScreenState extends State<MapScreen> {
   LatLng? _currentPosition;
   bool _locationLoading = false;
 
+  /// 是否有初始聚焦景点（来自景点详情跳转）
+  bool _hasInitialFocus = false;
+
   /// 默认初始位置（中国中心）
   static const LatLng _defaultCenter = LatLng(35.86, 104.19);
   static const double _defaultZoom = 5;
@@ -42,10 +45,13 @@ class _MapScreenState extends State<MapScreen> {
     if (widget.initialFocusPlace != null &&
         widget.initialFocusPlace!.lat != 0.0 &&
         widget.initialFocusPlace!.lng != 0.0) {
+      _hasInitialFocus = true;
+      // 地图 initialCenter 已指向景点，只需延迟弹出详情
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final place = widget.initialFocusPlace!;
-        _mapController.move(LatLng(place.lat, place.lng), 16);
-        _showPlaceDetails(place);
+        Future.delayed(const Duration(milliseconds: 400), () {
+          _showPlaceDetails(place);
+        });
       });
     }
   }
@@ -82,7 +88,9 @@ class _MapScreenState extends State<MapScreen> {
       _currentPosition = _fallbackCenter;
       _locationLoading = false;
     });
-    _mapController.move(_fallbackCenter, _userZoom);
+    if (!_hasInitialFocus) {
+      _mapController.move(_fallbackCenter, _userZoom);
+    }
   }
 
   /// 获取当前位置
@@ -98,7 +106,9 @@ class _MapScreenState extends State<MapScreen> {
           _currentPosition = pos;
           _locationLoading = false;
         });
-        _mapController.move(pos, _userZoom);
+        if (!_hasInitialFocus) {
+          _mapController.move(pos, _userZoom);
+        }
         return;
       }
     } catch (_) {}
@@ -113,7 +123,9 @@ class _MapScreenState extends State<MapScreen> {
         _currentPosition = pos;
         _locationLoading = false;
       });
-      _mapController.move(pos, _userZoom);
+      if (!_hasInitialFocus) {
+        _mapController.move(pos, _userZoom);
+      }
     } catch (e) {
       debugPrint('Error getting location: $e');
       _useFallbackLocation();
@@ -178,12 +190,21 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // 如果有初始聚焦景点，地图直接以该景点为中心，避免 move() 导致瓦片不加载
+    final hasFocus = widget.initialFocusPlace != null &&
+        widget.initialFocusPlace!.lat != 0.0 &&
+        widget.initialFocusPlace!.lng != 0.0;
+    final initCenter = hasFocus
+        ? LatLng(widget.initialFocusPlace!.lat, widget.initialFocusPlace!.lng)
+        : _defaultCenter;
+    final initZoom = hasFocus ? 16.0 : _defaultZoom;
+
     return Scaffold(
       body: FlutterMap(
         mapController: _mapController,
         options: MapOptions(
-          initialCenter: _defaultCenter,
-          initialZoom: _defaultZoom,
+          initialCenter: initCenter,
+          initialZoom: initZoom,
           minZoom: 3,
           maxZoom: 18,
           interactionOptions: const InteractionOptions(
@@ -513,25 +534,6 @@ class _PlaceDetailSheet extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 图片
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Container(
-                      height: 200,
-                      width: double.infinity,
-                      color: Colors.grey[300],
-                      child: const Center(
-                        child: Icon(
-                          Icons.place,
-                          size: 60,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
                   // 名称
                   Text(
                     nameZh,
@@ -599,47 +601,7 @@ class _PlaceDetailSheet extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
-
-                  // 坐标信息
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.location_on, color: Colors.grey[600]),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '坐标',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                '${place.lat.toStringAsFixed(4)}, ${place.lng.toStringAsFixed(4)}',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
                   const SizedBox(height: 24),
-
                   const SizedBox(height: 20),
                 ],
               ),
