@@ -16,7 +16,7 @@ class ItineraryService {
         city: request.city.isNotEmpty ? request.city : null,
         tourismTypes: tourismTypes.isNotEmpty ? tourismTypes : null,
       ),
-      description: 'A wonderful trip through China exploring cultural and natural highlights.',
+      description: '',
     );
   }
 
