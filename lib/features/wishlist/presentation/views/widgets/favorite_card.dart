@@ -70,7 +70,7 @@ class FavoriteCard extends StatelessWidget {
                 elevation: 6.0,
                 clipBehavior: Clip.antiAlias,
                 child: Container(
-                  height: SizeConfig.defaultSize! * 22,
+                  height: SizeConfig.defaultSize! * 24,
                   padding: const EdgeInsets.all(10),
                   child: Row(
                     children: [

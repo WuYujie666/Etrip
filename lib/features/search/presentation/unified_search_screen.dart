@@ -58,12 +58,14 @@ class _UnifiedSearchScreenState extends State<UnifiedSearchScreen> {
   }
 
   void _onQueryChanged(String val) {
+    final lang = context.read<LocaleCubit>().state.languageCode;
     setState(() {
       _query = val;
       if (_places != null) {
         _results = UnifiedSearchService.search(
           query: _query,
           places: _places!,
+          lang: lang,
         );
       }
     });

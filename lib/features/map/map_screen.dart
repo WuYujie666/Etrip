@@ -9,7 +9,9 @@ import 'package:etrip/features/places/data/models/place_model.dart';
 
 /// 交互式地图页面 - 仅展示景点
 class MapScreen extends StatefulWidget {
-  const MapScreen({Key? key}) : super(key: key);
+  final PlaceModel? initialFocusPlace;
+
+  const MapScreen({Key? key, this.initialFocusPlace}) : super(key: key);
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -29,13 +31,23 @@ class _MapScreenState extends State<MapScreen> {
   /// 用户位置附近的初始缩放
   static const double _userZoom = 10;
 
-  /// 成都中心（备用位置）
-  static const LatLng _chengduCenter = LatLng(30.57, 104.07);
+  /// 备用位置（四川大学江安校区）
+  static const LatLng _fallbackCenter = LatLng(30.5505, 103.9985);
 
   @override
   void initState() {
     super.initState();
     _checkLocationPermission();
+
+    if (widget.initialFocusPlace != null &&
+        widget.initialFocusPlace!.lat != 0.0 &&
+        widget.initialFocusPlace!.lng != 0.0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final place = widget.initialFocusPlace!;
+        _mapController.move(LatLng(place.lat, place.lng), 16);
+        _showPlaceDetails(place);
+      });
+    }
   }
 
   /// 检查位置权限
@@ -67,10 +79,10 @@ class _MapScreenState extends State<MapScreen> {
   /// 使用备用位置（成都）
   void _useFallbackLocation() {
     setState(() {
-      _currentPosition = _chengduCenter;
+      _currentPosition = _fallbackCenter;
       _locationLoading = false;
     });
-    _mapController.move(_chengduCenter, _userZoom);
+    _mapController.move(_fallbackCenter, _userZoom);
   }
 
   /// 获取当前位置

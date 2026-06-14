@@ -205,6 +205,7 @@ class Translations {
       'rating_label': 'Rating: ',
       'could_not_launch': 'Could not launch the link',
       'must_login_favorites': 'You must log in first to add to favorites',
+      'explore_now': 'Explore Now',
       'removed_from_favorites': 'has been removed from favorites',
       'added_to_favorites': 'has been added to favorites',
 
@@ -235,6 +236,38 @@ class Translations {
       'new_fab': 'New',
       'trip_description': 'Trip Description',
       'error_loading': 'Error loading data',
+
+      // Tourism types (keys match API values)
+      'entertainment and modern attractions':
+          'Entertainment and modern attractions',
+      'cultural and historical attractions':
+          'Cultural and historical attractions',
+      'natural attractions': 'Natural attractions',
+      'religious and spiritual attractions':
+          'Religious and spiritual attractions',
+
+      // Itinerary categories (keys match API values)
+      'library': 'Library',
+      'museum': 'Museum',
+      'theater': 'Theater',
+      'garden': 'Garden',
+      'fortress': 'Fortress',
+      'mosque': 'Mosque',
+      'tower': 'Tower',
+      'palace': 'Palace',
+      'tomb': 'Tomb',
+      'shopping': 'Shopping',
+      'zoo': 'Zoo',
+      'synagogue': 'Synagogue',
+      'historical site': 'Historical site',
+      'temple': 'Temple',
+      'aquarium': 'Aquarium',
+      'church': 'Church',
+
+      // Bottom navigation
+      'discover': 'Discover',
+      'login_required_feature':
+          'You must be logged in first to use this feature',
 
       // Search
       'search_hint': 'Search Places...',
@@ -269,6 +302,12 @@ class Translations {
       'type_message': 'Type your message...',
       'ask_me': 'Ask me something...',
       'bot_thinking': '...',
+      'chat_error':
+          'Poor network connection. Please check your network and try again later.',
+      'chat_suggest_1': 'What are the must-see places in Beijing?',
+      'chat_suggest_2': "How's the weather in Chengdu right now?",
+      'chat_suggest_3': 'Recommend a trip based on my favorites',
+      'chat_suggest_4': 'What food must I try in China?',
 
       // Chatbot mock responses
       'chat_response_1':
@@ -288,7 +327,6 @@ class Translations {
       'tourism_type_cultural': 'Cultural and Historical Attractions',
       'tourism_type_natural': 'Natural Attractions',
       'tourism_type_entertainment': 'Entertainment and Modern Attractions',
-      'tourism_type_religious': 'Cultural and Historical Attractions',
       'tourism_type_medical': 'Medical Attractions',
 
       // Place category names (itinerary step 2)
@@ -514,6 +552,7 @@ class Translations {
       'rating_label': '评分：',
       'could_not_launch': '无法打开链接',
       'must_login_favorites': '您需要先登录才能添加收藏',
+      'explore_now': '立即探索',
       'removed_from_favorites': '已从收藏中移除',
       'added_to_favorites': '已添加到收藏',
 
@@ -544,6 +583,34 @@ class Translations {
       'new_fab': '新建',
       'trip_description': '行程描述',
       'error_loading': '加载数据失败',
+
+      // Tourism types (keys match API values)
+      'entertainment and modern attractions': '娱乐与现代景点',
+      'cultural and historical attractions': '文化与历史景点',
+      'natural attractions': '自然景观',
+      'religious and spiritual attractions': '宗教与人文景点',
+
+      // Itinerary categories (keys match API values)
+      'library': '图书馆',
+      'museum': '博物馆',
+      'theater': '剧院',
+      'garden': '园林',
+      'fortress': '城堡要塞',
+      'mosque': '清真寺',
+      'tower': '塔楼',
+      'palace': '宫殿',
+      'tomb': '陵墓',
+      'shopping': '购物',
+      'zoo': '动物园',
+      'synagogue': '犹太会堂',
+      'historical site': '历史遗迹',
+      'temple': '寺庙',
+      'aquarium': '水族馆',
+      'church': '教堂',
+
+      // Bottom navigation
+      'discover': '发现',
+      'login_required_feature': '请先登录后再使用此功能',
 
       // Search
       'search_hint': '搜索景点...',
@@ -577,6 +644,11 @@ class Translations {
       'type_message': '输入您的消息...',
       'ask_me': '问我点什么...',
       'bot_thinking': '...',
+      'chat_error': '网络不佳，请检查网络后稍后再试。',
+      'chat_suggest_1': '北京有什么必去景点？',
+      'chat_suggest_2': '现在成都天气怎么样？',
+      'chat_suggest_3': '根据我的收藏推荐行程',
+      'chat_suggest_4': '中国有什么必吃美食？',
 
       // Chatbot mock responses
       'chat_response_1': '您可以参观北京的长城、故宫和颐和园。',
@@ -590,7 +662,6 @@ class Translations {
       'tourism_type_cultural': '文化与历史景点',
       'tourism_type_natural': '自然景观',
       'tourism_type_entertainment': '娱乐与现代景点',
-      'tourism_type_religious': '文化与历史景点',
       'tourism_type_medical': '医疗旅游',
 
       // Place category names (itinerary step 2)
@@ -631,13 +702,14 @@ class Translations {
       'Cultural and Historical Attractions': 'tourism_type_cultural',
       'Natural Attractions': 'tourism_type_natural',
       'Entertainment and Modern Attractions': 'tourism_type_entertainment',
-      'Religious and Spiritual Attractions': 'tourism_type_religious',
+      // Religious attractions are merged into the cultural category for display
+      'Religious and Spiritual Attractions': 'tourism_type_cultural',
       'Medical Attractions': 'tourism_type_medical',
       // Lowercase versions (used in itinerary_step_one)
       'cultural and historical attractions': 'tourism_type_cultural',
       'natural attractions': 'tourism_type_natural',
       'entertainment and modern attractions': 'tourism_type_entertainment',
-      'religious and spiritual attractions': 'tourism_type_religious',
+      'religious and spiritual attractions': 'tourism_type_cultural',
     };
     final key = map[englishType] ?? '';
     if (key.isEmpty) return englishType;

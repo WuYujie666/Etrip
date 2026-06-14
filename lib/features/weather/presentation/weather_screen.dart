@@ -60,7 +60,11 @@ class WeatherScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = context.watch<LocaleCubit>().state.languageCode;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      smartGetWeatherByLocation(context);
+      if (!controller.initialized) {
+        controller.initialized = true;
+        controller.lang = lang;
+        smartGetWeatherByLocation(context);
+      }
     });
 
     return Scaffold(

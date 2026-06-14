@@ -78,7 +78,7 @@ class FeaturedSliderItem extends StatelessWidget {
                 child: Container(
                   height: 80,
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
                   decoration: BoxDecoration(
                     color: Colors.black.withValues(alpha: 0.5),
                     borderRadius: const BorderRadius.only(
@@ -93,23 +93,23 @@ class FeaturedSliderItem extends StatelessWidget {
                         name!,
                         style: GoogleFonts.montserrat(
                           color: Colors.white,
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
-                        '$cityName, China',
+                        cityName ?? '',
                         style: GoogleFonts.montserrat(
                           color: Colors.white,
-                          fontSize: 12,
+                          fontSize: 11,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Row(
                         children: [
                           Row(

@@ -13,7 +13,6 @@ import 'package:etrip/core/widgets/reusable_screen.dart';
 import 'package:etrip/features/home/presentation/views/widgets/feature_slider.dart';
 import 'package:etrip/core/constants.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:etrip/core/localization/translations.dart';
 import 'package:etrip/core/localization/locale_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,15 +26,6 @@ class PlaceDetails extends StatelessWidget {
     return lang == 'zh'
         ? (placeDescriptionsZh[place.id] ?? place.description)
         : place.description;
-  }
-
-  void _openMap(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   @override
@@ -218,7 +208,9 @@ class PlaceDetails extends StatelessWidget {
                             )),
                         const SizedBox(height: 8),
                         GestureDetector(
-                          onTap: () => _openMap(place.googleMapsLink),
+                          onTap: () {
+                            context.push(AppRouter.kMap, extra: place);
+                          },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(

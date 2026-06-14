@@ -48,7 +48,7 @@ class WeatherApi {
   /// 🔹 **دالة مساعدة** لجلب البيانات من API والتحقق من الأخطاء
   Future<Map<String, dynamic>> _fetchWeatherData(Uri url) async {
     try {
-      final response = await http.get(url);
+      final response = await http.get(url).timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -92,7 +92,7 @@ class WeatherApi {
 
   Future<List<Map<String, dynamic>>> _fetchForecastData(Uri url) async {
     try {
-      final response = await http.get(url);
+      final response = await http.get(url).timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
