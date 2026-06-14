@@ -4,7 +4,7 @@ import 'package:etrip/core/localization/locale_cubit.dart';
 import 'package:etrip/core/localization/translations.dart';
 import 'package:etrip/core/utils/app_router.dart';
 import 'package:etrip/core/utils/size_config.dart';
-import 'package:etrip/core/widgets/custom_buttons.dart';
+import 'package:etrip/core/mock_data.dart';
 import 'package:etrip/features/places/data/models/place_model.dart';
 import 'package:etrip/core/widgets/app_image.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +89,9 @@ class FavoriteCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              fav.title,
+                              lang == 'zh'
+                                  ? (placeNamesZh[fav.id] ?? fav.title)
+                                  : fav.title,
                               style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -104,7 +106,7 @@ class FavoriteCard extends StatelessWidget {
                                 const Icon(Icons.location_on, size: 16),
                                 const HorizantalSpace(0.5),
                                 Text(
-                                  fav.city,
+                                  localizedCityName(fav.city, lang),
                                   style: GoogleFonts.inter(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -122,7 +124,7 @@ class FavoriteCard extends StatelessWidget {
                                   const Icon(Icons.category, size: 16),
                                   const HorizantalSpace(0.5),
                                   Text(
-                                    '${Translations.tr('category_label', lang)}${fav.category}',
+                                    '${Translations.tr('category_label', lang)}${localizedCategory(fav.category!, lang)}',
                                     style: GoogleFonts.inter(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
@@ -175,35 +177,8 @@ class FavoriteCard extends StatelessWidget {
                               ),
                             const Spacer(),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Expanded(
-                                  child: CustomJoinButton(
-                                    text: Translations.tr('explore_now', lang),
-                                    onTap: () {
-                                      final place = PlaceModel(
-                                        id: fav.id,
-                                        name: fav.title,
-                                        profileImage: fav.imageUrl,
-                                        carouselImages: (fav.carousel ?? [])
-                                            .cast<String>(),
-                                        tourismType: fav.tourismType ?? '',
-                                        category: fav.category ?? '',
-                                        cityName: fav.city,
-                                        rate:
-                                            double.tryParse(fav.rate ?? '') ??
-                                                0.0,
-                                        totalRates: fav.totalRates ?? 0,
-                                        description: fav.description ??
-                                            Translations.tr('description_not_available', lang),
-                                        googleMapsLink:
-                                            fav.googleMapsLink ?? '',
-                                      );
-                                      context.push(AppRouter.kPlaceDetails,
-                                          extra: place);
-                                    },
-                                  ),
-                                ),
-                                const HorizantalSpace(0.5),
                                 FavoriteIcon(
                                   id: fav.id,
                                   type: fav.type,
