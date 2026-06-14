@@ -126,6 +126,9 @@ abstract class AppRouter {
     return ItineraryResultView(args: args);
   },
 ),
-    GoRoute(path: kMap, builder: (context, state) => const MapScreen()),
+    GoRoute(path: kMap, builder: (context, state) {
+      final place = state.extra as PlaceModel?;
+      return MapScreen(initialFocusPlace: place);
+    }),
   ]);
 }

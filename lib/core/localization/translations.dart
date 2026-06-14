@@ -205,6 +205,7 @@ class Translations {
       'rating_label': 'Rating: ',
       'could_not_launch': 'Could not launch the link',
       'must_login_favorites': 'You must log in first to add to favorites',
+      'explore_now': 'Explore Now',
       'removed_from_favorites': 'has been removed from favorites',
       'added_to_favorites': 'has been added to favorites',
 
@@ -551,6 +552,7 @@ class Translations {
       'rating_label': '评分：',
       'could_not_launch': '无法打开链接',
       'must_login_favorites': '您需要先登录才能添加收藏',
+      'explore_now': '立即探索',
       'removed_from_favorites': '已从收藏中移除',
       'added_to_favorites': '已添加到收藏',
 

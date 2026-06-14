@@ -13,7 +13,6 @@ import 'package:etrip/core/widgets/reusable_screen.dart';
 import 'package:etrip/features/home/presentation/views/widgets/feature_slider.dart';
 import 'package:etrip/core/constants.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:etrip/core/localization/translations.dart';
 import 'package:etrip/core/localization/locale_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,31 +26,6 @@ class PlaceDetails extends StatelessWidget {
     return lang == 'zh'
         ? (placeDescriptionsZh[place.id] ?? place.description)
         : place.description;
-  }
-
-  void _openMap(PlaceModel place, BuildContext context) async {
-    // 尝试用高德地图打开
-    final amapUri = Uri.parse(
-        'androidamap://viewRegeo?sourceApplication=etrip&lat=${place.lat}&lng=${place.lng}');
-    if (await canLaunchUrl(amapUri)) {
-      await launchUrl(amapUri, mode: LaunchMode.externalApplication);
-      return;
-    }
-
-    // 备用：用浏览器打开高德网页版
-    final webUri = Uri.parse(
-        'https://uri.amap.com/marker?position=${place.lng},${place.lat}&name=${Uri.encodeComponent(place.name)}');
-    if (await canLaunchUrl(webUri)) {
-      await launchUrl(webUri, mode: LaunchMode.externalApplication);
-      return;
-    }
-
-    // 最后备用：复制坐标
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('坐标: ${place.lat}, ${place.lng}')),
-      );
-    }
   }
 
   @override
@@ -234,7 +208,9 @@ class PlaceDetails extends StatelessWidget {
                             )),
                         const SizedBox(height: 8),
                         GestureDetector(
-                          onTap: () => _openMap(place, context),
+                          onTap: () {
+                            context.push(AppRouter.kMap, extra: place);
+                          },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
